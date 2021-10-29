@@ -48,13 +48,24 @@ public class PlayerScript : MonoBehaviour
 
         if (floatingCount >= floatingUpper || floatingCount <= floatingLower) floatingOffset=-floatingOffset;
 
-        if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D)){
+        
+        
+        //if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D)){
+        if (horizontalAxis==0 && verticalAxis==0){
             rigidbody.drag = 7;
         }
         else{
             rigidbody.drag = 0;
             rigidbody.velocity = desiredMoveDirection * Time.deltaTime * forceMult;
         }
+
+
+        // if (rigidbody.rotation.x %360 != 0 || rigidbody.rotation.y %360 != 0 || rigidbody.rotation.z %360 != 0 ){
+        //     rigidbody.AddTorque(new Vector3(1f, 0f, 0f));
+        // }
+        // else{
+        //     rigidbody.AddTorque(-1f, 0f, 0f);
+        // }
 
         // if (Input.GetKey(KeyCode.W)){
         //     rigidbody.velocity = forward * Time.deltaTime * forceMult;
