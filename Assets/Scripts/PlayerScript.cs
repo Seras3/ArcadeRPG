@@ -4,21 +4,22 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    public float forceMult = 500;
+    public float forceMult;
     new private Rigidbody rigidbody;
 
     
     
-    private float floatingCount;
-    private float floatingLower=3;
-    private float floatingUpper=3.3f;
-    private float floatingOffset=0.01F;
+    // private float floatingCount;
+    // private float floatingLower=3;
+    // private float floatingUpper=3.3f;
+    // private float floatingOffset=0.01F;
     // Start is called before the first frame update
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
-        
-        floatingCount=floatingLower;
+        forceMult =0; //turned off
+        rigidbody.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
+        // floatingCount=floatingLower;
     }
 
     // Update is called once per frame
@@ -43,14 +44,13 @@ public class PlayerScript : MonoBehaviour
         var desiredMoveDirection = forward * verticalAxis + right * horizontalAxis;
 
 
-        transform.position =new Vector3 (transform.position.x, floatingCount, transform.position.z);
-        floatingCount += floatingOffset;
+        // transform.position =new Vector3 (transform.position.x, floatingCount, transform.position.z);
+        // floatingCount += floatingOffset;
 
-        if (floatingCount >= floatingUpper || floatingCount <= floatingLower) floatingOffset=-floatingOffset;
+        // if (floatingCount >= floatingUpper || floatingCount <= floatingLower) floatingOffset=-floatingOffset;
 
         
         
-        //if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D)){
         if (horizontalAxis==0 && verticalAxis==0){
             rigidbody.drag = 7;
         }
@@ -60,27 +60,6 @@ public class PlayerScript : MonoBehaviour
         }
 
 
-        // if (rigidbody.rotation.x %360 != 0 || rigidbody.rotation.y %360 != 0 || rigidbody.rotation.z %360 != 0 ){
-        //     rigidbody.AddTorque(new Vector3(1f, 0f, 0f));
-        // }
-        // else{
-        //     rigidbody.AddTorque(-1f, 0f, 0f);
-        // }
 
-        // if (Input.GetKey(KeyCode.W)){
-        //     rigidbody.velocity = forward * Time.deltaTime * forceMult;
-        // }
-        // if (Input.GetKey(KeyCode.S)){
-        //     rigidbody.velocity = -forward * Time.deltaTime * forceMult;
-        // }
-        // if (Input.GetKey(KeyCode.D))
-        // {
-        //     rigidbody.velocity = right * Time.deltaTime * forceMult;
-        // }
-
-        // if (Input.GetKey(KeyCode.A))
-        // {
-        //     rigidbody.velocity = -right * Time.deltaTime * forceMult;
-        // } 
     }
 }

@@ -10,9 +10,9 @@ public class CameraFollow : MonoBehaviour
     public float fixedY = 10;
     void Start()
     {
-        target = GameObject.Find("Player").transform;
-        offset.x = 17;
-        offset.z = -6;
+        target = GameObject.Find("Dummy").transform;
+        offset.x = 18.3f;
+        offset.z = -6.3f;
     }
 
     // Update is called once per frame
