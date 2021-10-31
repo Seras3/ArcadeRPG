@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class HumanoidMovementPlayer : MonoBehaviour
 {
+
+    private CharacterController controller;
 
     public float movementSpeed;
 
@@ -16,6 +17,8 @@ public class HumanoidMovementPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        controller = GetComponent<CharacterController>();
+
         movementSpeed = 6;
         animator = GetComponent<Animator>();
         animator.speed = 0.65f*movementSpeed/6;
@@ -31,28 +34,32 @@ public class HumanoidMovementPlayer : MonoBehaviour
     }
 
 
-    void setMovement(float horizontal, float vertical){
+    void moveCharacter(){
         
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+
         if (horizontal==0 && vertical==0){
             animator.SetBool("isWalking", false);
         }
         else{
             animator.SetBool("isWalking", true);
 
+            float inverseSQRT = 1/Mathf.Sqrt(horizontal*horizontal+vertical*vertical);
+            horizontal *= inverseSQRT;
+            vertical *= inverseSQRT;
+
             Vector3 desiredMoveDirection = forward * vertical + right * horizontal;
-            transform.position = transform.position + desiredMoveDirection*Time.deltaTime*movementSpeed;
+            controller.Move(desiredMoveDirection*Time.deltaTime*movementSpeed);
         }
     }
     // Update is called once per frame
     void Update()
     {
-        float horizontalAxis = Input.GetAxis("Horizontal");
-        float verticalAxis = Input.GetAxis("Vertical");
+        moveCharacter();
 
-        
-     
-        setMovement(horizontalAxis, verticalAxis);
+    }
 
-
+    void FixedUpdate() {   
     }
 }
