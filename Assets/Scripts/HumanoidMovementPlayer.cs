@@ -17,6 +17,7 @@ public class HumanoidMovementPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         controller = GetComponent<CharacterController>();
 
         movementSpeed = 6;
@@ -33,8 +34,7 @@ public class HumanoidMovementPlayer : MonoBehaviour
         right.Normalize();
     }
 
-
-    void moveCharacter(){
+    void MoveCharacter(){
         
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
@@ -53,11 +53,33 @@ public class HumanoidMovementPlayer : MonoBehaviour
             controller.Move(desiredMoveDirection*Time.deltaTime*movementSpeed);
         }
     }
+
+    void TurnTowardsMouse(){
+        
+        //Vector3 mousePosition = camera.ScreenToWorldPoint(Input.mousePosition);
+        //mousePosition.z = 0f;
+
+        Plane plane = new Plane(Vector3.up, transform.position);        
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        float dist;
+        if (plane.Raycast(ray, out dist))
+        {
+            //Debug.Log(ray.GetPoint(dist));
+            
+            //find the vector pointing from our position to the target
+            Vector3 direction = (ray.GetPoint(dist) - transform.position).normalized;
+    
+            //create the rotation we need to be in to look at the target
+            transform.rotation = Quaternion.LookRotation(direction);
+        }
+    }
     // Update is called once per frame
     void Update()
     {
-        moveCharacter();
-
+        MoveCharacter();
+        TurnTowardsMouse();
     }
 
     void FixedUpdate() {   
