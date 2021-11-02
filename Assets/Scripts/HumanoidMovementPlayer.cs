@@ -12,6 +12,8 @@ public class HumanoidMovementPlayer : MonoBehaviour
 
     new private Camera camera;
     
+    public Vector3 moveDirection, lookDirection;
+
     private Vector3 forward;
     private Vector3 right;
     // Start is called before the first frame update
@@ -45,19 +47,13 @@ public class HumanoidMovementPlayer : MonoBehaviour
         else{
             animator.SetBool("isWalking", true);
 
-            float inverseSQRT = 1/Mathf.Sqrt(horizontal*horizontal+vertical*vertical);
-            horizontal *= inverseSQRT;
-            vertical *= inverseSQRT;
+            moveDirection = (forward * vertical + right * horizontal).normalized;
 
-            Vector3 desiredMoveDirection = forward * vertical + right * horizontal;
-            controller.Move(desiredMoveDirection*Time.deltaTime*movementSpeed);
+            controller.Move(moveDirection*Time.deltaTime*movementSpeed);
         }
     }
 
     void TurnTowardsMouse(){
-        
-        //Vector3 mousePosition = camera.ScreenToWorldPoint(Input.mousePosition);
-        //mousePosition.z = 0f;
 
         Plane plane = new Plane(Vector3.up, transform.position);        
 
@@ -65,14 +61,17 @@ public class HumanoidMovementPlayer : MonoBehaviour
 
         float dist;
         if (plane.Raycast(ray, out dist))
-        {
-            //Debug.Log(ray.GetPoint(dist));
-            
+        {            
             //find the vector pointing from our position to the target
-            Vector3 direction = (ray.GetPoint(dist) - transform.position).normalized;
+            lookDirection = (ray.GetPoint(dist) - transform.position).normalized;
     
             //create the rotation we need to be in to look at the target
-            transform.rotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.LookRotation(lookDirection);
+            
+            float angleBetweenLookAndMove = Vector3.SignedAngle(moveDirection,lookDirection, Vector3.up);
+
+            animator.SetFloat("yRotation", angleBetweenLookAndMove);
+            //Debug.Log(angleBetweenLookAndMove);
         }
     }
     // Update is called once per frame
