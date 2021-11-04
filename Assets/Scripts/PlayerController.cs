@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     {
         // Rotate player in the direction of the mouse
         Vector2 lookDir = mousePos - positionOnScreen;
-        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 20f;
         transform.rotation = Quaternion.Euler(new Vector3(0f, -angle, 0f));
     }
 

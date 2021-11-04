@@ -15,6 +15,9 @@ public class Object : MonoBehaviour
     public float t;
     public float speed;
 
+    public GameObject enemy;
+    public int hp;
+
     #endregion
 
 
@@ -24,6 +27,7 @@ public class Object : MonoBehaviour
     void Start()
     { 
         // create and start timer
+        hp = 10;
         deathTimer = gameObject.AddComponent<Timer>();
         deathTimer.Duration = EnemyLifespanSeconds;
         deathTimer.Run(); 
@@ -42,6 +46,9 @@ public class Object : MonoBehaviour
             }
         }*/
 
+        if (hp <= 0) {
+            Destroy(this.enemy); 
+        }
         MoveTowardsPlayer();
 
     }
@@ -56,5 +63,10 @@ public class Object : MonoBehaviour
 
         transform.position = Vector3.MoveTowards(a, Vector3.Lerp(a, b, t), speed);
     }
-    
+
+     public void TakeDamage(int damageAmount)
+    {
+        hp -= damageAmount;
+    }
+
 }
