@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dea108974407408428ec12239bef63b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnObject: {fileID: 7392987696873350479, guid: f3915ebd8093bcb4ab2dd624db524d11, type: 3}
+  spawnObject: {fileID: 4413566190785026555, guid: 59c4acb2c40fbd449bbaa96a55432ef9, type: 3}
   plane: {fileID: 1587538152}
   noOfEnemies: 0
   maxNoOfEnemies: 5
@@ -200,7 +200,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 454755989}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 822b2f69ee854754db688af6642054c2, type: 3}
   m_Name: 

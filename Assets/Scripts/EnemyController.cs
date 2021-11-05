@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// A enemy
 /// </summary>
-public class Object : MonoBehaviour
+public class EnemyController : MonoBehaviour
 {
     #region Variables
     // death support
@@ -47,7 +47,7 @@ public class Object : MonoBehaviour
         }*/
 
         if (hp <= 0) {
-            Destroy(this.enemy); 
+            Destroy(this.gameObject); 
         }
         MoveTowardsPlayer();
 

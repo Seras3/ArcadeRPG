@@ -18,6 +18,8 @@ public class SpawnObject : MonoBehaviour
 	// spawn control
 	const float MinSpawnDelay = 1;
 	const float MaxSpawnDelay = 3;
+	
+	const float yBuffer = 2;
 	Timer spawnTimer;
 
 	// spawn location support
@@ -74,7 +76,7 @@ public class SpawnObject : MonoBehaviour
 	{
 		// generate random location and create new object
 		Vector3 randomPosition = GetARandomPos(plane);
-                                                                  
+		                                                        
         Instantiate<GameObject>(spawnObject, randomPosition, Quaternion.identity);
 
 		noOfEnemies += 1;
@@ -94,7 +96,7 @@ public class SpawnObject : MonoBehaviour
     float minZ = plane.transform.position.z - plane.transform.localScale.z * bounds.size.z * 0.5f;
 
     Vector3 newVec = new Vector3(Random.Range (minX, -minX),
-                                 plane.transform.position.y,
+                                 plane.transform.position.y + yBuffer,
                                  Random.Range (minZ, -minZ));
     return newVec;
 	}

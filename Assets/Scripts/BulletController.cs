@@ -18,12 +18,14 @@ public class BulletController : MonoBehaviour
     }
 
     void OnCollisionEnter(Collision other) { 
-        Debug.Log(other.transform.tag);
+        Debug.Log(other.gameObject.name);
+        
         if (other.transform.tag == "Enemy")
         {
-            other.transform.GetComponent<Object>().TakeDamage(5);
+            other.transform.GetComponent<EnemyController>().TakeDamage(5);
         }
-        
+
         Destroy (this.bullet);
+        
     }
 }
