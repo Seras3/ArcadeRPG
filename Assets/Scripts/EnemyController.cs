@@ -56,7 +56,7 @@ public class EnemyController : MonoBehaviour
     void MoveTowardsPlayer()
     {
         Vector3 a = transform.position;
-        Vector3 b = GameObject.FindGameObjectWithTag("Player").transform.position;
+        Vector3 b = GameObject.Find("B-spine").transform.position;
 
         t = 0.1f;
         speed = 0.005f;

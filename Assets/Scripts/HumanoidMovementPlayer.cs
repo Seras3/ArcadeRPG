@@ -13,13 +13,11 @@ public class HumanoidMovementPlayer : MonoBehaviour
     new private Camera camera;
     
     public Vector3 moveDirection, lookDirection;
-
     private Vector3 forward;
     private Vector3 right;
     // Start is called before the first frame update
     void Start()
     {
-        
         controller = GetComponent<CharacterController>();
 
         movementSpeed = 6;
@@ -83,4 +81,19 @@ public class HumanoidMovementPlayer : MonoBehaviour
 
     void FixedUpdate() {   
     }
+
+    // void OnCollisionEnter(Collision c)
+    // {
+    //     Debug.Log(c.gameObject.tag);
+    // // force is how forcefully we will push the player away from the enemy.
+    // //float force = 3;
+
+    // // If the object we hit is the enemy
+    //     if (c.gameObject.tag == "Enemy")
+    //     {
+    //         Debug.Log(c.gameObject.transform.tag);
+            
+    //         c.gameObject.transform.position-= transform.position;
+    //     }
+    // }
 }

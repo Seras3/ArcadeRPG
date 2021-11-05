@@ -7,6 +7,7 @@ public class PlayerShooting : MonoBehaviour
     public Transform firePoint;
     public GameObject bulletPrefab;
 
+    private Vector3 dummyLookDirection;
     public float bulletForce = 20f;
 
     // Update is called once per frame
@@ -14,6 +15,7 @@ public class PlayerShooting : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
+            dummyLookDirection = GetComponent<HumanoidMovementPlayer>().lookDirection;
             Shoot();
         }
     }
@@ -21,9 +23,9 @@ public class PlayerShooting : MonoBehaviour
     void Shoot()
     {
         // Spawn bullet at the position of firePoint, add force to it
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, new Quaternion(0,0,0,0));
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
-        rb.AddForce(firePoint.up * bulletForce, ForceMode.Impulse);
+        rb.AddForce(dummyLookDirection * bulletForce, ForceMode.Impulse);
 
     }
 }
