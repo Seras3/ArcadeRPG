@@ -15,6 +15,10 @@ public class HumanoidMovementPlayer : MonoBehaviour
     public Vector3 moveDirection, lookDirection;
     private Vector3 forward;
     private Vector3 right;
+
+    public Vector3 shootingDirection;
+    private float playerChestLevelY, cameraCosine;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +36,11 @@ public class HumanoidMovementPlayer : MonoBehaviour
         right.y = 0f;
         forward.Normalize();
         right.Normalize();
+
+
+        playerChestLevelY = gameObject.transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0).position.y;
+        //cameraCosine = Mathf.Cos(Mathf.Deg2Rad*(Quaternion.Angle(camera.transform.rotation, )));
+        Debug.Log(cameraCosine);
     }
 
     void MoveCharacter(){
@@ -52,17 +61,17 @@ public class HumanoidMovementPlayer : MonoBehaviour
     }
 
     void TurnTowardsMouse(){
-
-        Plane plane = new Plane(Vector3.up, transform.position);        
-
+        Plane mouseRayPlane = new Plane(Vector3.up, transform.position);
+        
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         float dist;
-        if (plane.Raycast(ray, out dist))
+        if (mouseRayPlane.Raycast(ray, out dist))
         {            
             //find the vector pointing from our position to the target
+            shootingDirection = (ray.GetPoint(dist-playerChestLevelY) - new Vector3(transform.position.x, playerChestLevelY, transform.position.z)).normalized;
             lookDirection = (ray.GetPoint(dist) - transform.position).normalized;
-    
+            //lookDirection.y = transform.position.y;
             //create the rotation we need to be in to look at the target
             transform.rotation = Quaternion.LookRotation(lookDirection);
             
@@ -82,18 +91,15 @@ public class HumanoidMovementPlayer : MonoBehaviour
     void FixedUpdate() {   
     }
 
-    // void OnCollisionEnter(Collision c)
-    // {
-    //     Debug.Log(c.gameObject.tag);
-    // // force is how forcefully we will push the player away from the enemy.
-    // //float force = 3;
-
-    // // If the object we hit is the enemy
-    //     if (c.gameObject.tag == "Enemy")
-    //     {
-    //         Debug.Log(c.gameObject.transform.tag);
-            
-    //         c.gameObject.transform.position-= transform.position;
-    //     }
-    // }
+    void OnTriggerEnter(Collider collider)
+    {
+        //Debug.Log(collider.gameObject.tag);
+    
+        if (collider.gameObject.tag == "Enemy")
+        {
+            Vector3 pushBack = (collider.gameObject.transform.position - transform.position).normalized;
+            pushBack.y = 0;
+            collider.gameObject.transform.position += pushBack;
+        }
+    }
 }

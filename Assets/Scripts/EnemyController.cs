@@ -26,11 +26,13 @@ public class EnemyController : MonoBehaviour
     /// </summary>
     void Start()
     { 
+        GetComponent<Collider>().isTrigger=enabled;
+
         // create and start timer
         hp = 10;
         deathTimer = gameObject.AddComponent<Timer>();
         deathTimer.Duration = EnemyLifespanSeconds;
-        deathTimer.Run(); 
+        deathTimer.Run();
     }
 
     /// <summary>
@@ -64,9 +66,26 @@ public class EnemyController : MonoBehaviour
         transform.position = Vector3.MoveTowards(a, Vector3.Lerp(a, b, t), speed);
     }
 
-     public void TakeDamage(int damageAmount)
+    public void TakeDamage(int damageAmount)
     {
         hp -= damageAmount;
+    }
+
+    void OnTriggerEnter(Collider collider)
+    {
+        //Debug.Log(collider.gameObject.name);
+    
+        if (collider.gameObject.tag == "Enemy")
+        {
+            Vector3 pushBack = (collider.gameObject.transform.position - transform.position).normalized;
+            pushBack.y = 0;
+            collider.gameObject.transform.position += pushBack;
+        }
+
+        if (collider.gameObject.name == "Bullet(Clone)"){
+            TakeDamage(5);
+            Destroy(collider.gameObject);
+        }
     }
 
 }

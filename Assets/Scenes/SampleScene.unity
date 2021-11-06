@@ -123,11 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!4 &139707423 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4571293427695288, guid: d6d06c887a1aae94f8c6e8cc2c0c557b, type: 3}
-  m_PrefabInstance: {fileID: 269263246}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &223241307
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,6 +286,11 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 13f32756950f1b140bb5a827fe5147e9, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6d06c887a1aae94f8c6e8cc2c0c557b, type: 3}
+--- !u!4 &620282117 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4452175843212108, guid: d6d06c887a1aae94f8c6e8cc2c0c557b, type: 3}
+  m_PrefabInstance: {fileID: 269263246}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &654679541
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,7 +496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7e9db3a9c145494ba0b7dea9498114a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firePoint: {fileID: 139707423}
+  firePoint: {fileID: 620282117}
   bulletPrefab: {fileID: 2700876907796551394, guid: b01c72b2cc008e54ca0cc24363560e41, type: 3}
   bulletForce: 20
 --- !u!143 &817299184

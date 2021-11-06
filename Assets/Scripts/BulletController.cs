@@ -21,12 +21,12 @@ public class BulletController : MonoBehaviour
     }
 
     void OnCollisionEnter(Collision other) { 
-        Debug.Log(other.gameObject.name);
+        //Debug.Log(other.gameObject.name);
         
-        if (other.transform.tag == "Enemy")
-        {
-            other.transform.GetComponent<EnemyController>().TakeDamage(5);
-        }
+        // if (other.transform.tag == "Enemy")
+        // {
+        //     other.transform.GetComponent<EnemyController>().TakeDamage(5);
+        // }
         if (other.transform != firePoint){
             Destroy (this.bullet);
         }
