@@ -17,7 +17,7 @@ public class CameraFollow : MonoBehaviour
         offset.x = 16.5f;
         offset.z = -5.7f;
         offset.y = 15;
-        zoomSpeed = 300f;
+        zoomSpeed = 10f;
     }
 
     void MoveCamera(){
@@ -25,15 +25,19 @@ public class CameraFollow : MonoBehaviour
         transform.LookAt(target);
     }
 
-    void CheckZoom(){ //WIP
-        float elapsed = Time.deltaTime;
-        //float currentOrthoSize = orthoCam.orthographicSize;
-        orthoCam.orthographicSize = Mathf.Lerp(orthoCam.orthographicSize, orthoCam.orthographicSize-(1*Input.mouseScrollDelta.y), elapsed);
+    void HandleZoom(){
+        if (Input.GetKey(KeyCode.Y)){
+            orthoCam.orthographicSize -= zoomSpeed * Time.deltaTime;
+        }
+
+        if (Input.GetKey(KeyCode.U)){
+            orthoCam.orthographicSize += zoomSpeed * Time.deltaTime;
+        }
     }
     // Update is called once per frame
     void Update()
     {
         MoveCamera();
-        CheckZoom();
+        HandleZoom();
     }
 }

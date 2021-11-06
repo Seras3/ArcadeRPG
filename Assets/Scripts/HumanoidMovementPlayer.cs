@@ -16,7 +16,6 @@ public class HumanoidMovementPlayer : MonoBehaviour
     private Vector3 forward;
     private Vector3 right;
 
-    public Vector3 shootingDirection;
     private float playerChestLevelY;
     private Plane chestPlane;
 
@@ -40,7 +39,6 @@ public class HumanoidMovementPlayer : MonoBehaviour
 
 
         playerChestLevelY = gameObject.transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0).position.y;
-        
         chestPlane = new Plane(Vector3.up, new Vector3(transform.position.x, playerChestLevelY, transform.position.z));
     }
 
