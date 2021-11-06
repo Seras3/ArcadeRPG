@@ -10,19 +10,11 @@ public class PlayerShooting : MonoBehaviour
     private Vector3 dummyLookDirection;
     public float bulletForce = 20f;
 
-    // private float playerChestLevelY;
-
-    // void Start(){
-    //     playerChestLevelY = gameObject.transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0).position.y;
-    //     Debug.Log(playerChestLevelY);
-    // }
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            dummyLookDirection = GetComponent<HumanoidMovementPlayer>().shootingDirection;
-            //dummyLookDirection.y = playerChestLevelY;
+            dummyLookDirection = GetComponent<HumanoidMovementPlayer>().lookDirection;
             Shoot();
         }
     }

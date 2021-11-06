@@ -17,7 +17,8 @@ public class HumanoidMovementPlayer : MonoBehaviour
     private Vector3 right;
 
     public Vector3 shootingDirection;
-    private float playerChestLevelY, cameraCosine;
+    private float playerChestLevelY;
+    private Plane chestPlane;
 
     // Start is called before the first frame update
     void Start()
@@ -32,15 +33,15 @@ public class HumanoidMovementPlayer : MonoBehaviour
         forward = camera.transform.forward;
         right = camera.transform.right;
 
-        forward.y = 0f;
-        right.y = 0f;
+        forward.y = 0;
+        right.y = 0;
         forward.Normalize();
         right.Normalize();
 
 
         playerChestLevelY = gameObject.transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0).position.y;
-        //cameraCosine = Mathf.Cos(Mathf.Deg2Rad*(Quaternion.Angle(camera.transform.rotation, )));
-        Debug.Log(cameraCosine);
+        
+        chestPlane = new Plane(Vector3.up, new Vector3(transform.position.x, playerChestLevelY, transform.position.z));
     }
 
     void MoveCharacter(){
@@ -55,30 +56,23 @@ public class HumanoidMovementPlayer : MonoBehaviour
             animator.SetBool("isWalking", true);
 
             moveDirection = (forward * vertical + right * horizontal).normalized;
-
             controller.Move(moveDirection*Time.deltaTime*movementSpeed);
         }
     }
 
-    void TurnTowardsMouse(){
-        Plane mouseRayPlane = new Plane(Vector3.up, transform.position);
-        
+    void TurnTowardsMouse(){        
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         float dist;
-        if (mouseRayPlane.Raycast(ray, out dist))
-        {            
-            //find the vector pointing from our position to the target
-            shootingDirection = (ray.GetPoint(dist-playerChestLevelY) - new Vector3(transform.position.x, playerChestLevelY, transform.position.z)).normalized;
-            lookDirection = (ray.GetPoint(dist) - transform.position).normalized;
-            //lookDirection.y = transform.position.y;
-            //create the rotation we need to be in to look at the target
+        if (chestPlane.Raycast(ray, out dist))
+        {                        
+            lookDirection = (ray.GetPoint(dist) - new Vector3(transform.position.x, playerChestLevelY, transform.position.z)).normalized;
+            
             transform.rotation = Quaternion.LookRotation(lookDirection);
             
-            float angleBetweenLookAndMove = Vector3.SignedAngle(moveDirection,lookDirection, Vector3.up);
+            float angleBetweenLookAndMove = Vector3.SignedAngle(moveDirection, lookDirection, Vector3.up);
 
             animator.SetFloat("yRotation", angleBetweenLookAndMove);
-            //Debug.Log(angleBetweenLookAndMove);
         }
     }
     // Update is called once per frame
@@ -86,9 +80,6 @@ public class HumanoidMovementPlayer : MonoBehaviour
     {
         MoveCharacter();
         TurnTowardsMouse();
-    }
-
-    void FixedUpdate() {   
     }
 
     void OnTriggerEnter(Collider collider)
