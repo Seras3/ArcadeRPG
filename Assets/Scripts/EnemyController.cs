@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    #region Variables
-    // death support
     const float EnemyLifespanSeconds = 10;
     Timer deathTimer;
 
@@ -16,7 +14,6 @@ public class EnemyController : MonoBehaviour
     public GameObject enemy;
     public int hp;
 
-    #endregion
 
     void Start()
     { 

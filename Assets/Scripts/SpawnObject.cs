@@ -28,7 +28,6 @@ public class SpawnObject : MonoBehaviour
 	public int noOfEnemies = 0;
 	public int maxNoOfEnemies = 5;
 
-
     
 	void Start()
 	{
@@ -64,24 +63,23 @@ public class SpawnObject : MonoBehaviour
 		// generate random location and create new object
 		Vector3 randomPosition = GetARandomPos(plane);
 		                                                        
-    Instantiate<GameObject>(spawnObject, randomPosition, Quaternion.identity);
+		Instantiate<GameObject>(spawnObject, randomPosition, Quaternion.identity);
 
 		noOfEnemies += 1;
 	}
 
-
 	public Vector3 GetARandomPos(GameObject plane)
 	{
-    Mesh planeMesh = plane.GetComponent<MeshFilter>().mesh;
-    Bounds bounds = planeMesh.bounds;
+		Mesh planeMesh = plane.GetComponent<MeshFilter>().mesh;
+		Bounds bounds = planeMesh.bounds;
 
-    float minX = plane.transform.position.x - plane.transform.localScale.x * bounds.size.x * 0.5f;
-    float minZ = plane.transform.position.z - plane.transform.localScale.z * bounds.size.z * 0.5f;
+		float minX = plane.transform.position.x - plane.transform.localScale.x * bounds.size.x * 0.5f;
+		float minZ = plane.transform.position.z - plane.transform.localScale.z * bounds.size.z * 0.5f;
 
-    Vector3 newVec = new Vector3(Random.Range (minX, -minX),
-                                 plane.transform.position.y + yBuffer,
-                                 Random.Range (minZ, -minZ));
-    return newVec;
+		Vector3 newVec = new Vector3(Random.Range (minX, -minX),
+									 plane.transform.position.y + yBuffer,
+									 Random.Range (minZ, -minZ));
+		return newVec;
 	}
 
 }

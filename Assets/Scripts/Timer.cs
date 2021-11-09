@@ -23,28 +23,28 @@ public class Timer : MonoBehaviour
 	public bool Running { get { return running; } }
 
 
-  void Update()
-  {	
+	void Update()
+	{	
 		// update timer and check for finished
 		if (running)
-    {
+		{
 			elapsedSeconds += Time.deltaTime;
 			if (elapsedSeconds >= totalSeconds)
-      {
+			{
 				running = false;
 			}
 		}
 	}
 	
 	public void Run()
-  {	
+	{	
 		// only run with valid duration
 		if (totalSeconds > 0)
-    {
+		{
 			started = true;
 			running = true;
-      elapsedSeconds = 0;
+			elapsedSeconds = 0;
 		}
 	}
-	
+
 }
