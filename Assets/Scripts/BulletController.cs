@@ -7,11 +7,17 @@ public class BulletController : MonoBehaviour
     public GameObject bullet;
     public Transform firePoint;
 
+    private Weapon fromWeapon;
+    private GameObject player;
+
+    public int damage { get { return fromWeapon.Damage; } }
 
     void Start()
     {
-        firePoint = GameObject.Find("Dummy").transform;
-        Physics.IgnoreCollision(GetComponent<Collider>(), GameObject.Find("Dummy").GetComponent<CharacterController>(), true);
+        player = GameObject.Find("Dummy");
+        fromWeapon = player.GetComponent<Stats.PlayerStats>().weapon;
+        firePoint = player.transform;
+        Physics.IgnoreCollision(GetComponent<Collider>(), player.GetComponent<CharacterController>(), true);
     }
 
     void OnCollisionEnter(Collision other) 

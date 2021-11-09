@@ -4,27 +4,28 @@ public abstract class CharacterStats : MonoBehaviour
 {
     private const int MaxHealth = 100;
 
-    public Stat currentHealth;
-    public double movementSpeed;
+    public Stat CurrentHealth { get; set; }
+    public float MovementSpeed { get; set; }
 
     public void Awake()
     {
-        currentHealth = new Stat(MaxHealth);
+        CurrentHealth = new Stat(MaxHealth);
+        MovementSpeed = 0.005f;
     }
 
     public void TakeDamage(int damage)
     {
-        if (currentHealth.GetValue() > 0)
+        if (CurrentHealth.GetValue() > 0)
         {
-            currentHealth.SubtractValue(damage);
+            CurrentHealth.SubtractValue(damage);
             Debug.Log(transform.name + " takes " + damage + " damage.");
         }
 
-        if (currentHealth.GetValue() <= 0)
+        if (CurrentHealth.GetValue() <= 0)
         {
             Die();
         }
     }
 
-    protected abstract void Die();
+    public abstract void Die();
 }

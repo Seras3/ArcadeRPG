@@ -4,33 +4,21 @@ using UnityEngine;
 
 
 public class EnemyController : MonoBehaviour
-{
-    const float EnemyLifespanSeconds = 10;
-    Timer deathTimer;
+{    
+    public float interpolant; 
 
-    public float t;
-    public float speed;
-
-    public GameObject enemy;
-    public int hp;
-
-
+    public Stats.EnemyStats enemyStats;
+    
     void Start()
     { 
+        interpolant = 0.1f;
         GetComponent<Collider>().isTrigger=enabled;
 
-        // create and start timer
-        hp = 10;
-        deathTimer = gameObject.AddComponent<Timer>();
-        deathTimer.Duration = EnemyLifespanSeconds;
-        deathTimer.Run();
+        enemyStats = GetComponent<Stats.EnemyStats>(); 
     }
 
     void Update()
     {
-        if (hp <= 0) {
-            Destroy(this.gameObject); 
-        }
         MoveTowardsPlayer();
     }
 
@@ -38,17 +26,12 @@ public class EnemyController : MonoBehaviour
     {
         Vector3 enemyPosition = transform.position;
         Vector3 playerPosition = GameObject.Find("B-spine").transform.position;
-
-        t = 0.1f;
-        speed = 0.005f;
         
-        playerPosition.y = enemyPosition.y;
-        transform.position = Vector3.MoveTowards(enemyPosition, Vector3.Lerp(enemyPosition, playerPosition, t), speed);
-    }
 
-    public void TakeDamage(int damageAmount)
-    {
-        hp -= damageAmount;
+        playerPosition.y = enemyPosition.y;
+        transform.position = Vector3.MoveTowards(enemyPosition, 
+                                                 Vector3.Lerp(enemyPosition, playerPosition, interpolant), 
+                                                 enemyStats.MovementSpeed);
     }
 
     void OnTriggerEnter(Collider collider)
@@ -60,8 +43,15 @@ public class EnemyController : MonoBehaviour
             collider.gameObject.transform.position += pushBack;
         }
 
+        if (collider.gameObject.name == "Dummy")
+        {
+            collider.gameObject.GetComponent<Stats.PlayerStats>().TakeDamage(enemyStats.Damage);
+        }
+
         if (collider.gameObject.name == "Bullet(Clone)"){
-            TakeDamage(5);
+            int damage = collider.gameObject.GetComponent<BulletController>().damage;
+            enemyStats.TakeDamage(damage);
+
             Destroy(collider.gameObject);
         }
     }

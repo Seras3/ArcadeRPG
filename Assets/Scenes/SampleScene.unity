@@ -499,6 +499,21 @@ MonoBehaviour:
   firePoint: {fileID: 620282117}
   bulletPrefab: {fileID: 2700876907796551394, guid: b01c72b2cc008e54ca0cc24363560e41, type: 3}
   bulletForce: 20
+--- !u!114 &817299182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817299180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca3096f6238c4021929c9492b5c41869, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth:
+    value: 0
+  movementSpeed: 0
 --- !u!143 &817299184
 CharacterController:
   m_ObjectHideFlags: 0
