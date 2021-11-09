@@ -12,7 +12,7 @@ public abstract class CharacterStats : MonoBehaviour
         currentHealth = new Stat(MaxHealth);
     }
 
-    protected void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         if (currentHealth.GetValue() > 0)
         {

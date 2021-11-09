@@ -7,6 +7,7 @@ public class BulletController : MonoBehaviour
     public GameObject bullet;
     public Transform firePoint;
 
+
     void Start()
     {
         firePoint = GameObject.Find("Dummy").transform;

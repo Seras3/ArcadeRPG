@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 857633499195778268}
   - component: {fileID: 1163325510344351524}
   - component: {fileID: 4127077186155959554}
+  - component: {fileID: 6432914300652134844}
   - component: {fileID: 3080607516002117398}
   m_Layer: 0
   m_Name: Enemy
@@ -113,6 +114,21 @@ MonoBehaviour:
   speed: 0
   enemy: {fileID: 4413566190785026555}
   hp: 0
+--- !u!114 &6432914300652134844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4413566190785026555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09abc3e5b6164baa841c5a0ac8b8a4eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth:
+    value: 0
+  movementSpeed: 0
 --- !u!54 &3080607516002117398
 Rigidbody:
   m_ObjectHideFlags: 0
