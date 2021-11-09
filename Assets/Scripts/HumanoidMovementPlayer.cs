@@ -19,7 +19,6 @@ public class HumanoidMovementPlayer : MonoBehaviour
     private float playerChestLevelY;
     private Plane chestPlane;
 
-    // Start is called before the first frame update
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -73,7 +72,7 @@ public class HumanoidMovementPlayer : MonoBehaviour
             animator.SetFloat("yRotation", angleBetweenLookAndMove);
         }
     }
-    // Update is called once per frame
+
     void Update()
     {
         MoveCharacter();
@@ -82,8 +81,6 @@ public class HumanoidMovementPlayer : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-        //Debug.Log(collider.gameObject.tag);
-    
         if (collider.gameObject.tag == "Enemy")
         {
             Vector3 pushBack = (collider.gameObject.transform.position - transform.position).normalized;

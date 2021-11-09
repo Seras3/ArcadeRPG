@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// A enemy
-/// </summary>
+
 public class EnemyController : MonoBehaviour
 {
     #region Variables
@@ -20,10 +18,6 @@ public class EnemyController : MonoBehaviour
 
     #endregion
 
-
-    /// <summary>
-    /// Use this for initialization
-    /// </summary>
     void Start()
     { 
         GetComponent<Collider>().isTrigger=enabled;
@@ -35,35 +29,24 @@ public class EnemyController : MonoBehaviour
         deathTimer.Run();
     }
 
-    /// <summary>
-    /// Update is called once per frame
-    /// </summary>
     void Update()
     {
-        // destroy enemy if death timer finished
-        /*if(deathTimer){
-            if (deathTimer.Finished)
-            {    
-                Destroy(gameObject);       
-            }
-        }*/
-
         if (hp <= 0) {
             Destroy(this.gameObject); 
         }
         MoveTowardsPlayer();
-
     }
 
     void MoveTowardsPlayer()
     {
-        Vector3 a = transform.position;
-        Vector3 b = GameObject.Find("B-spine").transform.position;
+        Vector3 enemyPosition = transform.position;
+        Vector3 playerPosition = GameObject.Find("B-spine").transform.position;
 
         t = 0.1f;
         speed = 0.005f;
-
-        transform.position = Vector3.MoveTowards(a, Vector3.Lerp(a, b, t), speed);
+        
+        playerPosition.y = enemyPosition.y;
+        transform.position = Vector3.MoveTowards(enemyPosition, Vector3.Lerp(enemyPosition, playerPosition, t), speed);
     }
 
     public void TakeDamage(int damageAmount)
@@ -73,8 +56,6 @@ public class EnemyController : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-        //Debug.Log(collider.gameObject.name);
-    
         if (collider.gameObject.tag == "Enemy")
         {
             Vector3 pushBack = (collider.gameObject.transform.position - transform.position).normalized;

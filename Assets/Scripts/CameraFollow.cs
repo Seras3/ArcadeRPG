@@ -8,6 +8,7 @@ public class CameraFollow : MonoBehaviour
     public Transform target;
     public Vector3 offset;
     public float zoomSpeed;
+    
     void Start()
     {
         orthoCam = Camera.main;
@@ -34,7 +35,7 @@ public class CameraFollow : MonoBehaviour
             orthoCam.orthographicSize += zoomSpeed * Time.deltaTime;
         }
     }
-    // Update is called once per frame
+
     void Update()
     {
         MoveCamera();

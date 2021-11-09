@@ -25,6 +25,5 @@ public class PlayerShooting : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, new Quaternion(0,0,0,0));
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         rb.AddForce(dummyLookDirection * bulletForce, ForceMode.Impulse);
-
     }
 }
