@@ -12,7 +12,6 @@ public class EnemyController : MonoBehaviour
     void Start()
     { 
         interpolant = 0.1f;
-        GetComponent<Collider>().isTrigger=enabled;
 
         enemyStats = GetComponent<Stats.EnemyStats>(); 
     }
@@ -34,25 +33,18 @@ public class EnemyController : MonoBehaviour
                                                  enemyStats.MovementSpeed);
     }
 
-    void OnTriggerEnter(Collider collider)
+    void OnCollisionEnter(Collision other)
     {
-        if (collider.gameObject.tag == "Enemy")
+        if (other.gameObject.tag == "Enemy")
         {
-            Vector3 pushBack = (collider.gameObject.transform.position - transform.position).normalized;
+            Vector3 pushBack = (other.gameObject.transform.position - transform.position).normalized;
             pushBack.y = 0;
-            collider.gameObject.transform.position += pushBack;
+            other.gameObject.transform.position += pushBack;
         }
 
-        if (collider.gameObject.name == "Dummy")
+        if (other.gameObject.name == "Dummy")
         {
-            collider.gameObject.GetComponent<Stats.PlayerStats>().TakeDamage(enemyStats.Damage);
-        }
-
-        if (collider.gameObject.name == "Bullet(Clone)"){
-            int damage = collider.gameObject.GetComponent<BulletController>().damage;
-            enemyStats.TakeDamage(damage);
-
-            Destroy(collider.gameObject);
+            other.gameObject.GetComponent<CharacterStats>().TakeDamage(enemyStats.Damage);
         }
     }
 

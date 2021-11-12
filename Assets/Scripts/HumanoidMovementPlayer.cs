@@ -79,7 +79,7 @@ public class HumanoidMovementPlayer : MonoBehaviour
         TurnTowardsMouse();
     }
 
-    void OnTriggerEnter(Collider collider)
+    void OnCollisionEnter(Collision collider)
     {
         if (collider.gameObject.tag == "Enemy")
         {
