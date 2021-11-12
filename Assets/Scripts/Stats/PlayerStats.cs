@@ -9,17 +9,9 @@ namespace Stats
 
         //private List<Weapon> ownedWeapons = new List<Weapon>();
         
-        protected override void Die()
+        public override void Die()
         {
             Debug.Log(transform.name + " died.");
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                this.TakeDamage(weapon.Damage);
-            }
         }
     }
 }
