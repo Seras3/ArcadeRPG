@@ -7,7 +7,12 @@ public class MainMenuLogic : MonoBehaviour
 {
     public void PlayGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadSceneAsync("SampleScene");
+    }
+    
+    public void GoBackToMainMenu()
+    {
+        SceneManager.LoadSceneAsync("MenuScene");
     }
 
     public void QuitGame()
