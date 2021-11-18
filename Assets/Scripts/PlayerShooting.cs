@@ -5,25 +5,48 @@ using UnityEngine;
 public class PlayerShooting : MonoBehaviour
 {
     public Transform firePoint;
-    public GameObject bulletPrefab;
-
     private Vector3 dummyLookDirection;
     public float bulletForce = 20f;
 
+    private float shootingCooldown;
+    private float lastShotTime;
+
+    private void Start() {
+        shootingCooldown = 0.5f;
+        lastShotTime = -shootingCooldown; // fire as soon as the game starts
+    }
     void Update()
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            dummyLookDirection = GetComponent<HumanoidMovementPlayer>().lookDirection;
             Shoot();
         }
+    }
+    private bool Cooldown(){
+        if (Time.fixedTime >= (lastShotTime + shootingCooldown)){
+            lastShotTime = Time.fixedTime;
+            return true;
+        }
+        return false;
     }
 
     void Shoot()
     {
-        // Spawn bullet at the position of firePoint, add force to it
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, new Quaternion(0,0,0,0));
-        Rigidbody rb = bullet.GetComponent<Rigidbody>();
-        rb.AddForce(dummyLookDirection * bulletForce, ForceMode.Impulse);
+        if (Cooldown()){
+            
+            // Spawn bullet at the position of firePoint, add force to it
+
+            GameObject bullet = ObjectPool.instance.GetPooledObject();
+
+            if (bullet != null){
+                dummyLookDirection = GetComponent<HumanoidMovementPlayer>().lookDirection;
+                bullet.transform.position = firePoint.position;
+                Rigidbody rb = bullet.GetComponent<Rigidbody>();
+                rb.velocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+                bullet.SetActive(true);
+                rb.AddForce(dummyLookDirection * bulletForce, ForceMode.Impulse);
+            }
+        }
     }
 }
