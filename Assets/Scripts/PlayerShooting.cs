@@ -36,7 +36,7 @@ public class PlayerShooting : MonoBehaviour
             
             // Spawn bullet at the position of firePoint, add force to it
 
-            GameObject bullet = ObjectPool.instance.GetPooledObject();
+            GameObject bullet = BulletPool.instance.GetPooledObject();
 
             if (bullet != null){
                 dummyLookDirection = GetComponent<HumanoidMovementPlayer>().lookDirection;

@@ -2,38 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPool : MonoBehaviour
+public abstract class ObjectPool : MonoBehaviour
 {
 
-    public static ObjectPool instance;
+    protected List<GameObject> pooledObjects = new List<GameObject>();
+    [SerializeField] protected int amountToPool = 5;
+    [SerializeField] protected int amountToPoolExtra = 5;
 
-    private List<GameObject> pooledObjects = new List<GameObject>();
-    private int amountToPool = 5;
-    private int amountToPoolExtra = 5;
+    [SerializeField] protected int addMoreTrigger = 2;
 
-    [SerializeField] private int addMoreTrigger;
-
-    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] protected GameObject objectPrefab;
     // Start is called before the first frame update
-    private void Awake() {
-        addMoreTrigger = 4;
-        if (instance == null){
-            instance = this;
-        }
-    }
 
-    private void AddObjects(int objectsToAdd){
+    protected void AddObjects(int objectsToAdd){
         for (int i = 0; i < objectsToAdd; i++)
         {
-            GameObject obj = Instantiate(bulletPrefab);
+            GameObject obj = Instantiate(objectPrefab);
             obj.SetActive(false);
             pooledObjects.Add(obj);
         }
     }
-    private void Start() {
+    // private void Start() {
 
-        AddObjects(amountToPool);         
-    }
+    //     //AddObjects(amountToPool);         
+    // }
 
     public GameObject GetPooledObject(){
 
