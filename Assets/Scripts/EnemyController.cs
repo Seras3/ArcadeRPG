@@ -11,8 +11,6 @@ public class EnemyController : MonoBehaviour
     
     void Start()
     { 
-        interpolant = 0.1f;
-
         enemyStats = GetComponent<Stats.EnemyStats>(); 
     }
 
@@ -28,9 +26,7 @@ public class EnemyController : MonoBehaviour
         
 
         playerPosition.y = enemyPosition.y;
-        transform.position = Vector3.MoveTowards(enemyPosition, 
-                                                 Vector3.Lerp(enemyPosition, playerPosition, interpolant), 
-                                                 enemyStats.MovementSpeed);
+        transform.position = Vector3.MoveTowards(enemyPosition, playerPosition, enemyStats.MovementSpeed);
     }
 
     void OnCollisionEnter(Collision other)
