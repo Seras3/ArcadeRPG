@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
-    public GameObject bullet;
+    //public GameObject bullet;
     private Weapon fromWeapon;
     private GameObject shooter;
 
@@ -31,7 +31,8 @@ public class BulletController : MonoBehaviour
             }
             finally
             {
-                Destroy (this.bullet);
+                //Destroy (this.bullet);
+                gameObject.SetActive(false);
             }    
         }
     }
