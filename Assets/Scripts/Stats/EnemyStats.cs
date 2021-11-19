@@ -20,11 +20,11 @@ namespace Stats
         
         public override void Die()
         {
-            
             objectSpawner.GetComponent<WaveHandler>().killEnemy();
 
-            Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
             Debug.Log(transform.name + " died.");
         }
+
     }
 }
