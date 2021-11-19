@@ -8,7 +8,7 @@ namespace Stats
 
         public EnemyStats() 
         {
-            Damage = 50;
+            Damage = 20;
         }
         
         public override void Die()
