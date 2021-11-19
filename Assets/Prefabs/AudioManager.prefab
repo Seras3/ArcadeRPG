@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7890851494689983175
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7890851494689983169}
+  - component: {fileID: 7890851494689983174}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7890851494689983169
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7890851494689983175}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7890851494689983174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7890851494689983175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d28ffc7dd006e774696ece92c6990171, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: gameStarts
+    clip: {fileID: 8300000, guid: 10cbb7c1fa452994ba03f3c83f9f5f29, type: 3}
+    volume: 0.5
+    pitch: 1.83
+    loop: 0
+    source: {fileID: 0}
+  - name: theme
+    clip: {fileID: 8300000, guid: de36dc03bfd766a478cc3003fab349df, type: 3}
+    volume: 0.093
+    pitch: 1.92
+    loop: 1
+    source: {fileID: 0}
+  - name: choir
+    clip: {fileID: 8300000, guid: 7f801be84dc373d498cffc1e49daa7c7, type: 3}
+    volume: 0.483
+    pitch: 1.67
+    loop: 0
+    source: {fileID: 0}
+  - name: zombieSpawn
+    clip: {fileID: 8300000, guid: 61ff0f519f8affc4584b64b434620082, type: 3}
+    volume: 0.224
+    pitch: 1.16
+    loop: 0
+    source: {fileID: 0}
+  - name: pistolShot
+    clip: {fileID: 8300000, guid: fc42cd4314ca7bb41b90673ba9e933f3, type: 3}
+    volume: 0.213
+    pitch: 2.36
+    loop: 0
+    source: {fileID: 0}
+  - name: zombieDies
+    clip: {fileID: 8300000, guid: e28bc44be08837f468079ffb07dcc5ce, type: 3}
+    volume: 0.258
+    pitch: 1.83
+    loop: 0
+    source: {fileID: 0}
+  - name: running
+    clip: {fileID: 8300000, guid: 6b552ad909b8aa3438afd036c535276b, type: 3}
+    volume: 1
+    pitch: 1.14
+    loop: 0
+    source: {fileID: 0}

@@ -48,12 +48,15 @@ public class HumanoidMovementPlayer : MonoBehaviour
 
         if (horizontal==0 && vertical==0){
             animator.SetBool("isWalking", false);
+            //FindObjectOfType<AudioManager>().StartOrStopRunning(false);
         }
         else{
             animator.SetBool("isWalking", true);
 
+            //FindObjectOfType<AudioManager>().StartOrStopRunning(true);
             moveDirection = (forward * vertical + right * horizontal).normalized;
             controller.Move(moveDirection*Time.deltaTime*movementSpeed);
+
         }
     }
 
@@ -83,6 +86,7 @@ public class HumanoidMovementPlayer : MonoBehaviour
     {
         if (collider.gameObject.tag == "Enemy")
         {
+            
             Vector3 pushBack = (collider.gameObject.transform.position - transform.position).normalized;
             pushBack.y = 0;
             collider.gameObject.transform.position += pushBack;

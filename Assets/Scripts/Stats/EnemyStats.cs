@@ -15,6 +15,7 @@ namespace Stats
         {
             Destroy(this.gameObject);
             Debug.Log(transform.name + " died.");
+            FindObjectOfType<AudioManager>().Play("zombieDies");
         }
     }
 }

@@ -7,9 +7,15 @@ public class MainMenuLogic : MonoBehaviour
 {
     public void PlayGame()
     {
+        
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
+    public void PlayClickSound()
+    {
+        
+        FindObjectOfType<AudioManager>().Play("gameStarts");
+    }
     public void QuitGame()
     {
         Application.Quit();

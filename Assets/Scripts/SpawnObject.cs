@@ -64,9 +64,11 @@ public class SpawnObject : MonoBehaviour
 		Vector3 randomPosition = GetARandomPos(plane);
 		                                                        
 		Instantiate<GameObject>(spawnObject, randomPosition, Quaternion.identity);
-
+        
 		noOfEnemies += 1;
-	}
+
+        FindObjectOfType<AudioManager>().Play("zombieSpawn");
+    }
 
 	public Vector3 GetARandomPos(GameObject plane)
 	{

@@ -18,6 +18,7 @@ public abstract class CharacterStats : MonoBehaviour
         if (CurrentHealth.GetValue() > 0)
         {
             CurrentHealth.SubtractValue(damage);
+            FindObjectOfType<AudioManager>().Play("choir");
             Debug.Log(transform.name + " takes " + damage + " damage.");
         }
 
