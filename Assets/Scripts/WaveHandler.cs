@@ -97,8 +97,18 @@ public class WaveHandler : MonoBehaviour
 	{
 		// generate random location and create new object
 		Vector3 randomPosition = GetARandomPos(plane);
-
-		GameObject enemyObject = EnemyPool.instance.GetPooledObject();
+		GameObject enemyObject;
+		int randomNumber = Random.Range(0, 2);
+		if (randomNumber == 0)
+        {
+			Debug.Log("Default enemy will be spawned.");
+			enemyObject = EnemyPool.instance.GetPooledObject();
+		} 
+		else
+        {
+			Debug.Log("Vampire enemy will be spawned.");
+			enemyObject = VampirePool.instance.GetPooledObject();
+		}
 		
 		if (enemyObject != null)
         {

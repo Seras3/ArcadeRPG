@@ -8,6 +8,7 @@ public class VampireController : MonoBehaviour
     public float interpolant; 
 
     public Stats.EnemyStats enemyStats;
+    private Vector3 vampireLookDirection;
 
     public GameObject vampire;
     public GameObject bat;
@@ -26,6 +27,7 @@ public class VampireController : MonoBehaviour
 
     private Rigidbody vampireRB;
     private Renderer batMesh;
+    
     void Start()
     { 
         interpolant = 0.1f;
@@ -56,8 +58,8 @@ public class VampireController : MonoBehaviour
     {
         vampire.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, vampire.gameObject.transform.position.y, this.gameObject.transform.position.z);
 
-        Debug.Log(this.gameObject.transform.position);
-        Debug.Log(vampire.gameObject.transform.position);
+        // Debug.Log(this.gameObject.transform.position);
+        // Debug.Log(vampire.gameObject.transform.position);
 
 
         Vector3 playerPosition = GameObject.Find("B-spine").transform.position;
@@ -99,14 +101,18 @@ public class VampireController : MonoBehaviour
         
 
         if (state == 2) {
-            if (Time.time - lastShot > waitTime)
-            {
-                Debug.Log("Vampire shot");
-                lastShot = Time.time;
-                Shoot();
-            }
-
+            Shoot();
         }
+    }
+
+    private bool Cooldown()
+    {
+        if (Time.fixedTime >= lastShot + waitTime)
+        {
+            lastShot = Time.fixedTime;
+            return true;
+        }
+        return false;
     }
 
     void MoveTowardsPlayer()
@@ -136,7 +142,7 @@ public class VampireController : MonoBehaviour
         }
     }
     
-    void Shoot() 
+    /*void Shoot() 
     {
         Vector3 playerPosition = GameObject.Find("B-spine").transform.position;
         GameObject bulletSpawned = Instantiate(bullet, bulletSpawnPoint.transform.position, bulletSpawnPoint.transform.rotation);
@@ -145,6 +151,31 @@ public class VampireController : MonoBehaviour
         // rb.AddForce(bulletSpawned.transform.position , ForceMode.VelocityChange);
         rb.velocity = (playerPosition - rb.position).normalized * bulletForce;
 
+    }*/
+
+    void Shoot()
+    {
+        if (Cooldown())
+        {
+            Debug.Log("Vampire shot");
+            // Spawn bullet at the position of firePoint, add force to it
+
+            GameObject bullet = BulletPool.instance.GetPooledObject();
+
+            if (bullet != null)
+            {
+                bullet.GetComponent<BulletController>().shooter = vampire;
+                Vector3 playerPosition = GameObject.Find("B-spine").transform.position;
+                Rigidbody rb = bullet.GetComponent<Rigidbody>();
+                //vampireLookDirection = (playerPosition - rb.position).normalized;
+                vampireLookDirection = new Vector3(playerPosition.x - this.gameObject.transform.position.x, 0, playerPosition.z - this.gameObject.transform.position.z).normalized;
+                bullet.transform.position = vampire.transform.position;
+                rb.velocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+                bullet.SetActive(true);
+                rb.AddForce(vampireLookDirection * bulletForce, ForceMode.Impulse);
+            }
+        }
     }
 
 }

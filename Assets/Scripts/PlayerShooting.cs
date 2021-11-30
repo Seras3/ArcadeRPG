@@ -39,6 +39,7 @@ public class PlayerShooting : MonoBehaviour
             GameObject bullet = BulletPool.instance.GetPooledObject();
 
             if (bullet != null){
+                bullet.GetComponent<BulletController>().shooter = this.gameObject;
                 dummyLookDirection = GetComponent<HumanoidMovementPlayer>().lookDirection;
                 bullet.transform.position = firePoint.position;
                 Rigidbody rb = bullet.GetComponent<Rigidbody>();
