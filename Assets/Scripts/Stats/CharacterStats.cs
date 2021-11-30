@@ -28,4 +28,9 @@ public abstract class CharacterStats : MonoBehaviour
     }
 
     public abstract void Die();
+
+    public void InitStats()
+    {
+        CurrentHealth.SetValue(MaxHealth);
+    }
 }
