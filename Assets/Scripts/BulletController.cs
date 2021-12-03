@@ -19,7 +19,6 @@ public class BulletController : MonoBehaviour
         else {
             fromWeapon = shooter.GetComponent<Stats.PlayerStats>().weapon;
         }
-        Physics.IgnoreCollision(GetComponent<Collider>(), shooter.GetComponent<Collider>(), true);
     }
 
     void OnTriggerEnter(Collider other) 
@@ -40,6 +39,7 @@ public class BulletController : MonoBehaviour
             }
             finally
             {
+                Physics.IgnoreCollision(GetComponent<Collider>(), shooter.GetComponent<Collider>(), false);
                 //Destroy (this.bullet);
                 gameObject.SetActive(false);
             }    

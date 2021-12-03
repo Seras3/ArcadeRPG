@@ -32,6 +32,7 @@ public class PlayerShooting : MonoBehaviour
 
     void Shoot()
     {
+        
         if (Cooldown()){
             
             // Spawn bullet at the position of firePoint, add force to it
@@ -40,6 +41,7 @@ public class PlayerShooting : MonoBehaviour
 
             if (bullet != null){
                 bullet.GetComponent<BulletController>().shooter = this.gameObject;
+                Physics.IgnoreCollision(GetComponent<Collider>(), bullet.GetComponent<Collider>(), true);
                 dummyLookDirection = GetComponent<HumanoidMovementPlayer>().lookDirection;
                 bullet.transform.position = firePoint.position;
                 Rigidbody rb = bullet.GetComponent<Rigidbody>();
