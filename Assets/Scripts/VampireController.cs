@@ -27,6 +27,8 @@ public class VampireController : MonoBehaviour
 
     private Rigidbody vampireRB;
     private Renderer batMesh;
+
+    private Vector3 playerPosition;
     
     void Start()
     { 
@@ -62,7 +64,7 @@ public class VampireController : MonoBehaviour
         // Debug.Log(vampire.gameObject.transform.position);
 
 
-        Vector3 playerPosition = GameObject.Find("B-spine").transform.position;
+        playerPosition = GameObject.Find("B-spine").transform.position;
 
         if (playerPosition != null) 
         {
@@ -118,8 +120,6 @@ public class VampireController : MonoBehaviour
     void MoveTowardsPlayer()
     {
         Vector3 enemyPosition = transform.position;
-        Vector3 playerPosition = GameObject.Find("B-spine").transform.position;
-        
 
         playerPosition.y = enemyPosition.y;
         transform.position = Vector3.MoveTowards(enemyPosition, 
@@ -165,7 +165,6 @@ public class VampireController : MonoBehaviour
             if (bullet != null)
             {
                 bullet.GetComponent<BulletController>().shooter = vampire;
-                Vector3 playerPosition = GameObject.Find("B-spine").transform.position;
                 Rigidbody rb = bullet.GetComponent<Rigidbody>();
                 //vampireLookDirection = (playerPosition - rb.position).normalized;
                 vampireLookDirection = new Vector3(playerPosition.x - this.gameObject.transform.position.x, 0, playerPosition.z - this.gameObject.transform.position.z).normalized;
