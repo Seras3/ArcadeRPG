@@ -12,12 +12,8 @@ public class EnemyController : MonoBehaviour
     public Stats.EnemyStats enemyStats;
 
     void Start()
-    {
-        IsFrozen = false;
-        
-        interpolant = 0.1f;
-
-        enemyStats = GetComponent<Stats.EnemyStats>();
+    { 
+        enemyStats = GetComponent<Stats.EnemyStats>(); 
     }
 
     void Update()
@@ -33,9 +29,7 @@ public class EnemyController : MonoBehaviour
         Vector3 playerPosition = GameObject.Find("B-spine").transform.position;
 
         playerPosition.y = enemyPosition.y;
-        transform.position = Vector3.MoveTowards(enemyPosition, 
-                                                 Vector3.Lerp(enemyPosition, playerPosition, interpolant), 
-                                                 enemyStats.MovementSpeed);
+        transform.position = Vector3.MoveTowards(enemyPosition, playerPosition, enemyStats.MovementSpeed);
     }
 
     void OnCollisionEnter(Collision other)

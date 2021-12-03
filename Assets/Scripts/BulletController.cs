@@ -4,18 +4,22 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
-    public GameObject bullet;
+    //public GameObject bullet;
     private Weapon fromWeapon;
-    private GameObject shooter;
+    public GameObject shooter;
 
     public int damage { get { return fromWeapon.Damage; } }
 
     void Start()
     {
         GetComponent<Collider>().isTrigger=enabled;
-        shooter = GameObject.Find("Dummy");
-        fromWeapon = shooter.GetComponent<Stats.PlayerStats>().weapon;
-        Physics.IgnoreCollision(GetComponent<Collider>(), shooter.GetComponent<CharacterController>(), true);
+        if (shooter.tag == "Enemy") {
+            fromWeapon = shooter.GetComponentInParent<Stats.VampireStats>().weapon;
+        }
+        else {
+            fromWeapon = shooter.GetComponent<Stats.PlayerStats>().weapon;
+        }
+        Physics.IgnoreCollision(GetComponent<Collider>(), shooter.GetComponent<Collider>(), true);
     }
 
     void OnTriggerEnter(Collider other) 
@@ -24,14 +28,20 @@ public class BulletController : MonoBehaviour
         {
             try
             {
-                other.gameObject.GetComponent<CharacterStats>().TakeDamage(damage);
+                if (other.gameObject.GetComponentInParent<CharacterStats>() != null) {
+                    other.gameObject.GetComponentInParent<CharacterStats>().TakeDamage(damage);
+                }
+                else {
+                    other.gameObject.GetComponent<CharacterStats>().TakeDamage(damage);
+                }
             }
             catch
             {
             }
             finally
             {
-                Destroy (this.bullet);
+                //Destroy (this.bullet);
+                gameObject.SetActive(false);
             }    
         }
     }
