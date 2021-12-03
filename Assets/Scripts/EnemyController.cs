@@ -1,12 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utils;
 
 
 public class EnemyController : MonoBehaviour
 {
-    private static bool IsFrozen { get; set; }
-    
     public float interpolant; 
 
     public Stats.EnemyStats enemyStats;
@@ -18,13 +17,11 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        MoveTowardsPlayer();
+        if (GameManager.CurrentStatus is GameManager.GameStatus.Playing) MoveTowardsPlayer();
     }
 
     void MoveTowardsPlayer()
     {
-        if (IsFrozen) return;
-        
         Vector3 enemyPosition = transform.position;
         Vector3 playerPosition = GameObject.Find("B-spine").transform.position;
 
@@ -45,10 +42,5 @@ public class EnemyController : MonoBehaviour
         {
             other.gameObject.GetComponent<CharacterStats>().TakeDamage(enemyStats.Damage);
         }
-    }
-    
-    public static void FreezeAll()
-    {
-        IsFrozen = true;
     }
 }

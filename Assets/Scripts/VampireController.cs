@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utils;
 
 
 public class VampireController : MonoBehaviour
@@ -96,13 +97,13 @@ public class VampireController : MonoBehaviour
             }
         }
 
-        if (state == 1) 
+        if (state == 1 && GameManager.CurrentStatus is GameManager.GameStatus.Playing) 
         {
             MoveTowardsPlayer();
         }
         
 
-        if (state == 2) {
+        if (state == 2 && GameManager.CurrentStatus is GameManager.GameStatus.Playing) {
             Shoot();
         }
     }

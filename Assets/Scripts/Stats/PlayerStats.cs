@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using UnityEngine;
+using Utils;
 
 namespace Stats
 {
@@ -12,16 +13,9 @@ namespace Stats
 
         public override void Die()
         {
-            // freeze all characters
-            EnemyController.FreezeAll();
-            GetComponent<HumanoidMovementPlayer>().enabled = false;
-            GetComponent<PlayerShooting>().enabled = false;
-            // fade-in 'you died' canvas
-            var gameOverCanvas = Resources.FindObjectsOfTypeAll<Canvas>().First(obj => obj.gameObject.transform.name == "GameOverCanvas").gameObject;
-            gameOverCanvas.SetActive(true);
-            gameOverCanvas.GetComponent<CanvasFader>().Fade();
-
             Debug.Log(transform.name + " died.");
+            
+            GameObject.Find("GameManagerObject").GetComponent<GameManager>().GameOver();
         }
     }
 }
