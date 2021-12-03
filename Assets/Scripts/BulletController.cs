@@ -13,7 +13,7 @@ public class BulletController : MonoBehaviour
     void Start()
     {
         GetComponent<Collider>().isTrigger=enabled;
-        if (shooter.tag == "Enemy") {
+        if (shooter.CompareTag("Enemy")) {
             fromWeapon = shooter.GetComponentInParent<Stats.VampireStats>().weapon;
         }
         else {

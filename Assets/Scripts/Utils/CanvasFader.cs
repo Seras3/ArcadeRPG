@@ -1,25 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CanvasFader : MonoBehaviour
 {
     public const float Duration = 1.5f;
 
-    public void Fade()
+    public void FadeIn()
     {
-        
         var canvasGroup = GetComponent<CanvasGroup>();
-        StartCoroutine(DoFade(canvasGroup, canvasGroup.alpha, .7f));
+        StartCoroutine(DoFade(canvasGroup, canvasGroup.alpha, 0.7f));
     }
 
-    private IEnumerator DoFade(CanvasGroup canvasGroup, float start, float end)
+    private static IEnumerator DoFade(CanvasGroup canvasGroup, float start, float end)
     {
-        float counter = 0.0f;
+        var counter = 0.0f;
 
         while (counter < Duration)
         {
-            counter += Time.deltaTime;
+            counter += Time.fixedDeltaTime;
             canvasGroup.alpha = Mathf.Lerp(start, end, counter / Duration);
 
             yield return null;
