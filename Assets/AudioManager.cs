@@ -11,6 +11,14 @@ public class AudioManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+
+        
+        if (!PlayerPrefs.HasKey("soundVolume"))
+        {
+            PlayerPrefs.SetFloat("soundVolume", (float)1.0);
+        }
+
+        
         if (instance == null)
         {
             instance = this;
@@ -25,7 +33,7 @@ public class AudioManager : MonoBehaviour
         {
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
-            s.source.volume = s.volume;
+            s.source.volume = s.volume * PlayerPrefs.GetFloat("soundVolume");
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
         }
@@ -58,6 +66,15 @@ public class AudioManager : MonoBehaviour
         else
             s.source.volume = 0;
             
+    }
+
+    public void ChangeVolume()
+    {
+        foreach (Sound s in sounds)
+        {
+            s.source.volume = s.volume * PlayerPrefs.GetFloat("soundVolume");
+            Debug.Log("volum " + PlayerPrefs.GetFloat("soundVolume"));
+        }
     }
     
 }
