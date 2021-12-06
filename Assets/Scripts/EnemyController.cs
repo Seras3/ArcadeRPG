@@ -20,7 +20,7 @@ public class EnemyController : MonoBehaviour
         if (GameManager.CurrentStatus is GameManager.GameStatus.Playing) MoveTowardsPlayer();
     }
 
-    void MoveTowardsPlayer()
+    protected void MoveTowardsPlayer()
     {
         Vector3 enemyPosition = transform.position;
         Vector3 playerPosition = GameObject.Find("B-spine").transform.position;
@@ -29,7 +29,7 @@ public class EnemyController : MonoBehaviour
         transform.position = Vector3.MoveTowards(enemyPosition, playerPosition, enemyStats.MovementSpeed);
     }
 
-    void OnCollisionEnter(Collision other)
+    protected void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {

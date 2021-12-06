@@ -4,11 +4,8 @@ using UnityEngine;
 using Utils;
 
 
-public class VampireController : MonoBehaviour
+public class VampireController : EnemyController
 {    
-    public float interpolant; 
-
-    public Stats.EnemyStats enemyStats;
     private Vector3 vampireLookDirection;
 
     public GameObject vampire;
@@ -61,10 +58,6 @@ public class VampireController : MonoBehaviour
     {
         vampire.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, vampire.gameObject.transform.position.y, this.gameObject.transform.position.z);
 
-        // Debug.Log(this.gameObject.transform.position);
-        // Debug.Log(vampire.gameObject.transform.position);
-
-
         playerPosition = GameObject.Find("B-spine").transform.position;
 
         if (playerPosition != null) 
@@ -99,7 +92,7 @@ public class VampireController : MonoBehaviour
 
         if (state == 1 && GameManager.CurrentStatus is GameManager.GameStatus.Playing) 
         {
-            MoveTowardsPlayer();
+           base.MoveTowardsPlayer();
         }
         
 
@@ -118,41 +111,7 @@ public class VampireController : MonoBehaviour
         return false;
     }
 
-    void MoveTowardsPlayer()
-    {
-        Vector3 enemyPosition = transform.position;
 
-        playerPosition.y = enemyPosition.y;
-        transform.position = Vector3.MoveTowards(enemyPosition, 
-                                                 Vector3.Lerp(enemyPosition, playerPosition, interpolant), 
-                                                 enemyStats.MovementSpeed);
-    }
-
-    void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.tag == "Enemy")
-        {
-            Vector3 pushBack = (other.gameObject.transform.position - transform.position).normalized;
-            pushBack.y = 0;
-            other.gameObject.transform.position += pushBack;
-        }
-
-        if (other.gameObject.name == "Dummy")
-        {
-            other.gameObject.GetComponent<CharacterStats>().TakeDamage(enemyStats.Damage);
-        }
-    }
-    
-    /*void Shoot() 
-    {
-        Vector3 playerPosition = GameObject.Find("B-spine").transform.position;
-        GameObject bulletSpawned = Instantiate(bullet, bulletSpawnPoint.transform.position, bulletSpawnPoint.transform.rotation);
-        Rigidbody rb = bulletSpawned.GetComponent<Rigidbody>();
-        bulletSpawned.GetComponent<BulletController>().shooter = this.gameObject.transform.GetChild(0).gameObject;
-        // rb.AddForce(bulletSpawned.transform.position , ForceMode.VelocityChange);
-        rb.velocity = (playerPosition - rb.position).normalized * bulletForce;
-
-    }*/
 
     void Shoot()
     {
