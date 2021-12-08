@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 
 namespace Stats
@@ -10,13 +9,7 @@ namespace Stats
     {
         public Weapon weapon = new Weapon("StormBreaker", 25);
 
-        new private void Awake() {
-            base.Awake();
-            HPbarSetup();
-        }
-        private void FixedUpdate() {
-            HPbarFollow();
-        }
+        
 
         //private List<Weapon> ownedWeapons = new List<Weapon>();
 

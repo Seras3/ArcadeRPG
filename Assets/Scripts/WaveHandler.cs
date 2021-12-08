@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class WaveHandler : MonoBehaviour
 {
+
+	[SerializeField] private bool enableSpawn = true;
 	// needed for spawning
 	[SerializeField]
 	GameObject spawnObject;
@@ -34,6 +36,8 @@ public class WaveHandler : MonoBehaviour
 
 	void Start()
 	{
+		if (!enableSpawn) return;
+
 		plane = GameObject.FindWithTag("Plane");
 
 		// save spawn boundaries for efficiency
@@ -54,6 +58,9 @@ public class WaveHandler : MonoBehaviour
 
 	void Update()
 	{
+		if (!enableSpawn) return;
+
+
 		// check for time to spawn a new enemy
 		if (spawnTimer.Finished && noOfEnemies < maxNoOfEnemies)
 		{

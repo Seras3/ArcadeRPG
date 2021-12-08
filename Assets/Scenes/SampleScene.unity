@@ -154,6 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dea108974407408428ec12239bef63b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enableSpawn: 1
   spawnObject: {fileID: 4413566190785026555, guid: 59c4acb2c40fbd449bbaa96a55432ef9, type: 3}
   plane: {fileID: 1587538152}
   noOfEnemies: 0
@@ -433,7 +434,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 733202811}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.3589983, y: 2.1873784, z: -11.461395}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1991654056}
@@ -1111,7 +1112,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1092, y: 510}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1991654057
 MonoBehaviour:
@@ -1295,6 +1296,10 @@ PrefabInstance:
     - target: {fileID: 101276604810472117, guid: 261c8021f9838da478537aaa9000726e, type: 3}
       propertyPath: testVal
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 101276604810472117, guid: 261c8021f9838da478537aaa9000726e, type: 3}
+      propertyPath: hasHpBar
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 101276604810472117, guid: 261c8021f9838da478537aaa9000726e, type: 3}
       propertyPath: parentCanvas
