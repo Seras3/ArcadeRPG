@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class BulletPool : ObjectPool
+﻿public class ShotgunBulletPool : ObjectPool
 {
-    public static BulletPool instance;
+    public static ShotgunBulletPool instance;
 
     // Start is called before the first frame update
     private void Awake() {

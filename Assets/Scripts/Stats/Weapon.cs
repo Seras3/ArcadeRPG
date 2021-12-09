@@ -1,15 +1,12 @@
+using System;
+using Stats;
 using UnityEngine;
 
-public class Weapon
+public class Weapon : MonoBehaviour
 {
-    public string Name { get; }
+    public GameObject Bullet;
 
-    public int Damage { get; }
-    //public int ammo;
-
-    public Weapon(string name, int damage)
-    {
-        Name = name;
-        Damage = damage;
-    }
+    public Vector3 OffsetPosition;
+    
+    public int AmmoCount;
 }

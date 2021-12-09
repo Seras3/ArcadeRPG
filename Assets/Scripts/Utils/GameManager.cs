@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Controllers;
 using UnityEngine;
 
 namespace Utils
@@ -12,7 +13,7 @@ namespace Utils
 
         private GameObject _player;
         private HumanoidMovementPlayer _playerMovementScript;
-        private PlayerShooting _playerShootingScript;
+        private PlayerController _playerControllerScript;
         public static GameStatus CurrentStatus { get; private set; }
 
         public enum GameStatus
@@ -32,10 +33,10 @@ namespace Utils
 
             _player = GameObject.Find("Dummy");
             _playerMovementScript = _player.GetComponent<HumanoidMovementPlayer>();
-            _playerShootingScript = _player.GetComponent<PlayerShooting>();
+            _playerControllerScript = _player.GetComponent<PlayerController>();
             
             _playerMovementScript.enabled = true;
-            _playerShootingScript.enabled = true;
+            _playerControllerScript.enabled = true;
             Time.timeScale = 1;
             DeactivateCanvas();
         }
@@ -75,7 +76,7 @@ namespace Utils
             
             // free hero
             _playerMovementScript.enabled = true;
-            _playerShootingScript.enabled = true;
+            _playerControllerScript.enabled = true;
             // free bullets
             Time.timeScale = 1;
             // remove game paused canvas
@@ -88,7 +89,7 @@ namespace Utils
         {
             // freeze hero
             _playerMovementScript.enabled = false;
-            _playerShootingScript.enabled = false;
+            _playerControllerScript.enabled = false;
             // freeze bullets
             Time.timeScale = 0;
         }

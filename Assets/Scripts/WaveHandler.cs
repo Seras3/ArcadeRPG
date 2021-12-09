@@ -66,7 +66,6 @@ public class WaveHandler : MonoBehaviour
 
 		if (waveTimer.Finished)
 		{
-			Debug.Log("Time is up!");
 			startWave();
 		}
 
@@ -80,7 +79,6 @@ public class WaveHandler : MonoBehaviour
 	void startWave()
 	{
 		wave++;
-		Debug.Log("Starting wave " + wave.ToString());
 		// start wave timer
 		waveTimer.Duration = wave * 5;
 		waveTimer.Run();
@@ -101,12 +99,10 @@ public class WaveHandler : MonoBehaviour
 		int randomNumber = Random.Range(0, 2);
 		if (randomNumber == 0)
         {
-			Debug.Log("Default enemy will be spawned.");
 			enemyObject = EnemyPool.instance.GetPooledObject();
 		} 
 		else
         {
-			Debug.Log("Vampire enemy will be spawned.");
 			enemyObject = VampirePool.instance.GetPooledObject();
 		}
 		
@@ -132,7 +128,6 @@ public class WaveHandler : MonoBehaviour
 		// 0 -> Top; 1 -> Right; 2 -> Bottom; 3 -> Left
 		int spawnPosition = Random.Range(0, 4);
 		string[] positionNames = new string[] { "Top", "Right", "Bottom", "Left" };
-		Debug.Log("Enemy " + (noOfEnemies + 1).ToString() + " spawned on the " + positionNames[spawnPosition] + " side of the Arena.");
 		float x, z;
 		switch (spawnPosition)
 		{
