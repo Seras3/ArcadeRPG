@@ -124,6 +124,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09abc3e5b6164baa841c5a0ac8b8a4eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sliderPrefab: {fileID: 0}
+  SliderOffset: {x: 0, y: 3, z: 0}
+  parentCanvas: {fileID: 0}
+  hasHpBar: 1
+  ScoreCount: 10
 --- !u!54 &3080607516002117398
 Rigidbody:
   m_ObjectHideFlags: 0
