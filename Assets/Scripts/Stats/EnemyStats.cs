@@ -4,9 +4,10 @@ namespace Stats
 {
     public class EnemyStats : CharacterStats
     {
-        public UIHandler handler;
+        private UIHandler handler;
         private GameObject objectSpawner;
         public int Damage { get; set; }
+        public int ScoreCount;
 
         void Start() 
         {
@@ -20,7 +21,7 @@ namespace Stats
         
         public override void Die()
         {
-            handler.AddScore(5);
+            handler.AddScore(ScoreCount);
             objectSpawner.GetComponent<WaveHandler>().killEnemy();
 
             this.gameObject.SetActive(false);
