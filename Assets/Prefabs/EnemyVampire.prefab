@@ -178,6 +178,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40f23835a90536743a96dcc5488bc997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sliderPrefab: {fileID: 0}
+  SliderOffset: {x: 0, y: 3, z: 0}
+  parentCanvas: {fileID: 0}
+  hasHpBar: 1
+  handler: {fileID: 0}
+  ScoreCount: 25
 --- !u!1 &8656433971524002510
 GameObject:
   m_ObjectHideFlags: 0
