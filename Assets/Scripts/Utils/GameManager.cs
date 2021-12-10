@@ -29,7 +29,7 @@ namespace Utils
         {
             CurrentStatus = GameStatus.Playing;
 
-            _inGameCanvas = Resources.FindObjectsOfTypeAll<Canvas>().First(obj => obj.gameObject.transform.name == "InGameCanvas").gameObject;;
+            _inGameCanvas = GameObject.Find("Canvases").transform.GetChild(1).gameObject;
             _gameOverScreen = _inGameCanvas.transform.GetChild(1).gameObject;
             _gamePausedScreen = _inGameCanvas.transform.GetChild(2).gameObject;
 
@@ -100,14 +100,14 @@ namespace Utils
 
         private void ShowGameOverScreen()
         {
-            _gameOverScreen.SetActive(true);
             ActivateCanvas();
+            _gameOverScreen.SetActive(true);
         }
 
         private void ShowGamePausedScreen()
         {
-            _gamePausedScreen.SetActive(true);
             ActivateCanvas();
+            _gamePausedScreen.SetActive(true);
         }
 
         private void ActivateCanvas()

@@ -76,7 +76,6 @@ public abstract class CharacterStats : MonoBehaviour
             Debug.Log(transform.name + " takes " + damage + " damage.");
         }
 
-        Debug.Log(CurrentHealth.GetValue());
         if (CurrentHealth.GetValue() <= 0)
         {
             Die();
