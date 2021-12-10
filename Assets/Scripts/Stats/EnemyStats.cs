@@ -9,8 +9,6 @@ namespace Stats
         public int Damage { get; set; }
         public int ScoreCount;
 
-        public int ScoreCount;
-
         private int DEFAULT_SCORE_COUNT = 5;
 
         void Start() 
