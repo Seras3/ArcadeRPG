@@ -26,10 +26,14 @@ public class VampireController : EnemyController
     private Rigidbody vampireRB;
     private Renderer batMesh;
 
-    private Vector3 playerPosition;
+    private Vector3 _playerPosition;
     
+    private Plane _plane;
+
     void Start()
     { 
+        _plane = new Plane(Vector3.up, 0);
+
         interpolant = 0.1f;
 
         enemyStats = GetComponent<Stats.EnemyStats>(); 
@@ -58,11 +62,11 @@ public class VampireController : EnemyController
     {
         vampire.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, vampire.gameObject.transform.position.y, this.gameObject.transform.position.z);
 
-        playerPosition = GameObject.Find("B-spine").transform.position;
+        _playerPosition = GameObject.Find("B-spine").transform.position;
 
-        if (playerPosition != null) 
+        if (_playerPosition != null) 
         {
-            var lookPos = playerPosition - transform.position;
+            var lookPos = _playerPosition - transform.position;
             lookPos.y = 0;
             var rotation = Quaternion.LookRotation(lookPos);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 10);
@@ -117,21 +121,24 @@ public class VampireController : EnemyController
     {
         if (Cooldown())
         {
-            Debug.Log("Vampire shot");
             // Spawn bullet at the position of firePoint, add force to it
 
-            GameObject bullet = BulletPool.instance.GetPooledObject();
+            GameObject bullet = PistolBulletPool.instance.GetPooledObject();
 
             if (bullet != null)
             {
                 bullet.GetComponent<BulletController>().shooter = vampire;
                 Rigidbody rb = bullet.GetComponent<Rigidbody>();
-                //vampireLookDirection = (playerPosition - rb.position).normalized;
-                vampireLookDirection = new Vector3(playerPosition.x - this.gameObject.transform.position.x, 0, playerPosition.z - this.gameObject.transform.position.z).normalized;
+                vampireLookDirection = new Vector3(_playerPosition.x - this.gameObject.transform.position.x, 0, _playerPosition.z - this.gameObject.transform.position.z).normalized;
                 bullet.transform.position = vampire.transform.position;
                 rb.velocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
                 bullet.SetActive(true);
+                
+                var lookDirection = (_playerPosition - bullet.transform.position).normalized;
+                bullet.transform.rotation = Quaternion.LookRotation(lookDirection);
+                bullet.transform.Rotate(-90, 0, 0);
+
                 rb.AddForce(vampireLookDirection * bulletForce, ForceMode.Impulse);
             }
         }

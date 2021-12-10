@@ -865,6 +865,7 @@ GameObject:
   - component: {fileID: 1929588482}
   - component: {fileID: 1929588481}
   - component: {fileID: 1929588480}
+  - component: {fileID: 1929588484}
   m_Layer: 0
   m_Name: ObjectPool
   m_TagString: Untagged
@@ -881,13 +882,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1929588479}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a7c2107b0c49db4c90b9e08f4ff02a7, type: 3}
+  m_Script: {fileID: 11500000, guid: 90084a765ba04225a4d70d4ede216e66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   amountToPool: 5
   amountToPoolExtra: 5
   addMoreTrigger: 2
-  objectPrefab: {fileID: 4413566190785026555, guid: 59c4acb2c40fbd449bbaa96a55432ef9, type: 3}
+  objectPrefab: {fileID: 2700876907796551394, guid: c5eb8acc227b8dc4ea1ec9e1b92faf1e, type: 3}
 --- !u!114 &1929588481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -897,13 +898,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1929588479}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e18a76a06a6b0d4429244c5c8186ec06, type: 3}
+  m_Script: {fileID: 11500000, guid: b740ff5ed79447c9854e7866d8b1d337, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   amountToPool: 5
   amountToPoolExtra: 5
   addMoreTrigger: 2
-  objectPrefab: {fileID: 2700876907796551394, guid: b01c72b2cc008e54ca0cc24363560e41, type: 3}
+  objectPrefab: {fileID: 2700876907796551394, guid: 7f50287b8ad48514e93d841e98fa6df1, type: 3}
 --- !u!114 &1929588482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -934,6 +935,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1929588484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1929588479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffd61dde026a09d408d4ffaada84c4db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amountToPool: 5
+  amountToPoolExtra: 5
+  addMoreTrigger: 2
+  objectPrefab: {fileID: 4413566190785026555, guid: 59c4acb2c40fbd449bbaa96a55432ef9, type: 3}
 --- !u!1 &2046133177
 GameObject:
   m_ObjectHideFlags: 0
@@ -1046,7 +1063,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 105595413787743893, guid: 261c8021f9838da478537aaa9000726e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.960338
+      value: 8.975
       objectReference: {fileID: 0}
     - target: {fileID: 105595413787743893, guid: 261c8021f9838da478537aaa9000726e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1054,7 +1071,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 105595413787743893, guid: 261c8021f9838da478537aaa9000726e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -13.615032
+      value: -13.596
       objectReference: {fileID: 0}
     - target: {fileID: 105595413787743893, guid: 261c8021f9838da478537aaa9000726e, type: 3}
       propertyPath: m_LocalRotation.w
