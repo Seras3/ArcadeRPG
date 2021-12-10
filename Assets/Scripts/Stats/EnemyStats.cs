@@ -1,21 +1,18 @@
 ﻿using UnityEngine;
+using Utils;
 
 namespace Stats
 {
     public class EnemyStats : CharacterStats
     {
-        private UIHandler handler;
         private GameObject objectSpawner;
         public int Damage { get; set; }
         public int ScoreCount;
 
-        private int DEFAULT_SCORE_COUNT = 5;
-
         void Start() 
         {
-            if(ScoreCount == 0) { ScoreCount = DEFAULT_SCORE_COUNT; }
+            if(ScoreCount == 0) { ScoreCount = GlobalConstants.DefaultEnemyScoreCount; }
 
-            handler = GameObject.Find("UIModifier").GetComponent<UIHandler>();
             objectSpawner = GameObject.Find("ObjectSpawner");
         }
         public EnemyStats() 
@@ -25,8 +22,8 @@ namespace Stats
         
         public override void Die()
         {
-            handler.AddScore(ScoreCount);
             objectSpawner.GetComponent<WaveHandler>().killEnemy();
+            GameManager.AddScore(ScoreCount);
 
             this.gameObject.SetActive(false);
             Debug.Log(transform.name + " died.");

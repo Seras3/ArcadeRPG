@@ -11,10 +11,12 @@ namespace Utils
         private GameObject _gameOverScreen;
         private GameObject _gamePausedScreen;
 
+        private UIHandler _uiHandler;
         private GameObject _player;
         private HumanoidMovementPlayer _playerMovementScript;
         private PlayerController _playerControllerScript;
         public static GameStatus CurrentStatus { get; private set; }
+        public static int Score { get; private set; }
 
         public enum GameStatus
         {
@@ -31,6 +33,7 @@ namespace Utils
             _gameOverScreen = _inGameCanvas.transform.GetChild(1).gameObject;
             _gamePausedScreen = _inGameCanvas.transform.GetChild(2).gameObject;
 
+            _uiHandler = GameObject.Find("UIModifier").GetComponent<UIHandler>();
             _player = GameObject.Find("Dummy");
             _playerMovementScript = _player.GetComponent<HumanoidMovementPlayer>();
             _playerControllerScript = _player.GetComponent<PlayerController>();
@@ -38,6 +41,7 @@ namespace Utils
             _playerMovementScript.enabled = true;
             _playerControllerScript.enabled = true;
             Time.timeScale = 1;
+            Score = 0;
             DeactivateCanvas();
         }
 
@@ -118,6 +122,11 @@ namespace Utils
             _inGameCanvas.GetComponent<CanvasGroup>().alpha = 0;
             _gamePausedScreen.SetActive(false);
             _gameOverScreen.SetActive(false);
+        }
+
+        public static void AddScore(int value) 
+        {  
+            Score += value;
         }
     }
 }
