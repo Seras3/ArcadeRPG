@@ -4,9 +4,10 @@ namespace Stats
 {
     public class EnemyStats : CharacterStats
     {
-        public UIHandler handler;
+        private UIHandler handler;
         private GameObject objectSpawner;
         public int Damage { get; set; }
+        public int ScoreCount;
 
         public int ScoreCount;
 
