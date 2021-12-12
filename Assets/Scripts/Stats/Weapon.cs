@@ -9,4 +9,6 @@ public class Weapon : MonoBehaviour
     public Vector3 OffsetPosition;
     
     public int AmmoCount;
+
+    public bool HasInfiniteAmmo;
 }

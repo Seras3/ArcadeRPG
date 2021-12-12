@@ -13,6 +13,7 @@ namespace Stats
         public List<GameObject> WeaponsList = new List<GameObject>();
 
         private int _activeWeaponIndex;
+        private bool _isNextWeaponReady;
 
         private void Start()
         {
@@ -20,6 +21,7 @@ namespace Stats
             ActiveWeapon.transform.position += ActiveWeapon.GetComponent<Weapon>().OffsetPosition;
 
             _activeWeaponIndex = 0;
+            PoolWeapons();
         }
 
         private void Update()
@@ -37,28 +39,36 @@ namespace Stats
             GameObject.Find("GameManagerObject").GetComponent<GameManager>().GameOver();
         }
 
+        private void PoolWeapons() 
+        {
+            GameObject pooledWeapon;
+            for(int i = 1; i < WeaponsList.Count; i++) {
+                pooledWeapon = Instantiate(WeaponsList[i], transform);
+                pooledWeapon.transform.position += pooledWeapon.GetComponent<Weapon>().OffsetPosition;
+            }
+        }
+
         private void ChangeWeapon()
         {
-            _activeWeaponIndex++;
-            _activeWeaponIndex %= WeaponsList.Count;
-            
-            ActiveWeapon.SetActive(false);
+            _isNextWeaponReady = false;
+            while(!_isNextWeaponReady) 
+            {
+                _isNextWeaponReady = true;
+                _activeWeaponIndex++;
+                _activeWeaponIndex %= WeaponsList.Count;
 
-            try
-            {
                 var existingWeapon = transform.GetChild(3 + _activeWeaponIndex).gameObject;
-                existingWeapon.SetActive(true);
-                ActiveWeapon = existingWeapon;
-            }
-            catch (Exception)
-            {
-                ActiveWeapon = Instantiate(WeaponsList[_activeWeaponIndex], transform);
-                
-                var position = ActiveWeapon.transform.position;
-                position += GetComponent<HumanoidMovementPlayer>().lookDirection *
-                            (float) GlobalConstants.WeaponPositionFactorOffset;
-                position = new Vector3(position.x, (float) GlobalConstants.WeaponPositionYOffset, position.z);
-                ActiveWeapon.transform.position = position;
+                if(existingWeapon.GetComponent<Weapon>().AmmoCount == 0) 
+                {
+                    _isNextWeaponReady = false;
+                }
+
+                if(_isNextWeaponReady) 
+                {
+                    ActiveWeapon.SetActive(false);
+                    existingWeapon.SetActive(true);
+                    ActiveWeapon = existingWeapon;
+                }
             }
 
         }

@@ -50,7 +50,7 @@ namespace Controllers
             // Spawn bullet at the position of firePoint, add force to it
             
             Debug.Log("GUN: " + _activeWeapon.transform.name);
-            GameObject bullet = _activeWeapon.GetComponent<Weapon>().Bullet.transform.name == "ShotgunBullet" 
+            GameObject bullet = _activeWeapon.GetComponent<Weapon>().Bullet.transform.name == "RiffleBullet" 
                 ? ShotgunBulletPool.instance.GetPooledObject() : PistolBulletPool.instance.GetPooledObject();
 
             if (bullet == null) return;
