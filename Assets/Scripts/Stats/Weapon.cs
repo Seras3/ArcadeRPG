@@ -11,4 +11,17 @@ public class Weapon : MonoBehaviour
     public int AmmoCount;
 
     public bool HasInfiniteAmmo;
+
+    public float FireRate;
+
+
+    public void ReduceAmmo()
+    {
+        AmmoCount -= 1;
+    }
+
+    public bool HasAmmo() 
+    {
+        return HasInfiniteAmmo || (AmmoCount > 0);
+    }
 }

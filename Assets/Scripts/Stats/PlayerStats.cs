@@ -48,7 +48,7 @@ namespace Stats
             }
         }
 
-        private void ChangeWeapon()
+        public void ChangeWeapon()
         {
             _isNextWeaponReady = false;
             while(!_isNextWeaponReady) 
