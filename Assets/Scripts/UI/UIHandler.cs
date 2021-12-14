@@ -9,13 +9,16 @@ public class UIHandler : MonoBehaviour
 {
     private TMP_Text ScoreTextMesh;
     private TMP_Text AmmoTextMesh;
+    private TMP_Text DropTextMesh;
     private GameObject currentWeapon;
     private Weapon currentWeaponStats;
+   
 
     void Start()
     {
         ScoreTextMesh = GameObject.Find("ScoreText").GetComponent<TMP_Text>();
         AmmoTextMesh = GameObject.Find("AmmoText").GetComponent<TMP_Text>();
+        DropTextMesh = GameObject.Find("DropText").GetComponent<TMP_Text>();
     }
 
     void Update() 
@@ -25,6 +28,12 @@ public class UIHandler : MonoBehaviour
 
         ScoreTextMesh.text = GameManager.Score + "  SCORE";
         AmmoTextMesh.text = "x " + (currentWeaponStats.HasInfiniteAmmo ? "Inf" : currentWeaponStats.AmmoCount.ToString());
+    }
+
+    public void DisplayNewDrop(string text) 
+    {
+        DropTextMesh.text = text;
+        GameObject.Find("DropText").GetComponent<Animator>().Play("Base Layer.DropTextAnimation");
     }
 
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    public string Name;
     public GameObject Bullet;
 
     public Vector3 OffsetPosition;

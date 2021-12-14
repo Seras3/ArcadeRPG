@@ -95,7 +95,6 @@ public class WaveHandler : MonoBehaviour
 	public void killEnemy()
 	{
 		deadEnemies++;
-		Debug.Log("Dead enemies: " + deadEnemies.ToString());
 	}
 
 	void objectSpawn()

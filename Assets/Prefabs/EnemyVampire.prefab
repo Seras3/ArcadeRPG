@@ -182,8 +182,11 @@ MonoBehaviour:
   SliderOffset: {x: 0, y: 3, z: 0}
   parentCanvas: {fileID: 0}
   hasHpBar: 1
-  handler: {fileID: 0}
   ScoreCount: 25
+  DropList:
+  - Weapon: {fileID: 2894627681083147606, guid: 8ed0f39eedc4f1145af329f2f23ed639, type: 3}
+    AmmoCount: 100
+    DropChance: 0.5
 --- !u!1 &8656433971524002510
 GameObject:
   m_ObjectHideFlags: 0

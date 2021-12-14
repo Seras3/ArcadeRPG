@@ -128,8 +128,14 @@ MonoBehaviour:
   SliderOffset: {x: 0, y: 3, z: 0}
   parentCanvas: {fileID: 0}
   hasHpBar: 1
-  handler: {fileID: 0}
   ScoreCount: 10
+  DropList:
+  - Weapon: {fileID: 2894627681083147606, guid: 8ed0f39eedc4f1145af329f2f23ed639, type: 3}
+    AmmoCount: 100
+    DropChance: 0.1
+  - Weapon: {fileID: 2894627681083147606, guid: 8ed0f39eedc4f1145af329f2f23ed639, type: 3}
+    AmmoCount: 50
+    DropChance: 0.2
 --- !u!54 &3080607516002117398
 Rigidbody:
   m_ObjectHideFlags: 0
