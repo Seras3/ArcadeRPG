@@ -11,4 +11,6 @@ public class Weapon : MonoBehaviour
     public int AmmoCount;
 
     public bool HasInfiniteAmmo;
+
+    public float accuracy;
 }
