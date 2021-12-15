@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class WaveHandler : MonoBehaviour
+public class WaveController : MonoBehaviour
 {
 
 	[SerializeField] private bool enableSpawn = true;
@@ -15,13 +15,15 @@ public class WaveHandler : MonoBehaviour
 	GameObject plane;
 
 	// spawn control
-	const float MinSpawnDelay = 1;
-	const float MaxSpawnDelay = 1;
+	const float MinSpawnDelay = 3;
+	const float MaxSpawnDelay = 5;
 
 	const float yBuffer = 1;
 	Timer spawnTimer;
 	Timer waveTimer;
-	int wave;
+	private int wave;
+	private int maxNoOfWaves;
+	private int level;
 
 	// spawn location support
 	float randomX;
@@ -30,7 +32,7 @@ public class WaveHandler : MonoBehaviour
 
 	// maximum number of enemies
 	public int noOfEnemies = 0;
-	private int maxNoOfEnemies;
+	public int maxNoOfEnemies;
 	public int deadEnemies = 0;
 
 
@@ -59,6 +61,7 @@ public class WaveHandler : MonoBehaviour
 	void Update()
 	{
 		if (!enableSpawn) return;
+		if (wave > maxNoOfWaves) return;
 
 
 		// check for time to spawn a new enemy
@@ -73,12 +76,13 @@ public class WaveHandler : MonoBehaviour
 
 		if (waveTimer.Finished)
 		{
+			Debug.Log("Wave timer finished.");
 			startWave();
 		}
 
 		if (deadEnemies == maxNoOfEnemies)
 		{
-			Debug.Log("All enemies are dead.");
+			Debug.Log("All enemies from this wave are dead.");
 			startWave();
 		}
 	}
@@ -86,10 +90,12 @@ public class WaveHandler : MonoBehaviour
 	void startWave()
 	{
 		wave++;
-		// start wave timer
-		waveTimer.Duration = wave * 5;
+		if (wave > maxNoOfWaves) return;
+		Debug.Log("Starting wave " + wave.ToString());
+		int enemiesForCurrentWave = wave + level + 1; //(int)System.Math.Round(wave + level + 1);
+		waveTimer.Duration = 25 * enemiesForCurrentWave / level;
 		waveTimer.Run();
-		maxNoOfEnemies = noOfEnemies + 1 * wave;
+		maxNoOfEnemies = noOfEnemies + enemiesForCurrentWave;
 	}
 
 	public void killEnemy()
@@ -156,7 +162,7 @@ public class WaveHandler : MonoBehaviour
 			default:
 				x = 0;
 				z = 0;
-				Debug.Log("IDK what happened.");
+				Debug.Log("Something wrong happened.");
 				break;
 		}
 
@@ -165,5 +171,32 @@ public class WaveHandler : MonoBehaviour
 
 
 	}
+
+	public bool levelFinished()
+    {
+		if (wave > maxNoOfWaves && deadEnemies == maxNoOfEnemies)
+		{
+			Debug.Log("Dead enemies: " + deadEnemies.ToString());
+			return true;
+        }
+		return false;
+    }
+
+	public void startLevel(int level)
+	{
+		this.level = level;
+		int maxNoOfWaves = level + 2;
+		this.maxNoOfWaves = maxNoOfWaves;
+		wave = 0;
+		if(level != 1)
+        {
+			startWave();
+		}
+	}
+
+	public void setMaxNoOfWaves(int maxNoOfWaves)
+    {
+		this.maxNoOfWaves = maxNoOfWaves;
+    }
 
 }
