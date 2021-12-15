@@ -49,7 +49,7 @@ namespace Stats
         {
             TryDropLoot();
 
-            objectSpawner.GetComponent<WaveHandler>().killEnemy();
+            objectSpawner.GetComponent<LevelController>().killEnemy();
             GameManager.AddScore(ScoreCount);
 
             this.gameObject.SetActive(false);
