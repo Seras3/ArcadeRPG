@@ -6,27 +6,38 @@ public class LevelController : MonoBehaviour
 {
     int level;
     private WaveController waveController;
+    private bool isLevelStarting;
     void Start()
     {
         waveController = gameObject.AddComponent<WaveController>();
         level = 0;
+        isLevelStarting = false;
         StartNewLevel();
     }
 
     void Update()
     {
-        if (waveController.levelFinished())
+        if (waveController.levelFinished() && !isLevelStarting)
         {
-            StartNewLevel();
+            isLevelStarting = true;
+            StartCoroutine(StartNewLevelWithDelay(5));
         }
-
     }
 
     void StartNewLevel()
     {
         level++;
-        Debug.Log("Level " + level.ToString());
+        Debug.Log("Level" + level.ToString());
         waveController.startLevel(level);
+        isLevelStarting = false;
+    }
+
+    IEnumerator StartNewLevelWithDelay(int delay)
+    {
+        Debug.Log("Sleeping started");
+        yield return new WaitForSeconds(delay);
+        Debug.Log("Sleeping stopped");
+        StartNewLevel();
     }
 
 

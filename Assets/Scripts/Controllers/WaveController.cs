@@ -21,9 +21,9 @@ public class WaveController : MonoBehaviour
 	const float yBuffer = 1;
 	Timer spawnTimer;
 	Timer waveTimer;
-	private int wave;
-	private int maxNoOfWaves;
-	private int level;
+	public int wave;
+	public int maxNoOfWaves;
+	public int level;
 
 	// spawn location support
 	float randomX;
@@ -34,7 +34,6 @@ public class WaveController : MonoBehaviour
 	public int noOfEnemies = 0;
 	public int maxNoOfEnemies;
 	public int deadEnemies = 0;
-
 
 	void Start()
 	{
@@ -85,6 +84,22 @@ public class WaveController : MonoBehaviour
 			Debug.Log("All enemies from this wave are dead.");
 			startWave();
 		}
+	}
+
+	public void startLevel(int level)
+	{
+		this.level = level;
+		maxNoOfWaves = level + 2;
+		wave = 0;
+		if(level != 1)
+        {
+			startWave();
+		}
+	}
+
+	public bool levelFinished()
+	{
+		return wave > maxNoOfWaves && deadEnemies == maxNoOfEnemies;
 	}
 
 	void startWave()
@@ -168,35 +183,6 @@ public class WaveController : MonoBehaviour
 
 		Vector3 newVec = new Vector3(x, plane.transform.position.y + yBuffer, z);
 		return newVec;
-
-
 	}
-
-	public bool levelFinished()
-    {
-		if (wave > maxNoOfWaves && deadEnemies == maxNoOfEnemies)
-		{
-			Debug.Log("Dead enemies: " + deadEnemies.ToString());
-			return true;
-        }
-		return false;
-    }
-
-	public void startLevel(int level)
-	{
-		this.level = level;
-		int maxNoOfWaves = level + 2;
-		this.maxNoOfWaves = maxNoOfWaves;
-		wave = 0;
-		if(level != 1)
-        {
-			startWave();
-		}
-	}
-
-	public void setMaxNoOfWaves(int maxNoOfWaves)
-    {
-		this.maxNoOfWaves = maxNoOfWaves;
-    }
 
 }
