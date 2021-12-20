@@ -2056,7 +2056,7 @@ MonoBehaviour:
   amountToPool: 5
   amountToPoolExtra: 5
   addMoreTrigger: 2
-  objectPrefab: {fileID: 4413566190785026555, guid: 59c4acb2c40fbd449bbaa96a55432ef9, type: 3}
+  objectPrefab: {fileID: 1067925524328404, guid: 6bbfea6690ef7724ba495c866081f855, type: 3}
 --- !u!1 &1945710734
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,7 +18,7 @@ public class WaveController : MonoBehaviour
 	const float MinSpawnDelay = 3;
 	const float MaxSpawnDelay = 5;
 
-	const float yBuffer = 1;
+	const float yBuffer = 1, yBufferGolem = 0.5f;
 	Timer spawnTimer;
 	Timer waveTimer;
 	public int wave;
@@ -123,15 +123,16 @@ public class WaveController : MonoBehaviour
 		// generate random location and create new object
 		Vector3 randomPosition = GetARandomPos(plane);
 		GameObject enemyObject;
-		int randomNumber = Random.Range(0, 2);
-		if (randomNumber == 0)
-        {
+		//int randomNumber = Random.Range(0, 2);
+		//if (randomNumber == 0)
+        //{
 			enemyObject = EnemyPool.instance.GetPooledObject();
-		} 
-		else
-        {
-			enemyObject = VampirePool.instance.GetPooledObject();
-		}
+		//}
+		//else
+        //{
+			// enemyObject = VampirePool.instance.GetPooledObject();
+			// enemyObject = EnemyPool.instance.GetPooledObject();
+		//}
 		
 		if (enemyObject != null)
         {
@@ -181,7 +182,7 @@ public class WaveController : MonoBehaviour
 				break;
 		}
 
-		Vector3 newVec = new Vector3(x, plane.transform.position.y + yBuffer, z);
+		Vector3 newVec = new Vector3(x, plane.transform.position.y + yBufferGolem, z);
 		return newVec;
 	}
 

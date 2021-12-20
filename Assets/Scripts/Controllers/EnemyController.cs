@@ -17,7 +17,7 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.CurrentStatus is GameManager.GameStatus.Playing) MoveTowardsPlayer();
+        //if (GameManager.CurrentStatus is GameManager.GameStatus.Playing) MoveTowardsPlayer();
     }
 
     protected void MoveTowardsPlayer()
@@ -31,16 +31,16 @@ public class EnemyController : MonoBehaviour
 
     protected void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            Vector3 pushBack = (other.gameObject.transform.position - transform.position).normalized;
-            pushBack.y = 0;
-            other.gameObject.transform.position += pushBack;
-        }
-
-        if (other.gameObject.name == "Dummy")
-        {
-            other.gameObject.GetComponent<CharacterStats>().TakeDamage(enemyStats.Damage);
-        }
+        // if (other.gameObject.CompareTag("Enemy"))
+        // {
+        //     Vector3 pushBack = (other.gameObject.transform.position - transform.position).normalized;
+        //     pushBack.y = 0;
+        //     other.gameObject.transform.position += pushBack;
+        // }
+        //
+        // if (other.gameObject.name == "Dummy")
+        // {
+        //     other.gameObject.GetComponent<CharacterStats>().TakeDamage(enemyStats.Damage);
+        // }
     }
 }
