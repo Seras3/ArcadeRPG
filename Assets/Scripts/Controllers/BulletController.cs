@@ -48,9 +48,12 @@ public class BulletController : MonoBehaviour
             {
                 if (other.gameObject.GetComponentInParent<CharacterStats>() != null) {
                     other.gameObject.GetComponentInParent<CharacterStats>().TakeDamage(Damage);
+                    other.gameObject.GetComponentInParent<Animator>().Play("GetHit", 0);
                 }
                 else {
                     other.gameObject.GetComponent<CharacterStats>().TakeDamage(Damage);
+                    other.gameObject.GetComponent<Animator>().Play("GetHit", 0);
+
                 }
             }
             catch

@@ -61,7 +61,6 @@ namespace Controllers
             }
 
 
-            Debug.Log("GUN: " + _activeWeapon.transform.name);
             GameObject bullet = _activeWeapon.GetComponent<Weapon>().Bullet.transform.name == "RiffleBullet" 
                 ? ShotgunBulletPool.instance.GetPooledObject() : PistolBulletPool.instance.GetPooledObject();
 

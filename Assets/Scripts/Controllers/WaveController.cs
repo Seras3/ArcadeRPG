@@ -122,17 +122,17 @@ public class WaveController : MonoBehaviour
 	{
 		// generate random location and create new object
 		Vector3 randomPosition = GetARandomPos(plane);
-		GameObject enemyObject;
-		//int randomNumber = Random.Range(0, 2);
-		//if (randomNumber == 0)
-        //{
+		GameObject enemyObject = null;
+		int randomNumber = Random.Range(0, 2);
+		if (randomNumber == 0)
+        {
 			enemyObject = EnemyPool.instance.GetPooledObject();
-		//}
-		//else
-        //{
-			// enemyObject = VampirePool.instance.GetPooledObject();
-			// enemyObject = EnemyPool.instance.GetPooledObject();
-		//}
+		}
+		else
+        {
+	        // enemyObject = VampirePool.instance.GetPooledObject();
+	        enemyObject = EnemyPool.instance.GetPooledObject();
+		}
 		
 		if (enemyObject != null)
         {

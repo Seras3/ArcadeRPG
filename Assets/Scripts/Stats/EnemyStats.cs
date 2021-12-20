@@ -2,6 +2,7 @@
 using Utils;
 using System.Collections.Generic;
 using System;
+using System.Collections;
 
 namespace Stats
 {
@@ -19,6 +20,7 @@ namespace Stats
         public int Damage { get; set; }
         public int ScoreCount;
         public List<Drop> DropList;
+        // private static readonly int IsDead = Animator.StringToHash("isDead");
 
         void Start() 
         {
@@ -48,13 +50,24 @@ namespace Stats
         public override void Die()
         {
             TryDropLoot();
-
+            GetComponent<BoxCollider>().enabled = false;
+            
+            var anim = GetComponent<Animator>();
+            anim.SetBool("isDead", true);
+            Debug.Log("PARAM: " +anim.GetBool("isDead"));
+            // anim.Play("Die", 0);
+            
             objectSpawner.GetComponent<LevelController>().killEnemy();
             GameManager.AddScore(ScoreCount);
-
-            this.gameObject.SetActive(false);
-            Debug.Log(transform.name + " died.");
+            
+            StartCoroutine(RunDieAnimation(anim.GetCurrentAnimatorStateInfo(0).length));
         }
 
+        private IEnumerator RunDieAnimation(float seconds)
+        {
+            yield return new WaitForSeconds(seconds);
+            
+            gameObject.SetActive(false);
+        }
     }
 }
