@@ -34,6 +34,7 @@ public class WaveController : MonoBehaviour
 	public int noOfEnemies = 0;
 	public int maxNoOfEnemies;
 	public int deadEnemies = 0;
+	private static readonly int IsDead = Animator.StringToHash("isDead");
 
 	void Start()
 	{
@@ -138,6 +139,8 @@ public class WaveController : MonoBehaviour
         {
 			enemyObject.transform.position = randomPosition;
 			enemyObject.GetComponent<Stats.EnemyStats>().InitStats();
+			enemyObject.GetComponent<EnemyController>().enabled = true;
+			enemyObject.GetComponent<Animator>().SetBool(IsDead, false);
 			enemyObject.SetActive(true);
 		}
 

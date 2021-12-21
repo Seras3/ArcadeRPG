@@ -13,6 +13,7 @@ public class BulletController : MonoBehaviour
     private float _offsetPosition;
     private Renderer _renderer;
     private Transform _playerTransform;
+    private static readonly int IsDead = Animator.StringToHash("isDead");
 
     public int Damage => GetComponent<BulletStats>().Damage;
     void Start()
@@ -46,14 +47,24 @@ public class BulletController : MonoBehaviour
         {
             try
             {
-                if (other.gameObject.GetComponentInParent<CharacterStats>() != null) {
-                    other.gameObject.GetComponentInParent<CharacterStats>().TakeDamage(Damage);
-                    other.gameObject.GetComponentInParent<Animator>().Play("GetHit", 0);
+                var charStats = other.gameObject.GetComponentInParent<CharacterStats>();
+                if (charStats != null) {
+                    charStats.TakeDamage(Damage);
+                    var anim = other.gameObject.GetComponentInParent<Animator>();
+                    if (anim.GetBool(IsDead) == false)
+                    {
+                        anim.Play("GetHit", 0);
+                    }
                 }
-                else {
-                    other.gameObject.GetComponent<CharacterStats>().TakeDamage(Damage);
-                    other.gameObject.GetComponent<Animator>().Play("GetHit", 0);
-
+                else
+                {
+                    charStats = other.gameObject.GetComponent<CharacterStats>();
+                    charStats.TakeDamage(Damage);
+                    var anim = other.gameObject.GetComponent<Animator>();
+                    if (anim.GetBool(IsDead) == false)
+                    {
+                        anim.Play("GetHit", 0);
+                    }
                 }
             }
             catch
@@ -64,7 +75,7 @@ public class BulletController : MonoBehaviour
             {
                 Physics.IgnoreCollision(GetComponent<Collider>(), shooter.GetComponent<Collider>(), false);
                 gameObject.SetActive(false);
-            }    
+            }   
         }
     }
 }

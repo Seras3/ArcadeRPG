@@ -20,7 +20,8 @@ namespace Stats
         public int Damage { get; set; }
         public int ScoreCount;
         public List<Drop> DropList;
-        // private static readonly int IsDead = Animator.StringToHash("isDead");
+
+        private static readonly int IsDead = Animator.StringToHash("isDead");
 
         void Start() 
         {
@@ -50,13 +51,11 @@ namespace Stats
         public override void Die()
         {
             TryDropLoot();
-            GetComponent<BoxCollider>().enabled = false;
             
             var anim = GetComponent<Animator>();
-            anim.SetBool("isDead", true);
-            Debug.Log("PARAM: " +anim.GetBool("isDead"));
-            // anim.Play("Die", 0);
-            
+            anim.SetBool(IsDead, true);
+
+            GetComponent<EnemyController>().enabled = false;
             objectSpawner.GetComponent<LevelController>().killEnemy();
             GameManager.AddScore(ScoreCount);
             
@@ -67,6 +66,7 @@ namespace Stats
         {
             yield return new WaitForSeconds(seconds);
             
+            // GetComponent<Animator>().StartPlayback();
             gameObject.SetActive(false);
         }
     }
