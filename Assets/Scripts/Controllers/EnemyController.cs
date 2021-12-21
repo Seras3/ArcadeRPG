@@ -9,18 +9,19 @@ public class EnemyController : MonoBehaviour
     public float interpolant; 
 
     public Stats.EnemyStats enemyStats;
+    public Vector3 enemyLookDirection;
 
     protected Vector3 _playerPosition;
 
     private Animator _anim;
 
-    void Start()
+    private void Start()
     { 
         enemyStats = GetComponent<Stats.EnemyStats>();
         _anim = GetComponent<Animator>();
     }
 
-    void Update()
+    private void Update()
     {
 
         if (GameManager.CurrentStatus is GameManager.GameStatus.Playing &&
@@ -37,15 +38,8 @@ public class EnemyController : MonoBehaviour
 
         playerPosition.y = enemyPosition.y;
         transform.position = Vector3.MoveTowards(enemyPosition, playerPosition, enemyStats.MovementSpeed);
-        
-        _playerPosition = GameObject.Find("B-spine").transform.position;
 
-        if (_playerPosition == null) return;
-        
-        var lookPos = _playerPosition - transform.position;
-        lookPos.y = 0;
-        var rotation = Quaternion.LookRotation(lookPos);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 10);
+        TurnTowardsPlayer();
     }
 
     protected void OnCollisionEnter(Collision other)
@@ -62,5 +56,18 @@ public class EnemyController : MonoBehaviour
             
             GetComponent<Animator>().Play("Attack02", 0);
         }
+    }
+
+    protected void TurnTowardsPlayer()
+    {
+        _playerPosition = GameObject.Find("B-spine").transform.position;
+        if (_playerPosition == null) return;
+        
+        var lookPos = _playerPosition - transform.position;
+        enemyLookDirection = lookPos.normalized;
+        enemyLookDirection.y = 0;
+        
+        var rotation = Quaternion.LookRotation(enemyLookDirection);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 10);
     }
 }

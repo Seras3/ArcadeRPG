@@ -92,7 +92,7 @@ Transform:
   m_GameObject: {fileID: 1067925524328404}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4595271056636968}
   - {fileID: 4413730522853366}
@@ -132,6 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interpolant: 0
   enemyStats: {fileID: 0}
+  enemyLookDirection: {x: 0, y: 0, z: 0}
 --- !u!65 &3712408869214970684
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -161,6 +162,7 @@ MonoBehaviour:
   SliderOffset: {x: 0, y: 3, z: 0}
   parentCanvas: {fileID: 0}
   hasHpBar: 1
+  OffsetYPosition: 0
   ScoreCount: 10
   DropList:
   - Weapon: {fileID: 2894627681083147606, guid: 8ed0f39eedc4f1145af329f2f23ed639, type: 3}

@@ -17,6 +17,7 @@ namespace Stats
         }
 
         private GameObject objectSpawner;
+        public float OffsetYPosition;
         public int Damage { get; set; }
         public int ScoreCount;
         public List<Drop> DropList;
@@ -47,7 +48,6 @@ namespace Stats
             }
 
         }
-
         public override void Die()
         {
             TryDropLoot();
@@ -65,8 +65,6 @@ namespace Stats
         private IEnumerator RunDieAnimation(float seconds)
         {
             yield return new WaitForSeconds(seconds);
-            
-            // GetComponent<Animator>().StartPlayback();
             gameObject.SetActive(false);
         }
     }

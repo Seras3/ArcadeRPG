@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Pools;
+using Stats;
 using UnityEngine;
 
 
@@ -131,14 +133,14 @@ public class WaveController : MonoBehaviour
 		}
 		else
         {
-	        // enemyObject = VampirePool.instance.GetPooledObject();
-	        enemyObject = EnemyPool.instance.GetPooledObject();
-		}
+	        enemyObject = WizardPool.instance.GetPooledObject();
+        }
 		
 		if (enemyObject != null)
         {
+	        randomPosition.y += enemyObject.GetComponent<EnemyStats>().OffsetYPosition;
 			enemyObject.transform.position = randomPosition;
-			enemyObject.GetComponent<Stats.EnemyStats>().InitStats();
+			enemyObject.GetComponent<EnemyStats>().InitStats();
 			enemyObject.GetComponent<EnemyController>().enabled = true;
 			enemyObject.GetComponent<Animator>().SetBool(IsDead, false);
 			enemyObject.SetActive(true);
@@ -185,7 +187,7 @@ public class WaveController : MonoBehaviour
 				break;
 		}
 
-		Vector3 newVec = new Vector3(x, plane.transform.position.y + yBufferGolem, z);
+		Vector3 newVec = new Vector3(x, plane.transform.position.y, z);
 		return newVec;
 	}
 
