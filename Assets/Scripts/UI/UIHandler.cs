@@ -9,16 +9,28 @@ public class UIHandler : MonoBehaviour
 {
     private TMP_Text ScoreTextMesh;
     private TMP_Text AmmoTextMesh;
-    private TMP_Text DropTextMesh;
+    private List<GameObject> DropTextMeshList;
+    [SerializeField] private int DropListSize;
+
+    private int DropListCycler;
+
+    [SerializeField] private GameObject DropTextPrefab;
     private GameObject currentWeapon;
     private Weapon currentWeaponStats;
    
+    
 
     void Start()
     {
         ScoreTextMesh = GameObject.Find("ScoreText").GetComponent<TMP_Text>();
         AmmoTextMesh = GameObject.Find("AmmoText").GetComponent<TMP_Text>();
-        DropTextMesh = GameObject.Find("DropText").GetComponent<TMP_Text>();
+        DropListCycler = 0;
+
+        Transform parent = GameObject.Find("UI").transform;
+        DropTextMeshList = new List<GameObject>();
+        for (int i=0; i<=DropListSize; i++){
+            DropTextMeshList.Add(Instantiate(DropTextPrefab, parent));
+        }
     }
 
     void Update() 
@@ -32,8 +44,9 @@ public class UIHandler : MonoBehaviour
 
     public void DisplayNewDrop(string text) 
     {
-        DropTextMesh.text = text;
-        GameObject.Find("DropText").GetComponent<Animator>().Play("Base Layer.DropTextAnimation");
+        DropTextMeshList[DropListCycler].GetComponent<TMP_Text>().text = text;
+        DropTextMeshList[DropListCycler].GetComponent<Animator>().Play("Base Layer.DropTextAnimation");
+        DropListCycler = (DropListCycler + 1) % DropListSize;
     }
 
 }
