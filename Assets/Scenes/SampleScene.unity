@@ -1477,7 +1477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DropListSize: 10
-  DropTextPrefab: {fileID: 0}
+  DropTextPrefab: {fileID: 6915021266938381820, guid: 55b5397eedf6a994f9002674b0fcd7dd, type: 3}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -2226,6 +2226,18 @@ PrefabInstance:
       value: Dummy
       objectReference: {fileID: 0}
     - target: {fileID: 101276604810472117, guid: 261c8021f9838da478537aaa9000726e, type: 3}
+      propertyPath: hasRegen
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 101276604810472117, guid: 261c8021f9838da478537aaa9000726e, type: 3}
+      propertyPath: regenDelay
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 101276604810472117, guid: 261c8021f9838da478537aaa9000726e, type: 3}
+      propertyPath: regenValue
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 101276604810472117, guid: 261c8021f9838da478537aaa9000726e, type: 3}
       propertyPath: parentCanvas
       value: 
       objectReference: {fileID: 1780866932}
@@ -2233,6 +2245,10 @@ PrefabInstance:
       propertyPath: sliderPrefab
       value: 
       objectReference: {fileID: 3439795289399871678, guid: c0c9a09a8db1ecf438a4352462e2a526, type: 3}
+    - target: {fileID: 101276604810472117, guid: 261c8021f9838da478537aaa9000726e, type: 3}
+      propertyPath: regenInterval
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 101276604810472117, guid: 261c8021f9838da478537aaa9000726e, type: 3}
       propertyPath: WeaponsList.Array.size
       value: 2

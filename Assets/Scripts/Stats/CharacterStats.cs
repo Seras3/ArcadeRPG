@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-
+using System.Collections;
 public abstract class CharacterStats : MonoBehaviour
 {
     protected int MaxHealth = 100;
@@ -13,6 +13,11 @@ public abstract class CharacterStats : MonoBehaviour
     [SerializeField] protected Canvas parentCanvas;
 
     [SerializeField] protected bool hasHpBar = true;
+
+    [SerializeField] protected float regenDelay, regenInterval;
+    [SerializeField] protected int regenValue;
+    [SerializeField] protected bool hasRegen;
+    private int lastRegenCall;
 
 
     protected Slider slider;
@@ -73,12 +78,27 @@ public abstract class CharacterStats : MonoBehaviour
         if (CurrentHealth.GetValue() > 0)
         {
             CurrentHealth.SubtractValue(damage);
-            Debug.Log(transform.name + " takes " + damage + " damage.");
+            //Debug.Log(transform.name + " takes " + damage + " damage.");
+            if (hasRegen){
+                StartCoroutine(RegenAfterDelay(regenValue, regenInterval, regenDelay));
+            }
         }
 
         if (CurrentHealth.GetValue() <= 0)
         {
             Die();
+        }
+    }
+
+    protected IEnumerator RegenAfterDelay(int value, float interval, float delay){
+        lastRegenCall+=1;
+        int callIndex = lastRegenCall;
+
+        yield return new WaitForSeconds(regenDelay);
+        
+        while (callIndex == lastRegenCall){ // only the last RegenAfterDelay called in the stack has the right to regen
+            CurrentHealth.SetValue(Mathf.Min(CurrentHealth.GetValue()+value, MaxHealth));
+            yield return new WaitForSeconds(regenInterval);
         }
     }
 
