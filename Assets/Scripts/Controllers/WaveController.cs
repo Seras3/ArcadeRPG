@@ -129,11 +129,13 @@ public class WaveController : MonoBehaviour
 		int randomNumber = Random.Range(0, 2);
 		if (randomNumber == 0)
         {
-			enemyObject = EnemyPool.instance.GetPooledObject();
-		}
+			//enemyObject = EnemyPool.instance.GetPooledObject();
+			enemyObject = DragonPool.instance.GetPooledObject();
+        }
 		else
         {
-	        enemyObject = WizardPool.instance.GetPooledObject();
+	        //enemyObject = WizardPool.instance.GetPooledObject();
+	        enemyObject = DragonPool.instance.GetPooledObject();
         }
 		
 		if (enemyObject != null)

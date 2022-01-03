@@ -13,19 +13,19 @@ public class EnemyController : MonoBehaviour
 
     protected Vector3 _playerPosition;
 
-    private Animator _anim;
+    protected Animator Anim;
 
     private void Start()
     { 
         enemyStats = GetComponent<Stats.EnemyStats>();
-        _anim = GetComponent<Animator>();
+        Anim = GetComponent<Animator>();
     }
 
     private void Update()
     {
 
         if (GameManager.CurrentStatus is GameManager.GameStatus.Playing &&
-            _anim.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
+            Anim.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
         {
             MoveTowardsPlayer();
         }
