@@ -2,6 +2,7 @@
 using Utils;
 using System.Collections.Generic;
 using System;
+using System.Collections;
 
 namespace Stats
 {
@@ -16,9 +17,12 @@ namespace Stats
         }
 
         private GameObject objectSpawner;
+        public float OffsetYPosition;
         public int Damage { get; set; }
         public int ScoreCount;
         public List<Drop> DropList;
+
+        private static readonly int IsDead = Animator.StringToHash("isDead");
 
         void Start() 
         {
@@ -44,17 +48,24 @@ namespace Stats
             }
 
         }
-
         public override void Die()
         {
             TryDropLoot();
+            
+            var anim = GetComponent<Animator>();
+            anim.SetBool(IsDead, true);
 
+            GetComponent<EnemyController>().enabled = false;
             objectSpawner.GetComponent<LevelController>().killEnemy();
             GameManager.AddScore(ScoreCount);
-
-            this.gameObject.SetActive(false);
-            Debug.Log(transform.name + " died.");
+            
+            StartCoroutine(RunDieAnimation(anim.GetCurrentAnimatorStateInfo(0).length));
         }
 
+        private IEnumerator RunDieAnimation(float seconds)
+        {
+            yield return new WaitForSeconds(seconds + 1);
+            gameObject.SetActive(false);
+        }
     }
 }

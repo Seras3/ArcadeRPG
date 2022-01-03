@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Pools;
+using Stats;
 using UnityEngine;
 
 
@@ -18,7 +20,7 @@ public class WaveController : MonoBehaviour
 	const float MinSpawnDelay = 3;
 	const float MaxSpawnDelay = 5;
 
-	const float yBuffer = 1;
+	const float yBuffer = 1, yBufferGolem = 0.5f;
 	Timer spawnTimer;
 	Timer waveTimer;
 	public int wave;
@@ -34,6 +36,7 @@ public class WaveController : MonoBehaviour
 	public int noOfEnemies = 0;
 	public int maxNoOfEnemies;
 	public int deadEnemies = 0;
+	private static readonly int IsDead = Animator.StringToHash("isDead");
 
 	void Start()
 	{
@@ -122,21 +125,28 @@ public class WaveController : MonoBehaviour
 	{
 		// generate random location and create new object
 		Vector3 randomPosition = GetARandomPos(plane);
-		GameObject enemyObject;
-		int randomNumber = Random.Range(0, 2);
-		if (randomNumber == 0)
+		GameObject enemyObject = null;
+		int randomNumber = Random.Range(0, 10);
+		if (randomNumber < 4)
         {
 			enemyObject = EnemyPool.instance.GetPooledObject();
-		} 
-		else
+        }
+		else if (randomNumber < 8)
         {
-			enemyObject = VampirePool.instance.GetPooledObject();
+	        enemyObject = WizardPool.instance.GetPooledObject();
+        }
+		else
+		{
+			enemyObject = DragonPool.instance.GetPooledObject();
 		}
 		
 		if (enemyObject != null)
         {
+	        randomPosition.y += enemyObject.GetComponent<EnemyStats>().OffsetYPosition;
 			enemyObject.transform.position = randomPosition;
-			enemyObject.GetComponent<Stats.EnemyStats>().InitStats();
+			enemyObject.GetComponent<EnemyStats>().InitStats();
+			enemyObject.GetComponent<EnemyController>().enabled = true;
+			enemyObject.GetComponent<Animator>().SetBool(IsDead, false);
 			enemyObject.SetActive(true);
 		}
 
@@ -181,7 +191,7 @@ public class WaveController : MonoBehaviour
 				break;
 		}
 
-		Vector3 newVec = new Vector3(x, plane.transform.position.y + yBuffer, z);
+		Vector3 newVec = new Vector3(x, plane.transform.position.y, z);
 		return newVec;
 	}
 

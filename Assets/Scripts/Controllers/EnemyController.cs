@@ -9,15 +9,26 @@ public class EnemyController : MonoBehaviour
     public float interpolant; 
 
     public Stats.EnemyStats enemyStats;
+    public Vector3 enemyLookDirection;
 
-    void Start()
+    protected Vector3 _playerPosition;
+
+    protected Animator Anim;
+
+    private void Start()
     { 
-        enemyStats = GetComponent<Stats.EnemyStats>(); 
+        enemyStats = GetComponent<Stats.EnemyStats>();
+        Anim = GetComponent<Animator>();
     }
 
-    void Update()
+    private void Update()
     {
-        if (GameManager.CurrentStatus is GameManager.GameStatus.Playing) MoveTowardsPlayer();
+
+        if (GameManager.CurrentStatus is GameManager.GameStatus.Playing &&
+            Anim.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
+        {
+            MoveTowardsPlayer();
+        }
     }
 
     protected void MoveTowardsPlayer()
@@ -27,6 +38,8 @@ public class EnemyController : MonoBehaviour
 
         playerPosition.y = enemyPosition.y;
         transform.position = Vector3.MoveTowards(enemyPosition, playerPosition, enemyStats.MovementSpeed);
+
+        TurnTowardsPlayer();
     }
 
     protected void OnCollisionEnter(Collision other)
@@ -37,10 +50,24 @@ public class EnemyController : MonoBehaviour
             pushBack.y = 0;
             other.gameObject.transform.position += pushBack;
         }
-
-        if (other.gameObject.name == "Dummy")
+        else if (other.gameObject.name == "Dummy")
         {
             other.gameObject.GetComponent<CharacterStats>().TakeDamage(enemyStats.Damage);
+            
+            GetComponent<Animator>().Play("Attack02", 0);
         }
+    }
+
+    protected void TurnTowardsPlayer()
+    {
+        _playerPosition = GameObject.Find("B-spine").transform.position;
+        if (_playerPosition == null) return;
+        
+        var lookPos = _playerPosition - transform.position;
+        enemyLookDirection = lookPos.normalized;
+        enemyLookDirection.y = 0;
+        
+        var rotation = Quaternion.LookRotation(enemyLookDirection);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 10);
     }
 }
