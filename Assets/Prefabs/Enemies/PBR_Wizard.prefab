@@ -445,6 +445,7 @@ MonoBehaviour:
   enemyStats: {fileID: 0}
   enemyLookDirection: {x: 0, y: 0, z: 0}
   bulletForce: 20
+  state: 0
 --- !u!65 &6133944097919404499
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -486,10 +487,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16d509bce1bd4af3b85a8e9cb1156c60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxHealth: 150
   sliderPrefab: {fileID: 0}
   SliderOffset: {x: 0, y: 3, z: 0}
   parentCanvas: {fileID: 0}
   hasHpBar: 1
+  OffsetYPosition: 0
   ScoreCount: 15
   DropList:
   - Weapon: {fileID: 2894627681083147606, guid: 8ed0f39eedc4f1145af329f2f23ed639, type: 3}

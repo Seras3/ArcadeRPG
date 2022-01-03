@@ -16,11 +16,10 @@ namespace Controllers
         private float _lastStateChanged;
 
         private static readonly int MustLand = Animator.StringToHash("mustLand");
-        private static readonly int FlameAttackStateTransition = Animator.StringToHash("flameAttackStateTransition");
         private static readonly int WalkStateTransition = Animator.StringToHash("walkStateTransition");
-        private static readonly int LandStateTransition = Animator.StringToHash("landStateTransition");
+        private static readonly int ShouldWalk = Animator.StringToHash("shouldWalk");
 
-        private const float WaitTime = 5;
+        private const float WaitTime = 0.5f;
         private const float DelayTimeState = 10;
 
         public enum DragonState
@@ -59,7 +58,6 @@ namespace Controllers
                 {
                     state = DragonState.Walking;
                     Anim.SetBool(MustLand, true);
-                    Anim.SetInteger(LandStateTransition, 1);
                     Anim.SetInteger(WalkStateTransition, 0);
                     GetComponent<BoxCollider>().enabled = true;
                 }
@@ -70,27 +68,31 @@ namespace Controllers
             var playerPos = _playerPosition;
             playerPos.y = 0;
             var dist = Vector3.Distance(dragonPos, playerPos);
-            if (dist < 10 && state != DragonState.Shooting)
+            if (dist < 12 && state != DragonState.Shooting)
             {
-                Anim.SetInteger(FlameAttackStateTransition, 0);
-                if (state is DragonState.Walking)
-                {
-                    Anim.SetInteger(WalkStateTransition, 2);
-                } 
-                else if (state is DragonState.Flying)
+                
+                if (state is DragonState.Flying)
                 {
                     Anim.SetBool(MustLand, true);
-                    Anim.SetInteger(LandStateTransition, 2);
                     
                     GetComponent<BoxCollider>().enabled = true;
+                    StartCoroutine(WaitForSeconds(Anim.GetCurrentAnimatorStateInfo(0).length, () =>
+                    {
+                        state = DragonState.Shooting;
+                    }));
                 }
-                state = DragonState.Shooting;
+                else
+                {
+                    state = DragonState.Shooting;
+                }
+                Anim.SetBool(ShouldWalk, false);
+                Anim.SetInteger(WalkStateTransition, 2);
             } 
-            else if (dist > 10 && state == DragonState.Shooting)
+            else if (dist >= 12 && state == DragonState.Shooting)
             {
                 state = DragonState.Walking;
-                Anim.SetInteger(FlameAttackStateTransition, 1);
                 Anim.SetInteger(WalkStateTransition, 0);
+                Anim.SetBool(ShouldWalk, true);
             }
 
             switch (state)
@@ -119,12 +121,13 @@ namespace Controllers
 
         private void Shoot()
         {
-            if (!Cooldown())
+            if (!Cooldown() || !Anim.GetCurrentAnimatorStateInfo(0).IsName("Idle01"))
             {
                 return;
             }
-
-            StartCoroutine(SyncBulletWithAnimation(Anim.GetCurrentAnimatorStateInfo(0).length / 2));
+            
+            Anim.Play("Basic Attack");
+            StartCoroutine(SyncBulletWithAnimation(Anim.GetCurrentAnimatorStateInfo(0).length / 2.5f));
         }
 
         private IEnumerator SyncBulletWithAnimation(float seconds)
@@ -139,8 +142,8 @@ namespace Controllers
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
             var pos = transform.position;
             var y = pos.y;
-            pos += enemyLookDirection * bullet.GetComponent<BulletStats>().OffsetPositionFactor;
-            pos.y = y + 1;
+            pos += enemyLookDirection * (bullet.GetComponent<BulletStats>().OffsetPositionFactor + 0.5f);
+            pos.y = y + 0.7f;
             bullet.transform.position = pos;
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;

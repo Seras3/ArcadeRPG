@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using System.Collections;
 public abstract class CharacterStats : MonoBehaviour
 {
-    protected int MaxHealth = 100;
+    public int MaxHealth = 100;
 
     public Stat CurrentHealth { get; set; }
     public float MovementSpeed { get; set; }
@@ -32,7 +32,7 @@ public abstract class CharacterStats : MonoBehaviour
         sliderPrefab = Resources.Load("HpSlider") as GameObject;
         parentCanvas = GameObject.Find("HPBarCanvas").GetComponent<Canvas>();
 
-        CurrentHealth = new Stat(MaxHealth);
+        CurrentHealth = new Stat(10000);
         MovementSpeed = 0.005f;
 
         HPbarSetup();

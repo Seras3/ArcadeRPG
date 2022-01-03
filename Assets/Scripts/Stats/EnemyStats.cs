@@ -64,7 +64,7 @@ namespace Stats
 
         private IEnumerator RunDieAnimation(float seconds)
         {
-            yield return new WaitForSeconds(seconds);
+            yield return new WaitForSeconds(seconds + 1);
             gameObject.SetActive(false);
         }
     }

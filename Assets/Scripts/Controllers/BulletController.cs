@@ -15,6 +15,7 @@ public class BulletController : MonoBehaviour
     private Renderer _renderer;
     private Transform _playerTransform;
     private static readonly int IsDead = Animator.StringToHash("isDead");
+    private static readonly int WalkStateTransition = Animator.StringToHash("walkStateTransition");
 
     public int Damage => GetComponent<BulletStats>().Damage;
     void Start()

@@ -126,17 +126,19 @@ public class WaveController : MonoBehaviour
 		// generate random location and create new object
 		Vector3 randomPosition = GetARandomPos(plane);
 		GameObject enemyObject = null;
-		int randomNumber = Random.Range(0, 2);
-		if (randomNumber == 0)
+		int randomNumber = Random.Range(0, 10);
+		if (randomNumber < 4)
         {
-			//enemyObject = EnemyPool.instance.GetPooledObject();
-			enemyObject = DragonPool.instance.GetPooledObject();
+			enemyObject = EnemyPool.instance.GetPooledObject();
+        }
+		else if (randomNumber < 8)
+        {
+	        enemyObject = WizardPool.instance.GetPooledObject();
         }
 		else
-        {
-	        //enemyObject = WizardPool.instance.GetPooledObject();
-	        enemyObject = DragonPool.instance.GetPooledObject();
-        }
+		{
+			enemyObject = DragonPool.instance.GetPooledObject();
+		}
 		
 		if (enemyObject != null)
         {
