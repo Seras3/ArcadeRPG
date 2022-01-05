@@ -30,7 +30,7 @@ public abstract class CharacterStats : MonoBehaviour
         sliderPrefab = Resources.Load("HpSlider") as GameObject;
         parentCanvas = GameObject.Find("HPBarCanvas").GetComponent<Canvas>();
 
-        CurrentHealth = new Stat(10000);
+        CurrentHealth = new Stat(MaxHealth);
         MovementSpeed = 0.005f;
 
         HPbarSetup();
