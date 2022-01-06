@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1476,8 +1476,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6a890ce7bae45249b6a89b5bd2ab1d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DropListSize: 0
-  DropTextPrefab: {fileID: 6112284972203853761, guid: a4a3b4910bb105546ae8087f2b55b692, type: 3}
+  DropListSize: 2
+  DropTextPrefab: {fileID: 6915021266938381820, guid: 55b5397eedf6a994f9002674b0fcd7dd, type: 3}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

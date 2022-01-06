@@ -492,6 +492,10 @@ MonoBehaviour:
   SliderOffset: {x: 0, y: 3, z: 0}
   parentCanvas: {fileID: 0}
   hasHpBar: 1
+  regenDelay: 0
+  regenInterval: 0
+  regenValue: 0
+  hasRegen: 0
   OffsetYPosition: 0
   ScoreCount: 15
   DropList:
