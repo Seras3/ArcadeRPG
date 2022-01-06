@@ -1476,7 +1476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6a890ce7bae45249b6a89b5bd2ab1d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DropListSize: 2
+  DropListSize: 4
   DropTextPrefab: {fileID: 6915021266938381820, guid: 55b5397eedf6a994f9002674b0fcd7dd, type: 3}
 --- !u!1 &963194225
 GameObject:

@@ -49,11 +49,10 @@ namespace Stats
 
         }
         public override void Die()
-        {
-            TryDropLoot();
-            
+        {            
             var anim = GetComponent<Animator>();
             anim.SetBool(IsDead, true);
+            TryDropLoot();
 
             GetComponent<EnemyController>().enabled = false;
             objectSpawner.GetComponent<LevelController>().killEnemy();

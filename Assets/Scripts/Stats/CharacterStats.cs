@@ -24,6 +24,7 @@ public abstract class CharacterStats : MonoBehaviour
     protected GameObject sliderGO;
 
     private Plane cameraPlane;
+    private bool hasDied;
 
     protected void Awake()
     {
@@ -79,15 +80,18 @@ public abstract class CharacterStats : MonoBehaviour
         {
             CurrentHealth.SubtractValue(damage);
             //Debug.Log(transform.name + " takes " + damage + " damage.");
-            if (hasRegen){
+
+            if (CurrentHealth.GetValue() <= 0)
+            {
+                Die();
+            } 
+            else if (hasRegen) 
+            {
                 StartCoroutine(RegenAfterDelay(regenValue, regenInterval, regenDelay));
             }
-        }
+        } 
 
-        if (CurrentHealth.GetValue() <= 0)
-        {
-            Die();
-        }
+        
     }
 
     protected IEnumerator RegenAfterDelay(int value, float interval, float delay){
