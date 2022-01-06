@@ -119,6 +119,7 @@ namespace Utils
         {
             ActivateCanvas();
             _gameLeaderboardScreen.SetActive(true);
+            GameObject.Find("Leaderboard").GetComponent<LeaderboardLoader>().DisplayInput(true);
         }
 
         private void ShowGamePausedScreen()

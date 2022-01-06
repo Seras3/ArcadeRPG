@@ -27,4 +27,13 @@ public class MainMenuLogic : MonoBehaviour
     {
         GameObject.Find("GameManagerObject")?.GetComponent<GameManager>().ResumeGame();
     }
+
+    public void LoadLeaderboardScreen()
+    {
+        GameObject.Find("InGameCanvas").transform.GetChild(3).gameObject.SetActive(true);
+        GameObject.Find("Leaderboard").GetComponent<LeaderboardLoader>().DisplayInput(false);
+        GameObject.Find("GameManagerObject").GetComponent<TopScores>().LoadLeaderboard();
+        
+        GameObject.Find("GameOver").gameObject.SetActive(false);
+    }
 }
