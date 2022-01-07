@@ -15,7 +15,6 @@ public class Weapon : MonoBehaviour
 
     public float FireRate;
 
-
     public void ReduceAmmo()
     {
         AmmoCount -= 1;
@@ -25,4 +24,6 @@ public class Weapon : MonoBehaviour
     {
         return HasInfiniteAmmo || (AmmoCount > 0);
     }
+
+    public float accuracy;
 }

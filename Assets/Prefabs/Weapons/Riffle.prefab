@@ -1411,6 +1411,7 @@ MonoBehaviour:
   AmmoCount: 100
   HasInfiniteAmmo: 0
   FireRate: 0.1
+  accuracy: 0.97
 --- !u!1 &3184315210288806126
 GameObject:
   m_ObjectHideFlags: 0

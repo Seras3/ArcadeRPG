@@ -85,7 +85,11 @@ namespace Controllers
             position = new Vector3(position.x, (float) (GlobalConstants.WeaponPositionYOffset + GlobalConstants.BulletPositionYOffset), position.z);
             bullet.transform.position = position;
 
-            rb.AddForce(dummyLookDirection * bulletForce, ForceMode.Impulse);
+            
+            float accRange = (1-_activeWeapon.GetComponent<Weapon>().accuracy) * 90;
+            Quaternion accuracyRotation = Quaternion.AngleAxis(UnityEngine.Random.Range(-accRange, accRange), Vector3.up);
+
+            rb.AddForce(accuracyRotation * dummyLookDirection * bulletForce, ForceMode.Impulse);
         }
 
         private void UpdateWeaponInfo()
