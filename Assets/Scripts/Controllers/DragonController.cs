@@ -59,7 +59,10 @@ namespace Controllers
                     state = DragonState.Walking;
                     Anim.SetBool(MustLand, true);
                     Anim.SetInteger(WalkStateTransition, 0);
-                    GetComponent<BoxCollider>().enabled = true;
+                    StartCoroutine(WaitForSeconds(Anim.GetCurrentAnimatorStateInfo(0).length + 3, () =>
+                    {
+                        GetComponent<BoxCollider>().enabled = true;
+                    }));
                 }
             }
             
@@ -68,14 +71,18 @@ namespace Controllers
             var playerPos = _playerPosition;
             playerPos.y = 0;
             var dist = Vector3.Distance(dragonPos, playerPos);
-            if (dist < 12 && state != DragonState.Shooting)
+            if (dist < 15 && state != DragonState.Shooting)
             {
                 
                 if (state is DragonState.Flying)
                 {
                     Anim.SetBool(MustLand, true);
                     
-                    GetComponent<BoxCollider>().enabled = true;
+                    StartCoroutine(WaitForSeconds(Anim.GetCurrentAnimatorStateInfo(0).length + 3, () =>
+                    {
+                        GetComponent<BoxCollider>().enabled = true;
+                    }));
+
                     StartCoroutine(WaitForSeconds(Anim.GetCurrentAnimatorStateInfo(0).length, () =>
                     {
                         state = DragonState.Shooting;
@@ -88,7 +95,7 @@ namespace Controllers
                 Anim.SetBool(ShouldWalk, false);
                 Anim.SetInteger(WalkStateTransition, 2);
             } 
-            else if (dist >= 12 && state == DragonState.Shooting)
+            else if (dist >= 15 && state == DragonState.Shooting)
             {
                 state = DragonState.Walking;
                 Anim.SetInteger(WalkStateTransition, 0);

@@ -66,7 +66,7 @@ namespace Utils
         {
             CurrentStatus = GameStatus.GameOver;
             FreezeEverything();
-            if (Score < _topScoresScript.GetLastScore())
+            if (Score <= _topScoresScript.GetLastScore())
             {
                 ShowGameOverScreen();
             }

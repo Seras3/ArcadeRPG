@@ -31,7 +31,12 @@ public class TopScores : MonoBehaviour
 
     public void LoadLeaderboard()
     {
+        JsonInput();
         var container = GameObject.Find("LeaderboardContainer");
+        foreach(Transform child in container.transform) 
+        {
+            GameObject.Destroy(child.gameObject);
+        }
         var id = 1;
         foreach (var row in recordList.Records)
         {
