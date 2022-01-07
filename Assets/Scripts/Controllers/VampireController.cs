@@ -26,8 +26,6 @@ public class VampireController : EnemyController
     private Rigidbody vampireRB;
     private Renderer batMesh;
 
-    private Vector3 _playerPosition;
-    
     private Plane _plane;
 
     void Start()

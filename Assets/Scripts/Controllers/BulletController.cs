@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Controllers;
 using Stats;
 using UnityEngine;
 
@@ -13,6 +14,8 @@ public class BulletController : MonoBehaviour
     private float _offsetPosition;
     private Renderer _renderer;
     private Transform _playerTransform;
+    private static readonly int IsDead = Animator.StringToHash("isDead");
+    private static readonly int WalkStateTransition = Animator.StringToHash("walkStateTransition");
 
     public int Damage => GetComponent<BulletStats>().Damage;
     void Start()
@@ -46,11 +49,24 @@ public class BulletController : MonoBehaviour
         {
             try
             {
-                if (other.gameObject.GetComponentInParent<CharacterStats>() != null) {
-                    other.gameObject.GetComponentInParent<CharacterStats>().TakeDamage(Damage);
+                var charStats = other.gameObject.GetComponentInParent<CharacterStats>();
+                if (charStats != null) {
+                    charStats.TakeDamage(Damage);
+                    var anim = other.gameObject.GetComponentInParent<Animator>();
+                    if (anim.GetBool(IsDead) == false)
+                    {
+                        anim.Play("GetHit", 0);
+                    }
                 }
-                else {
-                    other.gameObject.GetComponent<CharacterStats>().TakeDamage(Damage);
+                else
+                {
+                    charStats = other.gameObject.GetComponent<CharacterStats>();
+                    charStats.TakeDamage(Damage);
+                    var anim = other.gameObject.GetComponent<Animator>();
+                    if (anim.GetBool(IsDead) == false)
+                    {
+                        anim.Play("GetHit", 0);
+                    }
                 }
             }
             catch
@@ -61,7 +77,7 @@ public class BulletController : MonoBehaviour
             {
                 Physics.IgnoreCollision(GetComponent<Collider>(), shooter.GetComponent<Collider>(), false);
                 gameObject.SetActive(false);
-            }    
+            }   
         }
     }
 }

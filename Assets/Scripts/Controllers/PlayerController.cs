@@ -16,14 +16,15 @@ namespace Controllers
         private float shootingCooldown;
         private float lastShotTime;
 
+        private Stats.PlayerStats _stats;
+
         private Plane _plane;
         private GameObject _activeWeapon;
         private BulletStats _activeBulletStats;
         private void Start()
         {
+            _stats = GameObject.Find("Dummy").GetComponent<Stats.PlayerStats>();
             _plane = new Plane(Vector3.up, 0);
-
-            shootingCooldown = 0.5f;
             lastShotTime = -shootingCooldown; // fire as soon as the game starts
         }
         void Update()
@@ -45,11 +46,21 @@ namespace Controllers
         private void Shoot()
         {
             if (!Cooldown()) return;
-            
+
             UpdateWeaponInfo();
             // Spawn bullet at the position of firePoint, add force to it
-            
-            Debug.Log("GUN: " + _activeWeapon.transform.name);
+
+            if(!_activeWeapon.GetComponent<Weapon>().HasAmmo())
+            {
+                _stats.ChangeWeapon();
+                return;
+            } 
+            else 
+            {
+                _activeWeapon.GetComponent<Weapon>().ReduceAmmo();
+            }
+
+
             GameObject bullet = _activeWeapon.GetComponent<Weapon>().Bullet.transform.name == "RiffleBullet" 
                 ? ShotgunBulletPool.instance.GetPooledObject() : PistolBulletPool.instance.GetPooledObject();
 
@@ -85,6 +96,7 @@ namespace Controllers
         {
             _activeWeapon = GetComponent<PlayerStats>().ActiveWeapon;
             _activeBulletStats = _activeWeapon.GetComponent<Weapon>().Bullet.GetComponent<BulletStats>();
+            shootingCooldown = _activeWeapon.GetComponent<Weapon>().FireRate;
         }
     }
 }

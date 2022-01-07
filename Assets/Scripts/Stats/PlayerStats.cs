@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -15,10 +16,12 @@ namespace Stats
         private int _activeWeaponIndex;
         private bool _isNextWeaponReady;
 
+        private UIHandler _uiHandler;
         private void Start()
         {
             ActiveWeapon = Instantiate(ActiveWeapon, transform);
             ActiveWeapon.transform.position += ActiveWeapon.GetComponent<Weapon>().OffsetPosition;
+            _uiHandler = GameObject.Find("UIModifier").GetComponent<UIHandler>();
 
             _activeWeaponIndex = 0;
             PoolWeapons();
@@ -48,7 +51,7 @@ namespace Stats
             }
         }
 
-        private void ChangeWeapon()
+        public void ChangeWeapon()
         {
             _isNextWeaponReady = false;
             while(!_isNextWeaponReady) 
@@ -71,6 +74,20 @@ namespace Stats
                 }
             }
 
+        }
+
+        public void PickDrop(string WeaponName, int AmmoCount) 
+        {
+            Weapon weaponStats;
+            _uiHandler.DisplayNewDrop("+" + AmmoCount + " " + WeaponName + " Bullets");
+            for(int i = 0; i < WeaponsList.Count; i++) 
+            {
+                weaponStats = transform.GetChild(3 + i).gameObject.GetComponent<Weapon>();
+                if(weaponStats.Name == WeaponName) 
+                {  
+                    weaponStats.AmmoCount += AmmoCount;
+                }
+            }
         }
     }
 }

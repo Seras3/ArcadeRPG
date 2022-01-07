@@ -10,11 +10,13 @@ namespace Utils
         private GameObject _inGameCanvas;
         private GameObject _gameOverScreen;
         private GameObject _gamePausedScreen;
+        private GameObject _gameLeaderboardScreen;
 
         private UIHandler _uiHandler;
         private GameObject _player;
         private HumanoidMovementPlayer _playerMovementScript;
         private PlayerController _playerControllerScript;
+        private TopScores _topScoresScript;
         public static GameStatus CurrentStatus { get; private set; }
         public static int Score { get; private set; }
 
@@ -32,11 +34,13 @@ namespace Utils
             _inGameCanvas = GameObject.Find("Canvases").transform.GetChild(1).gameObject;
             _gameOverScreen = _inGameCanvas.transform.GetChild(1).gameObject;
             _gamePausedScreen = _inGameCanvas.transform.GetChild(2).gameObject;
+            _gameLeaderboardScreen = _inGameCanvas.transform.GetChild(3).gameObject;
 
             _uiHandler = GameObject.Find("UIModifier").GetComponent<UIHandler>();
             _player = GameObject.Find("Dummy");
             _playerMovementScript = _player.GetComponent<HumanoidMovementPlayer>();
             _playerControllerScript = _player.GetComponent<PlayerController>();
+            _topScoresScript = GetComponent<TopScores>();
             
             _playerMovementScript.enabled = true;
             _playerControllerScript.enabled = true;
@@ -62,7 +66,14 @@ namespace Utils
         {
             CurrentStatus = GameStatus.GameOver;
             FreezeEverything();
-            ShowGameOverScreen();
+            if (Score <= _topScoresScript.GetLastScore())
+            {
+                ShowGameOverScreen();
+            }
+            else
+            {
+                ShowLeaderboardScreen();
+            }
         }
 
         public void PauseGame()
@@ -102,6 +113,13 @@ namespace Utils
         {
             ActivateCanvas();
             _gameOverScreen.SetActive(true);
+        }
+        
+        private void ShowLeaderboardScreen()
+        {
+            ActivateCanvas();
+            _gameLeaderboardScreen.SetActive(true);
+            GameObject.Find("Leaderboard").GetComponent<LeaderboardLoader>().DisplayInput(true);
         }
 
         private void ShowGamePausedScreen()

@@ -1,9 +1,9 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-
 public abstract class CharacterStats : MonoBehaviour
 {
-    protected int MaxHealth = 100;
+    public int MaxHealth = 100;
 
     public Stat CurrentHealth { get; set; }
     public float MovementSpeed { get; set; }
@@ -14,11 +14,17 @@ public abstract class CharacterStats : MonoBehaviour
 
     [SerializeField] protected bool hasHpBar = true;
 
+    [SerializeField] protected float regenDelay, regenInterval;
+    [SerializeField] protected int regenValue;
+    [SerializeField] protected bool hasRegen;
+    private int lastRegenCall;
+
 
     protected Slider slider;
     protected GameObject sliderGO;
 
     private Plane cameraPlane;
+    private bool hasDied;
 
     protected void Awake()
     {
@@ -73,12 +79,30 @@ public abstract class CharacterStats : MonoBehaviour
         if (CurrentHealth.GetValue() > 0)
         {
             CurrentHealth.SubtractValue(damage);
-            Debug.Log(transform.name + " takes " + damage + " damage.");
-        }
+            //Debug.Log(transform.name + " takes " + damage + " damage.");
 
-        if (CurrentHealth.GetValue() <= 0)
-        {
-            Die();
+            if (CurrentHealth.GetValue() <= 0)
+            {
+                Die();
+            } 
+            else if (hasRegen) 
+            {
+                StartCoroutine(RegenAfterDelay(regenValue, regenInterval, regenDelay));
+            }
+        } 
+
+        
+    }
+
+    protected IEnumerator RegenAfterDelay(int value, float interval, float delay){
+        lastRegenCall+=1;
+        int callIndex = lastRegenCall;
+
+        yield return new WaitForSeconds(regenDelay);
+        
+        while (callIndex == lastRegenCall){ // only the last RegenAfterDelay called in the stack has the right to regen
+            CurrentHealth.SetValue(Mathf.Min(CurrentHealth.GetValue()+value, MaxHealth));
+            yield return new WaitForSeconds(regenInterval);
         }
     }
 

@@ -12,12 +12,25 @@ public abstract class ObjectPool : MonoBehaviour
     [SerializeField] protected int addMoreTrigger = 2;
 
     [SerializeField] protected GameObject objectPrefab;
+
+    [SerializeField] protected bool hasMorePrefabs;
+    
+    [SerializeField] protected List<GameObject> extraPrefabs;
     // Start is called before the first frame update
 
     protected void AddObjects(int objectsToAdd){
         for (int i = 0; i < objectsToAdd; i++)
         {
-            GameObject obj = Instantiate(objectPrefab);
+            GameObject obj;
+            if (hasMorePrefabs)
+            {
+                var index = Random.Range(0, extraPrefabs.Count);
+                obj = Instantiate(extraPrefabs[index]);
+            }
+            else
+            {
+                obj = Instantiate(objectPrefab);
+            }
             obj.SetActive(false);
             pooledObjects.Add(obj);
         }
