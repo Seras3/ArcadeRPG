@@ -28,6 +28,7 @@ public class TopScores : MonoBehaviour
             return (-this.score).CompareTo(-that.score); // minus signs for reversing the sort order from ascending to descending
         }
     }
+
     public void LoadLeaderboard()
     {
         var container = GameObject.Find("LeaderboardContainer");
@@ -72,7 +73,7 @@ public class TopScores : MonoBehaviour
         File.WriteAllText(path, JsonUtility.ToJson(recordList));
     } 
     private void Start() {
-        path = Application.dataPath + "/TopScores.json";
+        path = Application.persistentDataPath + "/TopScores.json";
         JsonInput();
         // lead = GameObject.Find("LeaderboardContainer");
         // Debug.Log("LEAD: " + lead.transform.name);
