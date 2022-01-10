@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class LevelController : MonoBehaviour
 {
-    int level;
+    public int level;
     private WaveController waveController;
     private bool isLevelStarting;
+
     void Start()
     {
         waveController = gameObject.AddComponent<WaveController>();
