@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using Utils;
 
@@ -10,6 +11,7 @@ public class UIHandler : MonoBehaviour
     private TMP_Text ScoreTextMesh;
     private TMP_Text AmmoTextMesh;
     private TMP_Text LevelTextMesh;
+    private Image WeaponImage;
     private List<GameObject> DropTextMeshList;
     [SerializeField] private int DropListSize;
 
@@ -26,6 +28,7 @@ public class UIHandler : MonoBehaviour
         ScoreTextMesh = GameObject.Find("ScoreText").GetComponent<TMP_Text>();
         AmmoTextMesh = GameObject.Find("AmmoText").GetComponent<TMP_Text>();
         LevelTextMesh = GameObject.Find("LevelText").GetComponent<TMP_Text>();
+        WeaponImage = GameObject.Find("WeaponImage").GetComponent<Image>();
         DropListCycler = 0;
 
         Transform parent = GameObject.Find("UI").transform;
@@ -43,6 +46,8 @@ public class UIHandler : MonoBehaviour
         ScoreTextMesh.text = "SCORE:  " + GameManager.Score;
         AmmoTextMesh.text = "x " + (currentWeaponStats.HasInfiniteAmmo ? "Inf" : currentWeaponStats.AmmoCount.ToString());
         LevelTextMesh.text = "LEVEL  " + GameManager.getLevel().ToString();
+        WeaponImage.sprite = currentWeaponStats.ImageSprite;
+
     }
 
     public void DisplayNewDrop(string text) 

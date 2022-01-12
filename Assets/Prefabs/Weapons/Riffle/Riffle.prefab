@@ -1412,6 +1412,7 @@ MonoBehaviour:
   AmmoLimit: 200
   HasInfiniteAmmo: 0
   FireRate: 0.1
+  ImageSprite: {fileID: 21300000, guid: ddafc79d205328143a93974698c8bba6, type: 3}
   accuracy: 0.93
 --- !u!1 &3184315210288806126
 GameObject:

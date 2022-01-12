@@ -17,6 +17,8 @@ public class Weapon : MonoBehaviour
 
     public float FireRate;
 
+    public Sprite ImageSprite;
+    
     public void ReduceAmmo()
     {
         AmmoCount -= 1;
