@@ -1,8 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Pools;
 using Stats;
 using UnityEngine;
+using Utils;
+using Random = UnityEngine.Random;
 
 
 public class WaveController : MonoBehaviour
@@ -37,7 +40,22 @@ public class WaveController : MonoBehaviour
 	public int maxNoOfEnemies;
 	public int deadEnemies = 0;
 	private static readonly int IsDead = Animator.StringToHash("isDead");
-
+	
+	// enemy types
+	private enum EnemyType
+	{
+		Dragon,
+		Wizzard,
+		Golem
+	};
+	
+	// spawn chances <= 1
+	private Dictionary<EnemyType, float> spawnChanceOnCurrentLevel;
+	
+	// spawnChances[level][EnemyType]
+	// If key for current level doesn't exists, then use last "spawnChanceOnCurrentLevel"
+	private Dictionary<int, Dictionary<EnemyType, float>> spawnChances; 
+	
 	void Start()
 	{
 		if (!enableSpawn) return;
@@ -49,6 +67,53 @@ public class WaveController : MonoBehaviour
 		float randomY = Random.Range(plane.transform.position.y - plane.transform.localScale.y / 2, plane.transform.position.y + plane.transform.localScale.y / 2);
 		float randomZ = Random.Range(plane.transform.position.y - plane.transform.localScale.z / 2, plane.transform.position.y + plane.transform.localScale.z / 2);
 
+		// spawn chance initialize
+		// default spawn chance
+		spawnChanceOnCurrentLevel = new Dictionary<EnemyType, float>()
+		{
+			{EnemyType.Dragon, 0},
+			{EnemyType.Wizzard, 0},
+			{EnemyType.Golem, 1}
+		};
+
+		// list of spawn chances according to level
+		spawnChances = new Dictionary<int, Dictionary<EnemyType, float>>()
+		{
+			{1, new Dictionary<EnemyType, float>()
+			{
+				{EnemyType.Dragon, 0},
+				{EnemyType.Wizzard, 0},
+				{EnemyType.Golem, 1}
+			}},
+			{2, new Dictionary<EnemyType, float>()
+			{
+				{EnemyType.Dragon, 0},
+				{EnemyType.Wizzard, 0.1f},
+				{EnemyType.Golem, 0.9f}
+			}},
+			{3, new Dictionary<EnemyType, float>()
+			{
+				{EnemyType.Dragon, 0},
+				{EnemyType.Wizzard, 0.2f},
+				{EnemyType.Golem, 0.8f}
+			}},
+			{4, new Dictionary<EnemyType, float>()
+			{
+				{EnemyType.Dragon, 0.1f},
+				{EnemyType.Wizzard, 0.2f},
+				{EnemyType.Golem, 0.7f}
+			}},
+			{5, new Dictionary<EnemyType, float>()
+			{
+				{EnemyType.Dragon, 0.2f},
+				{EnemyType.Wizzard, 0.3f},
+				{EnemyType.Golem, 0.5f}
+			}},
+			
+		};
+		
+		
+		
 		// create and start spawn timer
 		spawnTimer = gameObject.AddComponent<Timer>();
 		spawnTimer.Duration = Random.Range(MinSpawnDelay, MaxSpawnDelay);
@@ -126,18 +191,28 @@ public class WaveController : MonoBehaviour
 		// generate random location and create new object
 		Vector3 randomPosition = GetARandomPos(plane);
 		GameObject enemyObject = null;
-		int randomNumber = Random.Range(0, 10);
-		if (randomNumber < 4)
+		float randomNumber = Random.value;
+		int level = GameManager.getLevel();
+		
+		if (spawnChances.ContainsKey(level))
+		{
+			spawnChanceOnCurrentLevel = spawnChances[level];
+		}
+		
+		print("Spawn Chances: " + string.Join(",", spawnChanceOnCurrentLevel));
+		
+		if (randomNumber <= spawnChanceOnCurrentLevel[EnemyType.Dragon])
         {
-			enemyObject = EnemyPool.instance.GetPooledObject();
+	        enemyObject = DragonPool.instance.GetPooledObject();
         }
-		else if (randomNumber < 8)
+		else if (randomNumber <= spawnChanceOnCurrentLevel[EnemyType.Dragon] +
+								 spawnChanceOnCurrentLevel[EnemyType.Wizzard])
         {
 	        enemyObject = WizardPool.instance.GetPooledObject();
         }
 		else
 		{
-			enemyObject = DragonPool.instance.GetPooledObject();
+			enemyObject = EnemyPool.instance.GetPooledObject();
 		}
 		
 		if (enemyObject != null)

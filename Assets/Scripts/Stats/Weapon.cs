@@ -11,6 +11,8 @@ public class Weapon : MonoBehaviour
     
     public int AmmoCount;
 
+    public int AmmoLimit;
+
     public bool HasInfiniteAmmo;
 
     public float FireRate;

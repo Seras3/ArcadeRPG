@@ -84,8 +84,12 @@ namespace Stats
             {
                 weaponStats = transform.GetChild(3 + i).gameObject.GetComponent<Weapon>();
                 if(weaponStats.Name == WeaponName) 
-                {  
+                {
                     weaponStats.AmmoCount += AmmoCount;
+                    if (!weaponStats.HasInfiniteAmmo && weaponStats.AmmoCount > weaponStats.AmmoLimit)
+                    {
+                        weaponStats.AmmoCount = weaponStats.AmmoLimit;
+                    }
                 }
             }
         }
