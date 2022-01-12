@@ -11,6 +11,7 @@ using Random = UnityEngine.Random;
 public class WaveController : MonoBehaviour
 {
 
+	private UIHandler _uiHandler;
 	[SerializeField] private bool enableSpawn = true;
 	// needed for spawning
 	[SerializeField]
@@ -20,12 +21,13 @@ public class WaveController : MonoBehaviour
 	GameObject plane;
 
 	// spawn control
-	const float MinSpawnDelay = 3;
-	const float MaxSpawnDelay = 5;
+	const float MinSpawnDelay = 1; // seconds
+	const float MaxSpawnDelay = 4; // seconds
 
 	const float yBuffer = 1, yBufferGolem = 0.5f;
 	Timer spawnTimer;
 	Timer waveTimer;
+	private float timeToKillAnEnemy = 20; // seconds
 	public int wave;
 	public int maxNoOfWaves;
 	public int level;
@@ -49,7 +51,7 @@ public class WaveController : MonoBehaviour
 		Golem
 	};
 	
-	// spawn chances <= 1
+	// sum of spawn chances for current level == 1
 	private Dictionary<EnemyType, float> spawnChanceOnCurrentLevel;
 	
 	// spawnChances[level][EnemyType]
@@ -58,6 +60,7 @@ public class WaveController : MonoBehaviour
 	
 	void Start()
 	{
+		_uiHandler = GameObject.Find("UIModifier").GetComponent<UIHandler>();
 		if (!enableSpawn) return;
 
 		plane = GameObject.FindWithTag("Plane");
@@ -157,7 +160,7 @@ public class WaveController : MonoBehaviour
 	public void startLevel(int level)
 	{
 		this.level = level;
-		maxNoOfWaves = level + 2;
+		maxNoOfWaves = level/2 + 2;
 		wave = 0;
 		if(level != 1)
         {
@@ -174,9 +177,10 @@ public class WaveController : MonoBehaviour
 	{
 		wave++;
 		if (wave > maxNoOfWaves) return;
-		Debug.Log("Starting wave " + wave.ToString());
+		Debug.Log("Starting wave " + level + "." +  wave + " out of " + maxNoOfWaves);
+		_uiHandler.UpdateWaveInfo(wave.ToString(), maxNoOfWaves.ToString());
 		int enemiesForCurrentWave = wave + level + 1; //(int)System.Math.Round(wave + level + 1);
-		waveTimer.Duration = 25 * enemiesForCurrentWave / level;
+		waveTimer.Duration = timeToKillAnEnemy * enemiesForCurrentWave / level;
 		waveTimer.Run();
 		maxNoOfEnemies = noOfEnemies + enemiesForCurrentWave;
 	}
@@ -192,7 +196,6 @@ public class WaveController : MonoBehaviour
 		Vector3 randomPosition = GetARandomPos(plane);
 		GameObject enemyObject = null;
 		float randomNumber = Random.value;
-		int level = GameManager.getLevel();
 		
 		if (spawnChances.ContainsKey(level))
 		{
