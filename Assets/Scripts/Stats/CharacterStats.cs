@@ -6,7 +6,7 @@ public abstract class CharacterStats : MonoBehaviour
     public int MaxHealth = 100;
 
     public Stat CurrentHealth { get; set; }
-    public float MovementSpeed { get; set; }
+    public float MovementSpeed;
 
     [SerializeField] protected GameObject sliderPrefab;
     [SerializeField] protected Vector3 SliderOffset = new Vector3(0, 3, 0);
@@ -32,7 +32,7 @@ public abstract class CharacterStats : MonoBehaviour
         parentCanvas = GameObject.Find("HPBarCanvas").GetComponent<Canvas>();
 
         CurrentHealth = new Stat(MaxHealth);
-        MovementSpeed = 0.005f;
+        MovementSpeed = 0.01f;  
 
         HPbarSetup();
     }

@@ -127,14 +127,18 @@ public class WaveController : MonoBehaviour
 		Vector3 randomPosition = GetARandomPos(plane);
 		GameObject enemyObject = null;
 		int randomNumber = Random.Range(0, 10);
-		if (randomNumber < 4)
+		if (randomNumber < 3)
         {
 			enemyObject = EnemyPool.instance.GetPooledObject();
         }
-		else if (randomNumber < 8)
+		else if (randomNumber < 3)
         {
 	        enemyObject = WizardPool.instance.GetPooledObject();
         }
+		else if (randomNumber < 8) 
+		{
+			enemyObject = TurtlePool.instance.GetPooledObject();
+		}
 		else
 		{
 			enemyObject = DragonPool.instance.GetPooledObject();
@@ -191,7 +195,7 @@ public class WaveController : MonoBehaviour
 				break;
 		}
 
-		Vector3 newVec = new Vector3(x, plane.transform.position.y, z);
+		Vector3 newVec = new Vector3(x, plane.transform.position.y + yBuffer, z);
 		return newVec;
 	}
 
