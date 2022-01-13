@@ -29,6 +29,7 @@ namespace Controllers
         }
         void Update()
         {
+            transform.position = new Vector3(transform.position.x, 0, transform.position.z);
             if (Input.GetButton("Fire1"))
             {
                 Shoot();

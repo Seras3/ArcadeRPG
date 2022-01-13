@@ -32,6 +32,8 @@ public abstract class CharacterStats : MonoBehaviour
         parentCanvas = GameObject.Find("HPBarCanvas").GetComponent<Canvas>();
 
         CurrentHealth = new Stat(MaxHealth);
+        MovementSpeed = 0.01f;  
+
         HPbarSetup();
     }
 

@@ -160,7 +160,7 @@ public class WaveController : MonoBehaviour
 	public void startLevel(int level)
 	{
 		this.level = level;
-		maxNoOfWaves = level/2 + 2;
+		maxNoOfWaves = level + 2;
 		wave = 0;
 		if(level != 1)
         {
@@ -269,7 +269,7 @@ public class WaveController : MonoBehaviour
 				break;
 		}
 
-		Vector3 newVec = new Vector3(x, plane.transform.position.y, z);
+		Vector3 newVec = new Vector3(x, plane.transform.position.y + yBuffer, z);
 		return newVec;
 	}
 
