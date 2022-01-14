@@ -16,9 +16,9 @@ public class TurtleController : EnemyController
     private Color walkColor = Color.white;
     private Color chargeColor = Color.red;  
     private Color lerpedColor = Color.white;
-
+    
     private int _baseDamage;
-
+    
     private float colorValue;
 
     void Start()
@@ -34,7 +34,7 @@ public class TurtleController : EnemyController
         lastStateChange = Time.time;
 
         _baseDamage = enemyStats.Damage;
-
+        
         state = 1;
 
         colorValue = 0;

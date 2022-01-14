@@ -213,7 +213,7 @@ public class WaveController : MonoBehaviour
 		print("Spawn Chances: " + string.Join(",", spawnChanceOnCurrentLevel));
 		
 		if (randomNumber <= spawnChanceOnCurrentLevel[EnemyType.Dragon])
-        {
+		{
 	        enemyObject = DragonPool.instance.GetPooledObject();
         }
 		else if (randomNumber <= spawnChanceOnCurrentLevel[EnemyType.Dragon] +
@@ -224,9 +224,13 @@ public class WaveController : MonoBehaviour
 		else if (randomNumber <= spawnChanceOnCurrentLevel[EnemyType.Dragon] +
 								 spawnChanceOnCurrentLevel[EnemyType.Turtle] +
 								 spawnChanceOnCurrentLevel[EnemyType.Wizzard])
-        {
+		{
 	        enemyObject = WizardPool.instance.GetPooledObject();
         }
+		else if (randomNumber < 8) 
+		{
+			enemyObject = TurtlePool.instance.GetPooledObject();
+		}
 		else
 		{
 			enemyObject = EnemyPool.instance.GetPooledObject();
@@ -283,7 +287,7 @@ public class WaveController : MonoBehaviour
 				break;
 		}
 
-		Vector3 newVec = new Vector3(x, plane.transform.position.y, z);
+		Vector3 newVec = new Vector3(x, plane.transform.position.y + yBuffer, z);
 		return newVec;
 	}
 
