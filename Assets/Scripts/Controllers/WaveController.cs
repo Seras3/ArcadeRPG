@@ -24,7 +24,6 @@ public class WaveController : MonoBehaviour
 	const float MinSpawnDelay = 1; // seconds
 	const float MaxSpawnDelay = 4; // seconds
 
-	const float yBuffer = 1, yBufferGolem = 0.5f;
 	Timer spawnTimer;
 	Timer waveTimer;
 	private float timeToKillAnEnemy = 20; // seconds
@@ -86,8 +85,8 @@ public class WaveController : MonoBehaviour
 		{
 			{1, new Dictionary<EnemyType, float>()
 			{
-				{EnemyType.Dragon, 0.5f},
-				{EnemyType.Turtle, 0.0f},
+				{EnemyType.Dragon, 0.25f},
+				{EnemyType.Turtle, 0.25f},
 				{EnemyType.Wizzard, 0.25f},
 				{EnemyType.Golem, 0.25f}
 			}},
@@ -168,7 +167,7 @@ public class WaveController : MonoBehaviour
 	public void startLevel(int level)
 	{
 		this.level = level;
-		maxNoOfWaves = level + 2;
+		maxNoOfWaves = (level/2) + 2;
 		wave = 0;
 		if(level != 1)
         {
@@ -287,7 +286,7 @@ public class WaveController : MonoBehaviour
 				break;
 		}
 
-		Vector3 newVec = new Vector3(x, plane.transform.position.y + yBuffer, z);
+		Vector3 newVec = new Vector3(x, plane.transform.position.y, z);
 		return newVec;
 	}
 
