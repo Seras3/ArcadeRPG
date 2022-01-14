@@ -16,9 +16,11 @@ namespace Utils
         private GameObject _player;
         private HumanoidMovementPlayer _playerMovementScript;
         private PlayerController _playerControllerScript;
+        private static LevelController _levelController;
         private TopScores _topScoresScript;
         public static GameStatus CurrentStatus { get; private set; }
         public static int Score { get; private set; }
+        
 
         public enum GameStatus
         {
@@ -40,8 +42,9 @@ namespace Utils
             _player = GameObject.Find("Dummy");
             _playerMovementScript = _player.GetComponent<HumanoidMovementPlayer>();
             _playerControllerScript = _player.GetComponent<PlayerController>();
+            _levelController = GameObject.Find("ObjectSpawner").GetComponent<LevelController>();
             _topScoresScript = GetComponent<TopScores>();
-            
+
             _playerMovementScript.enabled = true;
             _playerControllerScript.enabled = true;
             Time.timeScale = 1;
@@ -99,7 +102,7 @@ namespace Utils
             
             CurrentStatus = GameStatus.Playing;
         }
-        
+
         private void FreezeEverything()
         {
             // freeze hero
@@ -145,6 +148,11 @@ namespace Utils
         public static void AddScore(int value) 
         {  
             Score += value;
+        }
+
+        public static int getLevel()
+        {
+            return _levelController.level;
         }
     }
 }

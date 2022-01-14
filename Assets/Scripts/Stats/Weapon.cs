@@ -11,10 +11,14 @@ public class Weapon : MonoBehaviour
     
     public int AmmoCount;
 
+    public int AmmoLimit;
+
     public bool HasInfiniteAmmo;
 
     public float FireRate;
 
+    public Sprite ImageSprite;
+    
     public void ReduceAmmo()
     {
         AmmoCount -= 1;

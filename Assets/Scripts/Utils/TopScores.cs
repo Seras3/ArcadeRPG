@@ -76,9 +76,11 @@ public class TopScores : MonoBehaviour
 
     private void JsonOutput(){
         File.WriteAllText(path, JsonUtility.ToJson(recordList));
-    } 
+    }
+
     private void Start() {
         path = Application.persistentDataPath + "/TopScores.json";
+        Debug.Log("path: " + path.ToString());
         JsonInput();
         // lead = GameObject.Find("LeaderboardContainer");
         // Debug.Log("LEAD: " + lead.transform.name);
