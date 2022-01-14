@@ -733,7 +733,7 @@ MonoBehaviour:
   ScoreCount: 15
   DropList:
   - Weapon: {fileID: 2894627681083147606, guid: 8ed0f39eedc4f1145af329f2f23ed639, type: 3}
-    AmmoCount: 70
+    AmmoCount: 80
     DropChance: 0.5
   MovementSpeedOnCharge: 0.1
   DamageOnCharge: 30

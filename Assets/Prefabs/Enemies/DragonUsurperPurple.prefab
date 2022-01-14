@@ -661,7 +661,7 @@ MonoBehaviour:
   hasRegen: 0
   OffsetYPosition: 0
   Damage: 20
-  ScoreCount: 30
+  ScoreCount: 50
   DropList:
   - Weapon: {fileID: 2894627681083147606, guid: 8ed0f39eedc4f1145af329f2f23ed639, type: 3}
     AmmoCount: 200
