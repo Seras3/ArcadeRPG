@@ -40,7 +40,7 @@ public class TurtleController : EnemyController
         colorValue = 0;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (GameManager.CurrentStatus != GameManager.GameStatus.Playing) return;
 

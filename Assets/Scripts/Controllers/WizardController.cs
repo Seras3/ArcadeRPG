@@ -33,7 +33,7 @@ namespace Controllers
             enemyStats = GetComponent<WizardStats>();
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (Time.time - _lastStateChanged > DelayTimeState)
             {

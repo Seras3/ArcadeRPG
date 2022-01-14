@@ -39,7 +39,7 @@ namespace Controllers
             enemyStats = GetComponent<DragonStats>();
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (GameManager.CurrentStatus != GameManager.GameStatus.Playing) return;
             
