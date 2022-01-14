@@ -14,7 +14,9 @@ public class EnemyController : MonoBehaviour
     protected Vector3 _playerPosition;
 
     protected Animator Anim;
-
+    public float attackDebounceTime = 0.2f;
+    private float lastAttackTime;
+    
     private void Start()
     { 
         enemyStats = GetComponent<Stats.EnemyStats>();
@@ -60,9 +62,13 @@ public class EnemyController : MonoBehaviour
         }
         else if (other.gameObject.name == "Dummy")
         {
-            other.gameObject.GetComponent<CharacterStats>().TakeDamage(enemyStats.Damage);
-            
-            GetComponent<Animator>().Play("Attack02", 0);
+            if (Time.time - lastAttackTime > attackDebounceTime)
+            {
+                other.gameObject.GetComponent<CharacterStats>().TakeDamage(enemyStats.Damage);
+                
+                GetComponent<Animator>().Play("Attack02", 0);
+                lastAttackTime = Time.time;
+            }
         }
     }
 

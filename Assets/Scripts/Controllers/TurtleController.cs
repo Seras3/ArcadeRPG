@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Utils;
+using Stats;
 
 public class TurtleController : EnemyController
 {
@@ -16,6 +17,8 @@ public class TurtleController : EnemyController
     private Color chargeColor = Color.red;  
     private Color lerpedColor = Color.white;
 
+    private int _baseDamage;
+
     private float colorValue;
 
     void Start()
@@ -26,9 +29,11 @@ public class TurtleController : EnemyController
 
         interpolant = 0.1f;
 
-        enemyStats = GetComponent<Stats.EnemyStats>(); 
+        enemyStats = GetComponent<Stats.TurtleStats>(); 
 
         lastStateChange = Time.time;
+
+        _baseDamage = enemyStats.Damage;
 
         state = 1;
 
@@ -127,9 +132,11 @@ public class TurtleController : EnemyController
         Vector3 enemyPosition = transform.position;
 
         lockedPlayerPosition.y = enemyPosition.y;
-        transform.position = Vector3.MoveTowards(enemyPosition, lockedPlayerPosition, 0.03f);
-
-        if (transform.position == lockedPlayerPosition) {
+        transform.position = Vector3.MoveTowards(enemyPosition, lockedPlayerPosition, ((TurtleStats)enemyStats).MovementSpeedOnCharge);
+        enemyStats.Damage = ((TurtleStats) enemyStats).DamageOnCharge;
+        if (transform.position == lockedPlayerPosition)
+        {
+            enemyStats.Damage = _baseDamage;
             ChangeState();
         }
     }

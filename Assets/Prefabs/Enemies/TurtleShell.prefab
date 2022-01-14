@@ -616,8 +616,8 @@ GameObject:
   - component: {fileID: 5027811251190387524}
   - component: {fileID: 5027811251190387579}
   - component: {fileID: 5027811251190387578}
-  - component: {fileID: 5027811251190387576}
   - component: {fileID: 5027811251190387577}
+  - component: {fileID: 4365184863447716703}
   m_Layer: 0
   m_Name: TurtleShell
   m_TagString: Enemy
@@ -689,33 +689,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &5027811251190387576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5027811251190387583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09abc3e5b6164baa841c5a0ac8b8a4eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxHealth: 90
-  sliderPrefab: {fileID: 0}
-  SliderOffset: {x: 0, y: 3, z: 0}
-  parentCanvas: {fileID: 0}
-  hasHpBar: 1
-  regenDelay: 0
-  regenInterval: 0
-  regenValue: 0
-  hasRegen: 0
-  OffsetYPosition: 0
-  ScoreCount: 15
-  DropList:
-  - Weapon: {fileID: 2894627681083147606, guid: 8ed0f39eedc4f1145af329f2f23ed639, type: 3}
-    AmmoCount: 20
-    DropChance: 0.2
 --- !u!114 &5027811251190387577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -731,6 +704,36 @@ MonoBehaviour:
   interpolant: 0
   enemyStats: {fileID: 0}
   enemyLookDirection: {x: 0, y: 0, z: 0}
+  attackDebounceTime: 0.4
+--- !u!114 &4365184863447716703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5027811251190387583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79bec3e2d5f44c4d95e41ac8cae26185, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 90
+  CharacterType: 2
+  MovementSpeed: 0.015
+  sliderPrefab: {fileID: 0}
+  SliderOffset: {x: 0, y: 3, z: 0}
+  parentCanvas: {fileID: 0}
+  hasHpBar: 1
+  regenDelay: 0
+  regenInterval: 0
+  regenValue: 0
+  hasRegen: 0
+  OffsetYPosition: 1
+  Damage: 10
+  ScoreCount: 15
+  DropList: []
+  MovementSpeedOnCharge: 0.1
+  DamageOnCharge: 30
 --- !u!1 &5027811251199244927
 GameObject:
   m_ObjectHideFlags: 0

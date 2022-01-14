@@ -133,6 +133,7 @@ MonoBehaviour:
   interpolant: 0
   enemyStats: {fileID: 0}
   enemyLookDirection: {x: 0, y: 0, z: 0}
+  attackDebounceTime: 0.2
 --- !u!65 &3712408869214970684
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -159,6 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 150
+  CharacterType: 4
   MovementSpeed: 0.01
   sliderPrefab: {fileID: 0}
   SliderOffset: {x: 0, y: 3, z: 0}
@@ -168,7 +170,7 @@ MonoBehaviour:
   regenInterval: 0
   regenValue: 0
   hasRegen: 0
-  OffsetYPosition: 0
+  OffsetYPosition: 0.1
   Damage: 20
   ScoreCount: 10
   DropList:

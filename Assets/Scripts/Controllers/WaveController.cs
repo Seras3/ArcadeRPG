@@ -47,6 +47,7 @@ public class WaveController : MonoBehaviour
 	private enum EnemyType
 	{
 		Dragon,
+		Turtle,
 		Wizzard,
 		Golem
 	};
@@ -75,6 +76,7 @@ public class WaveController : MonoBehaviour
 		spawnChanceOnCurrentLevel = new Dictionary<EnemyType, float>()
 		{
 			{EnemyType.Dragon, 0},
+			{EnemyType.Turtle, 0},
 			{EnemyType.Wizzard, 0},
 			{EnemyType.Golem, 1}
 		};
@@ -84,35 +86,41 @@ public class WaveController : MonoBehaviour
 		{
 			{1, new Dictionary<EnemyType, float>()
 			{
-				{EnemyType.Dragon, 0},
-				{EnemyType.Wizzard, 0},
-				{EnemyType.Golem, 1}
+				{EnemyType.Dragon, 0.5f},
+				{EnemyType.Turtle, 0.0f},
+				{EnemyType.Wizzard, 0.25f},
+				{EnemyType.Golem, 0.25f}
 			}},
+			/*
 			{2, new Dictionary<EnemyType, float>()
 			{
 				{EnemyType.Dragon, 0},
+				{EnemyType.Turtle, 0},
 				{EnemyType.Wizzard, 0.1f},
 				{EnemyType.Golem, 0.9f}
 			}},
 			{3, new Dictionary<EnemyType, float>()
 			{
 				{EnemyType.Dragon, 0},
+				{EnemyType.Turtle, 0.1f},
 				{EnemyType.Wizzard, 0.2f},
-				{EnemyType.Golem, 0.8f}
+				{EnemyType.Golem, 0.7f}
 			}},
 			{4, new Dictionary<EnemyType, float>()
 			{
 				{EnemyType.Dragon, 0.1f},
-				{EnemyType.Wizzard, 0.2f},
-				{EnemyType.Golem, 0.7f}
+				{EnemyType.Turtle, 0.2f},
+				{EnemyType.Wizzard, 0.3f},
+				{EnemyType.Golem, 0.4f}
 			}},
 			{5, new Dictionary<EnemyType, float>()
 			{
 				{EnemyType.Dragon, 0.2f},
+				{EnemyType.Turtle, 0.2f},
 				{EnemyType.Wizzard, 0.3f},
-				{EnemyType.Golem, 0.5f}
+				{EnemyType.Golem, 0.3f}
 			}},
-			
+			*/
 		};
 		
 		
@@ -209,6 +217,12 @@ public class WaveController : MonoBehaviour
 	        enemyObject = DragonPool.instance.GetPooledObject();
         }
 		else if (randomNumber <= spawnChanceOnCurrentLevel[EnemyType.Dragon] +
+		         spawnChanceOnCurrentLevel[EnemyType.Turtle])
+		{
+			enemyObject = TurtlePool.instance.GetPooledObject();
+		}
+		else if (randomNumber <= spawnChanceOnCurrentLevel[EnemyType.Dragon] +
+								 spawnChanceOnCurrentLevel[EnemyType.Turtle] +
 								 spawnChanceOnCurrentLevel[EnemyType.Wizzard])
         {
 	        enemyObject = WizardPool.instance.GetPooledObject();
@@ -269,7 +283,7 @@ public class WaveController : MonoBehaviour
 				break;
 		}
 
-		Vector3 newVec = new Vector3(x, plane.transform.position.y + yBuffer, z);
+		Vector3 newVec = new Vector3(x, plane.transform.position.y, z);
 		return newVec;
 	}
 
