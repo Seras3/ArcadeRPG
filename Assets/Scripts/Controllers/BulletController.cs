@@ -56,7 +56,19 @@ public class BulletController : MonoBehaviour
                     var anim = other.gameObject.GetComponentInParent<Animator>();
                     if (anim.GetBool(IsDead) == false)
                     {
-                        anim.Play("GetHit", 0);
+                        if (charStats.CharacterType == CharacterStats.CharacterTypes.Dragon)
+                        {
+                            var dragonController = other.gameObject.GetComponent<DragonController>();
+                            if (dragonController.state != DragonController.DragonState.Shooting)
+                            {
+                                anim.Play("GetHit", 0);
+                            }
+
+                        }
+                        else
+                        {
+                            anim.Play("GetHit", 0);
+                        }
                     }
                 }
                 else

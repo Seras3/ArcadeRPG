@@ -3,7 +3,17 @@ using UnityEngine;
 using UnityEngine.UI;
 public abstract class CharacterStats : MonoBehaviour
 {
+    public enum CharacterTypes
+    {
+        Player,
+        Dragon,
+        Turtle,
+        Wizzard,
+        Golem
+    }
+    
     public int MaxHealth = 100;
+    public CharacterTypes CharacterType;
 
     public Stat CurrentHealth { get; set; }
     public float MovementSpeed;
@@ -32,6 +42,8 @@ public abstract class CharacterStats : MonoBehaviour
         parentCanvas = GameObject.Find("HPBarCanvas").GetComponent<Canvas>();
 
         CurrentHealth = new Stat(MaxHealth);
+        MovementSpeed = 0.01f;  
+
         HPbarSetup();
     }
 

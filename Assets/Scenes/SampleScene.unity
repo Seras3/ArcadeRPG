@@ -2584,6 +2584,7 @@ GameObject:
   - component: {fileID: 1929588484}
   - component: {fileID: 1929588485}
   - component: {fileID: 1929588486}
+  - component: {fileID: 1929588487}
   m_Layer: 0
   m_Name: ObjectPool
   m_TagString: Untagged
@@ -2716,6 +2717,24 @@ MonoBehaviour:
   - {fileID: 194904, guid: 445a5c29e7f715947b713a753f242af0, type: 3}
   - {fileID: 139696, guid: eb58e8f2831a51f45a44a261e6710cdd, type: 3}
   - {fileID: 116688, guid: 09ade59177310454ba3c93ae4b7dc125, type: 3}
+--- !u!114 &1929588487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1929588479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a0da5786de922a48a196695c9a5e850, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amountToPool: 5
+  amountToPoolExtra: 5
+  addMoreTrigger: 2
+  objectPrefab: {fileID: 5027811251190387583, guid: 3aec22b5d3f3c2947bb81040b56e5f96, type: 3}
+  hasMorePrefabs: 0
+  extraPrefabs: []
 --- !u!1 &1945710734
 GameObject:
   m_ObjectHideFlags: 0
