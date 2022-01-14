@@ -490,7 +490,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 100
   CharacterType: 3
-  MovementSpeed: 0.01
+  MovementSpeed: 0.02
   sliderPrefab: {fileID: 0}
   SliderOffset: {x: 0, y: 3, z: 0}
   parentCanvas: {fileID: 0}

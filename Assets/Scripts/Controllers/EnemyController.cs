@@ -23,7 +23,7 @@ public class EnemyController : MonoBehaviour
         Anim = GetComponent<Animator>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
 
         if (GameManager.CurrentStatus is GameManager.GameStatus.Playing &&
@@ -48,7 +48,6 @@ public class EnemyController : MonoBehaviour
             transform.position = Vector3.MoveTowards(enemyPosition, playerPosition, enemyStats.MovementSpeed);
         }
         
-
         TurnTowardsPlayer();
     }
 
