@@ -647,6 +647,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 300
+  MovementSpeed: 0.01
   sliderPrefab: {fileID: 0}
   SliderOffset: {x: 0, y: 3, z: 0}
   parentCanvas: {fileID: 0}
@@ -661,6 +662,7 @@ MonoBehaviour:
   - Weapon: {fileID: 2894627681083147606, guid: 8ed0f39eedc4f1145af329f2f23ed639, type: 3}
     AmmoCount: 200
     DropChance: 0.4
+  FlyingMovementSpeed: 0.018
 --- !u!65 &2220801299742537052
 BoxCollider:
   m_ObjectHideFlags: 0

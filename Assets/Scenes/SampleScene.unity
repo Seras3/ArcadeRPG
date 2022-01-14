@@ -3237,6 +3237,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3439795289399871678, guid: c0c9a09a8db1ecf438a4352462e2a526, type: 3}
     - target: {fileID: 101276604810472117, guid: 261c8021f9838da478537aaa9000726e, type: 3}
+      propertyPath: MovementSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 101276604810472117, guid: 261c8021f9838da478537aaa9000726e, type: 3}
       propertyPath: regenInterval
       value: 0.5
       objectReference: {fileID: 0}

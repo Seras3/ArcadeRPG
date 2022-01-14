@@ -31,13 +31,21 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    protected void MoveTowardsPlayer()
+    protected void MoveTowardsPlayer(float MovementSpeed = -1)
     {
         Vector3 enemyPosition = transform.position;
         Vector3 playerPosition = GameObject.Find("B-spine").transform.position;
 
         playerPosition.y = enemyPosition.y;
-        transform.position = Vector3.MoveTowards(enemyPosition, playerPosition, enemyStats.MovementSpeed);
+        if (MovementSpeed != -1)
+        {
+            transform.position = Vector3.MoveTowards(enemyPosition, playerPosition, MovementSpeed);
+        }
+        else
+        {
+            transform.position = Vector3.MoveTowards(enemyPosition, playerPosition, enemyStats.MovementSpeed);
+        }
+        
 
         TurnTowardsPlayer();
     }
