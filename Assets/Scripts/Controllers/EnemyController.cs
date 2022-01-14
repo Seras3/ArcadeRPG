@@ -66,6 +66,7 @@ public class EnemyController : MonoBehaviour
                 other.gameObject.GetComponent<CharacterStats>().TakeDamage(enemyStats.Damage);
                 
                 GetComponent<Animator>().Play("Attack02", 0);
+                FindObjectOfType<AudioManager>().Play("golemSmash");
                 lastAttackTime = Time.time;
             }
         }

@@ -91,12 +91,14 @@ public abstract class CharacterStats : MonoBehaviour
             CurrentHealth.SubtractValue(damage);
             //Debug.Log(transform.name + " takes " + damage + " damage.");
 
+            
             if (CurrentHealth.GetValue() <= 0)
             {
                 Die();
             } 
             else if (hasRegen) 
             {
+                FindObjectOfType<AudioManager>().Play("shit");
                 StartCoroutine(RegenAfterDelay(regenValue, regenInterval, regenDelay));
             }
         } 

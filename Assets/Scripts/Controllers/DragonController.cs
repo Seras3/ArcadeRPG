@@ -136,6 +136,7 @@ namespace Controllers
             }
             
             Anim.Play("Basic Attack");
+            FindObjectOfType<AudioManager>().Play("fireball");
             StartCoroutine(SyncBulletWithAnimation(Anim.GetCurrentAnimatorStateInfo(0).length / 2.5f));
         }
 

@@ -78,7 +78,7 @@ namespace Controllers
         private void Shoot()
         {
             if (!Cooldown()) return;
-
+            FindObjectOfType<AudioManager>().Play("fireball");
             var anim = GetComponent<Animator>();
             anim.Play("Attack01");
             

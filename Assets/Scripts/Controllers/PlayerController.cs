@@ -91,6 +91,7 @@ namespace Controllers
             Quaternion accuracyRotation = Quaternion.AngleAxis(UnityEngine.Random.Range(-accRange, accRange), Vector3.up);
 
             rb.AddForce(accuracyRotation * dummyLookDirection * bulletForce, ForceMode.Impulse);
+            FindObjectOfType<AudioManager>().Play("pistolShot");
         }
 
         private void UpdateWeaponInfo()
