@@ -85,12 +85,11 @@ public class WaveController : MonoBehaviour
 		{
 			{1, new Dictionary<EnemyType, float>()
 			{
-				{EnemyType.Dragon, 0.25f},
-				{EnemyType.Turtle, 0.25f},
-				{EnemyType.Wizzard, 0.25f},
-				{EnemyType.Golem, 0.25f}
+				{EnemyType.Dragon, 0},
+				{EnemyType.Turtle, 0},
+				{EnemyType.Wizzard, 0},
+				{EnemyType.Golem, 1}
 			}},
-			/*
 			{2, new Dictionary<EnemyType, float>()
 			{
 				{EnemyType.Dragon, 0},
@@ -119,7 +118,6 @@ public class WaveController : MonoBehaviour
 				{EnemyType.Wizzard, 0.3f},
 				{EnemyType.Golem, 0.3f}
 			}},
-			*/
 		};
 		
 		
@@ -226,10 +224,6 @@ public class WaveController : MonoBehaviour
 		{
 	        enemyObject = WizardPool.instance.GetPooledObject();
         }
-		else if (randomNumber < 8) 
-		{
-			enemyObject = TurtlePool.instance.GetPooledObject();
-		}
 		else
 		{
 			enemyObject = EnemyPool.instance.GetPooledObject();
