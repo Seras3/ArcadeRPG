@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09abc3e5b6164baa841c5a0ac8b8a4eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 100
+  MaxHealth: 150
   MovementSpeed: 0.01
   sliderPrefab: {fileID: 0}
   SliderOffset: {x: 0, y: 3, z: 0}
@@ -169,6 +169,7 @@ MonoBehaviour:
   regenValue: 0
   hasRegen: 0
   OffsetYPosition: 0
+  Damage: 20
   ScoreCount: 10
   DropList:
   - Weapon: {fileID: 2894627681083147606, guid: 8ed0f39eedc4f1145af329f2f23ed639, type: 3}

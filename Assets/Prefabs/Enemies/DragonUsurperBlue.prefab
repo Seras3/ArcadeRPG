@@ -3874,7 +3874,7 @@ GameObject:
   - component: {fileID: 1973427730278486194}
   m_Layer: 0
   m_Name: DragonUsurperBlue
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3937,6 +3937,7 @@ MonoBehaviour:
   regenValue: 0
   hasRegen: 0
   OffsetYPosition: 0
+  Damage: 20
   ScoreCount: 50
   DropList:
   - Weapon: {fileID: 2894627681083147606, guid: 8ed0f39eedc4f1145af329f2f23ed639, type: 3}

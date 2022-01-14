@@ -3222,11 +3222,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 101276604810472117, guid: 261c8021f9838da478537aaa9000726e, type: 3}
       propertyPath: regenDelay
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 101276604810472117, guid: 261c8021f9838da478537aaa9000726e, type: 3}
       propertyPath: regenValue
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 101276604810472117, guid: 261c8021f9838da478537aaa9000726e, type: 3}
       propertyPath: parentCanvas

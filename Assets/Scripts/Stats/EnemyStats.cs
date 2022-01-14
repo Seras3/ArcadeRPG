@@ -18,7 +18,7 @@ namespace Stats
 
         private GameObject objectSpawner;
         public float OffsetYPosition;
-        public int Damage { get; set; }
+        public int Damage;
         public int ScoreCount;
         public List<Drop> DropList;
 
@@ -29,10 +29,6 @@ namespace Stats
             if(ScoreCount == 0) { ScoreCount = GlobalConstants.DefaultEnemyScoreCount; }
 
             objectSpawner = GameObject.Find("ObjectSpawner");
-        }
-        public EnemyStats() 
-        {
-            Damage = 20;
         }
 
         public void TryDropLoot() 

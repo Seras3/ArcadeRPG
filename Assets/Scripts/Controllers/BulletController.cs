@@ -17,7 +17,7 @@ public class BulletController : MonoBehaviour
     private static readonly int IsDead = Animator.StringToHash("isDead");
     private static readonly int WalkStateTransition = Animator.StringToHash("walkStateTransition");
 
-    public int Damage => GetComponent<BulletStats>().Damage;
+    public int Damage;
     void Start()
     {
         // _offsetPosition = GetComponent<BulletStats>().OffsetPosition;
@@ -47,6 +47,7 @@ public class BulletController : MonoBehaviour
     {
         if (other.gameObject != shooter)
         {
+            Damage = shooter.CompareTag("Enemy") ? shooter.GetComponent<EnemyStats>().Damage : GetComponent<BulletStats>().Damage;
             try
             {
                 var charStats = other.gameObject.GetComponentInParent<CharacterStats>();

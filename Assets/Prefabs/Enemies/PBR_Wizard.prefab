@@ -389,7 +389,7 @@ GameObject:
   - component: {fileID: -663799405656734721}
   m_Layer: 0
   m_Name: PBR_Wizard
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -487,7 +487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16d509bce1bd4af3b85a8e9cb1156c60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 150
+  MaxHealth: 100
   MovementSpeed: 0.01
   sliderPrefab: {fileID: 0}
   SliderOffset: {x: 0, y: 3, z: 0}
@@ -498,6 +498,7 @@ MonoBehaviour:
   regenValue: 0
   hasRegen: 0
   OffsetYPosition: 0
+  Damage: 15
   ScoreCount: 15
   DropList:
   - Weapon: {fileID: 2894627681083147606, guid: 8ed0f39eedc4f1145af329f2f23ed639, type: 3}
