@@ -85,11 +85,11 @@ public class WaveController : MonoBehaviour
 		{
 			{1, new Dictionary<EnemyType, float>()
 			{
-				{EnemyType.Dragon, 0.8f},
-				{EnemyType.Turtle, 0.2f},
+				{EnemyType.Dragon, 0},
+				{EnemyType.Turtle, 0},
 				{EnemyType.Wizzard, 0},
-				{EnemyType.Golem, 0}
-			}},/*
+				{EnemyType.Golem, 1}
+			}},
 			{2, new Dictionary<EnemyType, float>()
 			{
 				{EnemyType.Dragon, 0},
@@ -117,7 +117,7 @@ public class WaveController : MonoBehaviour
 				{EnemyType.Turtle, 0.2f},
 				{EnemyType.Wizzard, 0.3f},
 				{EnemyType.Golem, 0.3f}
-			}},*/
+			}},
 		};
 		
 		
