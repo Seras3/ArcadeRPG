@@ -89,7 +89,7 @@ public class WaveController : MonoBehaviour
 				{EnemyType.Turtle, 0},
 				{EnemyType.Wizzard, 0},
 				{EnemyType.Golem, 1}
-			}},/*
+			}},
 			{2, new Dictionary<EnemyType, float>()
 			{
 				{EnemyType.Dragon, 0},
@@ -117,7 +117,7 @@ public class WaveController : MonoBehaviour
 				{EnemyType.Turtle, 0.2f},
 				{EnemyType.Wizzard, 0.3f},
 				{EnemyType.Golem, 0.3f}
-			}},*/
+			}},
 		};
 		
 		
@@ -212,22 +212,27 @@ public class WaveController : MonoBehaviour
 		if (randomNumber <= spawnChanceOnCurrentLevel[EnemyType.Dragon])
 		{
 	        enemyObject = DragonPool.instance.GetPooledObject();
+            FindObjectOfType<AudioManager>().Play("dragonSpawn");
         }
 		else if (randomNumber <= spawnChanceOnCurrentLevel[EnemyType.Dragon] +
 		         spawnChanceOnCurrentLevel[EnemyType.Turtle])
 		{
 			enemyObject = TurtlePool.instance.GetPooledObject();
-		}
+            FindObjectOfType<AudioManager>().Play("turtleSpawn");
+        }
 		else if (randomNumber <= spawnChanceOnCurrentLevel[EnemyType.Dragon] +
 								 spawnChanceOnCurrentLevel[EnemyType.Turtle] +
 								 spawnChanceOnCurrentLevel[EnemyType.Wizzard])
 		{
 	        enemyObject = WizardPool.instance.GetPooledObject();
+            FindObjectOfType<AudioManager>().Play("wizardSpawn");
         }
 		else
 		{
 			enemyObject = EnemyPool.instance.GetPooledObject();
-		}
+            FindObjectOfType<AudioManager>().Play("rocks1");
+            FindObjectOfType<AudioManager>().Play("golemSpawn");
+        }
 		
 		if (enemyObject != null)
         {

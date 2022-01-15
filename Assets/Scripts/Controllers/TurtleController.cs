@@ -70,6 +70,7 @@ public class TurtleController : EnemyController
 
         if (state == 2) 
         {
+            
             Anim.Play("Taunt", 0);
             base.MoveTowardsPlayer();
 
@@ -100,6 +101,7 @@ public class TurtleController : EnemyController
 
         if (state == 3)
         {
+            FindObjectOfType<AudioManager>().Play("turtleAttack");
             Anim.Play("Attack01", 0);
             Charge();
         }
@@ -131,6 +133,7 @@ public class TurtleController : EnemyController
     {
         Vector3 enemyPosition = transform.position;
 
+        
         lockedPlayerPosition.y = enemyPosition.y;
         transform.position = Vector3.MoveTowards(enemyPosition, lockedPlayerPosition, ((TurtleStats)enemyStats).MovementSpeedOnCharge);
         enemyStats.Damage = ((TurtleStats) enemyStats).DamageOnCharge;
