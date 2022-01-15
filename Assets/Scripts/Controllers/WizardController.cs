@@ -33,7 +33,7 @@ namespace Controllers
             enemyStats = GetComponent<WizardStats>();
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (Time.time - _lastStateChanged > DelayTimeState)
             {
@@ -78,7 +78,7 @@ namespace Controllers
         private void Shoot()
         {
             if (!Cooldown()) return;
-
+            FindObjectOfType<AudioManager>().Play("fireball");
             var anim = GetComponent<Animator>();
             anim.Play("Attack01");
             

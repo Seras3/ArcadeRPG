@@ -14,14 +14,16 @@ public class EnemyController : MonoBehaviour
     protected Vector3 _playerPosition;
 
     protected Animator Anim;
-
+    public float attackDebounceTime = 0.2f;
+    private float lastAttackTime;
+    
     private void Start()
     { 
         enemyStats = GetComponent<Stats.EnemyStats>();
         Anim = GetComponent<Animator>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
 
         if (GameManager.CurrentStatus is GameManager.GameStatus.Playing &&
@@ -31,14 +33,21 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    protected void MoveTowardsPlayer()
+    protected void MoveTowardsPlayer(float MovementSpeed = -1)
     {
         Vector3 enemyPosition = transform.position;
         Vector3 playerPosition = GameObject.Find("B-spine").transform.position;
 
         playerPosition.y = enemyPosition.y;
-        transform.position = Vector3.MoveTowards(enemyPosition, playerPosition, enemyStats.MovementSpeed);
-
+        if (MovementSpeed != -1)
+        {
+            transform.position = Vector3.MoveTowards(enemyPosition, playerPosition, MovementSpeed);
+        }
+        else
+        {
+            transform.position = Vector3.MoveTowards(enemyPosition, playerPosition, enemyStats.MovementSpeed);
+        }
+        
         TurnTowardsPlayer();
     }
 
@@ -52,9 +61,14 @@ public class EnemyController : MonoBehaviour
         }
         else if (other.gameObject.name == "Dummy")
         {
-            other.gameObject.GetComponent<CharacterStats>().TakeDamage(enemyStats.Damage);
-            
-            GetComponent<Animator>().Play("Attack02", 0);
+            if (Time.time - lastAttackTime > attackDebounceTime)
+            {
+                other.gameObject.GetComponent<CharacterStats>().TakeDamage(enemyStats.Damage);
+                
+                GetComponent<Animator>().Play("Attack02", 0);
+                FindObjectOfType<AudioManager>().Play("golemSmash");
+                lastAttackTime = Time.time;
+            }
         }
     }
 

@@ -18,7 +18,7 @@ namespace Stats
 
         private GameObject objectSpawner;
         public float OffsetYPosition;
-        public int Damage { get; set; }
+        public int Damage;
         public int ScoreCount;
         public List<Drop> DropList;
 
@@ -29,10 +29,6 @@ namespace Stats
             if(ScoreCount == 0) { ScoreCount = GlobalConstants.DefaultEnemyScoreCount; }
 
             objectSpawner = GameObject.Find("ObjectSpawner");
-        }
-        public EnemyStats() 
-        {
-            Damage = 20;
         }
 
         public void TryDropLoot() 
@@ -57,7 +53,23 @@ namespace Stats
             GetComponent<EnemyController>().enabled = false;
             objectSpawner.GetComponent<LevelController>().killEnemy();
             GameManager.AddScore(ScoreCount);
-            
+            if(CharacterType.ToString() == "Golem")
+            {
+                FindObjectOfType<AudioManager>().Play("rocks2");
+            }
+            else if (CharacterType.ToString() == "Wizard")
+            {
+                FindObjectOfType<AudioManager>().Play("wizardDies");
+            }
+            else if (CharacterType.ToString() == "Dragon")
+            {
+                FindObjectOfType<AudioManager>().Play("dragonDies");
+            }
+            else if (CharacterType.ToString() == "Turtle")
+            {
+                FindObjectOfType<AudioManager>().Play("turtleDies");
+            }
+
             StartCoroutine(RunDieAnimation(anim.GetCurrentAnimatorStateInfo(0).length));
         }
 

@@ -575,9 +575,10 @@ GameObject:
   - component: {fileID: -4102147028335356690}
   - component: {fileID: 7985277312843512640}
   - component: {fileID: 2220801299742537052}
+  - component: {fileID: 2703456449363351510}
   m_Layer: 0
   m_Name: DragonUsurperPurple
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -632,6 +633,7 @@ MonoBehaviour:
   interpolant: 0
   enemyStats: {fileID: 0}
   enemyLookDirection: {x: 0, y: 0, z: 0}
+  attackDebounceTime: 0.2
   bulletForce: 20
   state: 0
 --- !u!114 &7985277312843512640
@@ -647,6 +649,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 300
+  CharacterType: 1
+  MovementSpeed: 0.02
   sliderPrefab: {fileID: 0}
   SliderOffset: {x: 0, y: 3, z: 0}
   parentCanvas: {fileID: 0}
@@ -656,11 +660,13 @@ MonoBehaviour:
   regenValue: 0
   hasRegen: 0
   OffsetYPosition: 0
-  ScoreCount: 30
+  Damage: 20
+  ScoreCount: 50
   DropList:
   - Weapon: {fileID: 2894627681083147606, guid: 8ed0f39eedc4f1145af329f2f23ed639, type: 3}
     AmmoCount: 200
     DropChance: 0.4
+  FlyingMovementSpeed: 0.035
 --- !u!65 &2220801299742537052
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -672,8 +678,24 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4, y: 3, z: 10}
+  m_Size: {x: 5, y: 3, z: 10}
   m_Center: {x: 0, y: 2, z: 1}
+--- !u!54 &2703456449363351510
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 116688}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &116878
 GameObject:
   m_ObjectHideFlags: 0

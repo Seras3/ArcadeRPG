@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Utils;
 using TMPro;
@@ -11,16 +12,19 @@ public class MainMenuLogic : MonoBehaviour
 {
     public void PlayGame()
     {
+        PlayClickSound();
         SceneManager.LoadSceneAsync("SampleScene");
     }
     
     public void GoBackToMainMenu()
     {
+        PlayClickSound();
         SceneManager.LoadSceneAsync("MenuScene");
     }
 
     public void QuitGame()
     {
+        PlayClickSound();
         Application.Quit();
     }
 
@@ -46,5 +50,34 @@ public class MainMenuLogic : MonoBehaviour
 
         GameObject.Find("Leaderboard").gameObject.SetActive(false);
         GameObject.Find("InGameCanvas").transform.GetChild(1).gameObject.SetActive(true);
+    }
+
+
+    public void PlayClickSound()
+    {
+
+        FindObjectOfType<AudioManager>().Play("click");
+    }
+
+    public void UpdateVolume()
+    {
+
+        Slider mainSlider = GameObject.Find("VolumeSlider").GetComponent<Slider>();
+
+        if (!PlayerPrefs.HasKey("soundVolume"))
+        {
+            mainSlider.value = (float)1.0;
+        }
+        else
+        {
+            mainSlider.value = PlayerPrefs.GetFloat("soundVolume");
+        }
+    }
+
+    public void textUpdate(float value)
+    {
+        //Debug.Log("valueee " + value);
+        PlayerPrefs.SetFloat("soundVolume", value);
+        FindObjectOfType<AudioManager>().ChangeVolume();
     }
 }

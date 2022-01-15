@@ -14,7 +14,7 @@ namespace Controllers
         
         private float _lastShot;
         private float _lastStateChanged;
-
+        
         private static readonly int MustLand = Animator.StringToHash("mustLand");
         private static readonly int WalkStateTransition = Animator.StringToHash("walkStateTransition");
         private static readonly int ShouldWalk = Animator.StringToHash("shouldWalk");
@@ -39,7 +39,7 @@ namespace Controllers
             enemyStats = GetComponent<DragonStats>();
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (GameManager.CurrentStatus != GameManager.GameStatus.Playing) return;
             
@@ -105,6 +105,8 @@ namespace Controllers
             switch (state)
             {
                 case DragonState.Flying:
+                    MoveTowardsPlayer(((DragonStats)enemyStats).FlyingMovementSpeed);
+                    break;
                 case DragonState.Walking:
                     MoveTowardsPlayer();
                     break;
@@ -134,6 +136,7 @@ namespace Controllers
             }
             
             Anim.Play("Basic Attack");
+            FindObjectOfType<AudioManager>().Play("fireball");
             StartCoroutine(SyncBulletWithAnimation(Anim.GetCurrentAnimatorStateInfo(0).length / 2.5f));
         }
 

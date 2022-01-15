@@ -24,7 +24,6 @@ public class WaveController : MonoBehaviour
 	const float MinSpawnDelay = 1; // seconds
 	const float MaxSpawnDelay = 4; // seconds
 
-	const float yBuffer = 1, yBufferGolem = 0.5f;
 	Timer spawnTimer;
 	Timer waveTimer;
 	private float timeToKillAnEnemy = 20; // seconds
@@ -47,6 +46,7 @@ public class WaveController : MonoBehaviour
 	private enum EnemyType
 	{
 		Dragon,
+		Turtle,
 		Wizzard,
 		Golem
 	};
@@ -75,6 +75,7 @@ public class WaveController : MonoBehaviour
 		spawnChanceOnCurrentLevel = new Dictionary<EnemyType, float>()
 		{
 			{EnemyType.Dragon, 0},
+			{EnemyType.Turtle, 0},
 			{EnemyType.Wizzard, 0},
 			{EnemyType.Golem, 1}
 		};
@@ -85,34 +86,38 @@ public class WaveController : MonoBehaviour
 			{1, new Dictionary<EnemyType, float>()
 			{
 				{EnemyType.Dragon, 0},
+				{EnemyType.Turtle, 0},
 				{EnemyType.Wizzard, 0},
 				{EnemyType.Golem, 1}
 			}},
 			{2, new Dictionary<EnemyType, float>()
 			{
 				{EnemyType.Dragon, 0},
+				{EnemyType.Turtle, 0},
 				{EnemyType.Wizzard, 0.1f},
 				{EnemyType.Golem, 0.9f}
 			}},
 			{3, new Dictionary<EnemyType, float>()
 			{
 				{EnemyType.Dragon, 0},
+				{EnemyType.Turtle, 0.1f},
 				{EnemyType.Wizzard, 0.2f},
-				{EnemyType.Golem, 0.8f}
+				{EnemyType.Golem, 0.7f}
 			}},
 			{4, new Dictionary<EnemyType, float>()
 			{
 				{EnemyType.Dragon, 0.1f},
-				{EnemyType.Wizzard, 0.2f},
-				{EnemyType.Golem, 0.7f}
+				{EnemyType.Turtle, 0.2f},
+				{EnemyType.Wizzard, 0.3f},
+				{EnemyType.Golem, 0.4f}
 			}},
 			{5, new Dictionary<EnemyType, float>()
 			{
 				{EnemyType.Dragon, 0.2f},
+				{EnemyType.Turtle, 0.2f},
 				{EnemyType.Wizzard, 0.3f},
-				{EnemyType.Golem, 0.5f}
+				{EnemyType.Golem, 0.3f}
 			}},
-			
 		};
 		
 		
@@ -160,7 +165,7 @@ public class WaveController : MonoBehaviour
 	public void startLevel(int level)
 	{
 		this.level = level;
-		maxNoOfWaves = level/2 + 2;
+		maxNoOfWaves = (level/2) + 2;
 		wave = 0;
 		if(level != 1)
         {
@@ -205,18 +210,29 @@ public class WaveController : MonoBehaviour
 		print("Spawn Chances: " + string.Join(",", spawnChanceOnCurrentLevel));
 		
 		if (randomNumber <= spawnChanceOnCurrentLevel[EnemyType.Dragon])
-        {
+		{
 	        enemyObject = DragonPool.instance.GetPooledObject();
+            FindObjectOfType<AudioManager>().Play("dragonSpawn");
         }
 		else if (randomNumber <= spawnChanceOnCurrentLevel[EnemyType.Dragon] +
+		         spawnChanceOnCurrentLevel[EnemyType.Turtle])
+		{
+			enemyObject = TurtlePool.instance.GetPooledObject();
+            FindObjectOfType<AudioManager>().Play("turtleSpawn");
+        }
+		else if (randomNumber <= spawnChanceOnCurrentLevel[EnemyType.Dragon] +
+								 spawnChanceOnCurrentLevel[EnemyType.Turtle] +
 								 spawnChanceOnCurrentLevel[EnemyType.Wizzard])
-        {
+		{
 	        enemyObject = WizardPool.instance.GetPooledObject();
+            FindObjectOfType<AudioManager>().Play("wizardSpawn");
         }
 		else
 		{
 			enemyObject = EnemyPool.instance.GetPooledObject();
-		}
+            FindObjectOfType<AudioManager>().Play("rocks1");
+            FindObjectOfType<AudioManager>().Play("golemSpawn");
+        }
 		
 		if (enemyObject != null)
         {

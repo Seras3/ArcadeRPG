@@ -38,6 +38,7 @@ namespace Stats
         public override void Die()
         {
             Debug.Log(transform.name + " died.");
+            FindObjectOfType<AudioManager>().Play("gameover");
 
             GameObject.Find("GameManagerObject").GetComponent<GameManager>().GameOver();
         }
@@ -53,6 +54,8 @@ namespace Stats
 
         public void ChangeWeapon()
         {
+
+            FindObjectOfType<AudioManager>().Play("switch");
             _isNextWeaponReady = false;
             while(!_isNextWeaponReady) 
             {

@@ -83,7 +83,7 @@ namespace Utils
         {
             if (CurrentStatus is GameStatus.Paused || CurrentStatus is GameStatus.GameOver) return;
             CurrentStatus = GameStatus.Paused;
-
+            FindObjectOfType<AudioManager>().Play("click");
             FreezeEverything();
             ShowGamePausedScreen();
         }
@@ -91,7 +91,8 @@ namespace Utils
         public void ResumeGame()
         {
             if (CurrentStatus != GameStatus.Paused) return;
-            
+            FindObjectOfType<AudioManager>().Play("click");
+
             // free hero
             _playerMovementScript.enabled = true;
             _playerControllerScript.enabled = true;

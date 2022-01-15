@@ -36,7 +36,9 @@ public class LevelController : MonoBehaviour
     IEnumerator StartNewLevelWithDelay(int delay)
     {
         Debug.Log("Sleeping started");
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(delay / 2);
+        FindObjectOfType<AudioManager>().Play("LevelUp");
+        yield return new WaitForSeconds(delay / 2);
         Debug.Log("Sleeping stopped");
         StartNewLevel();
     }

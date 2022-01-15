@@ -3,10 +3,20 @@ using UnityEngine;
 using UnityEngine.UI;
 public abstract class CharacterStats : MonoBehaviour
 {
+    public enum CharacterTypes
+    {
+        Player,
+        Dragon,
+        Turtle,
+        Wizard,
+        Golem
+    }
+    
     public int MaxHealth = 100;
+    public CharacterTypes CharacterType;
 
     public Stat CurrentHealth { get; set; }
-    public float MovementSpeed { get; set; }
+    public float MovementSpeed;
 
     [SerializeField] protected GameObject sliderPrefab;
     [SerializeField] protected Vector3 SliderOffset = new Vector3(0, 3, 0);
@@ -32,7 +42,7 @@ public abstract class CharacterStats : MonoBehaviour
         parentCanvas = GameObject.Find("HPBarCanvas").GetComponent<Canvas>();
 
         CurrentHealth = new Stat(MaxHealth);
-        MovementSpeed = 0.005f;
+        //MovementSpeed = 0.01f;  
 
         HPbarSetup();
     }
@@ -81,12 +91,14 @@ public abstract class CharacterStats : MonoBehaviour
             CurrentHealth.SubtractValue(damage);
             //Debug.Log(transform.name + " takes " + damage + " damage.");
 
+            
             if (CurrentHealth.GetValue() <= 0)
             {
                 Die();
             } 
             else if (hasRegen) 
             {
+                FindObjectOfType<AudioManager>().Play("shit");
                 StartCoroutine(RegenAfterDelay(regenValue, regenInterval, regenDelay));
             }
         } 
